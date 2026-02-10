@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Inscription - Ai Paper Tounsi</title>
+  <link rel="icon" type="image/png" href="assents/fonts/favilove.png">
+  <link rel="stylesheet" href="css/login-register.css">
+  <script type="module" src="js/auth.js" defer></script>
+</head>
+<body>
+  <div class="auth-container">
+    <div class="auth-box">
+      <h2>Créer un compte</h2>
+      <input type="text" id="register-pseudo" placeholder="Pseudo">
+      <input type="email" id="register-email" placeholder="Email">
+
+      <div class="password-field">
+        <input type="password" id="register-password" placeholder="Mot de passe">
+        <span id="toggle-register-password" class="eye">
+          <svg id="eye-open-register" viewBox="0 0 24 24" width="22" height="22">
+            <path d="M12 5C6.5 5 2 9.5 2 12s4.5 7 10 7 10-4.5 10-7S17.5 5 12 5z"/>
+            <circle cx="12" cy="12" r="3"/>
+          </svg>
+          <svg id="eye-closed-register" class="hidden" viewBox="0 0 24 24" width="22" height="22">
+            <path d="M2 2l20 20"/>
+            <path d="M12 5c-5.5 0-10 4.5-10 7 1.1 1.9 3.2 4.1 6.2 5.4"/>
+            <path d="M17.8 15.4C20.1 14 22 12 22 12 c0-2.5-4.5-7-10-7 -1.1 0-2.1.2-3 .4"/>
+          </svg>
+        </span>
+      </div>
+
+      <button id="register-submit">S’inscrire</button>
+      <p id="register-error" class="error-text"></p>
+      <p>Déjà inscrit ? <a href="login.html">Se connecter</a></p>
+    </div>
+  </div>
+</body>
+</html>

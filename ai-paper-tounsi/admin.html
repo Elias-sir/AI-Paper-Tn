@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>APT Admin</title>
+  <link rel="stylesheet" href="css/admin.css" />
+  <link rel="icon" type="image/png" href="assents/fonts/favilove.png">
+</head>
+<body>
+ <nav class="admin-nav">
+  <a href="index.html" class="admin-back">⬅ Feed</a>
+
+  <h1 class="admin-title">APT · Super Admin</h1>
+
+  <div class="admin-status">
+    🟢 Live
+  </div>
+</nav>
+
+<div class="admin-workspace">
+  <!-- Section pour ajouter une IA -->
+  <section id="add-ai">
+    <h2>Ajouter une IA</h2>
+    <input type="text" id="ai-name" placeholder="Nom de l'IA" />
+    <input type="text" id="ai-description" placeholder="Description" />
+    <input type="text" id="ai-logo" placeholder="URL du logo" />
+    <input type="text" id="ai-category" placeholder="Catégorie (-18/+18/adulte)" />
+    
+    <input
+  type="text"
+  id="ai-use-cases"
+  placeholder="Use cases (video, travail, trading…)"
+/>
+
+    <input 
+  type="text" 
+  id="ai-punchline" 
+  placeholder="Punchline (ex: Gagne de l'argent avec l'IA depuis la Tunisie)" 
+/>
+
+<input 
+  type="text" 
+  id="ai-signals" 
+  placeholder="Badges éditoriaux (HOT, Money Maker, Très utilisé en Tunisie)" 
+/>
+
+
+    <input type="text" id="ai-badges" placeholder="autre badges " />
+    <input type="text" id="ai-website" placeholder="URL site , le site officiel du IA" />
+    <!-- Nouveaux champs pour AI Detail enrichi -->
+
+  <textarea id="ai-story" placeholder="Récit ou explications sur l'IA"></textarea>
+  <input type="text" id="ai-users" placeholder="Nombre d'utilisateurs (ex: +5000)" />
+  <input type="text" id="ai-author" placeholder="Nom du rédacteur" />
+  
+  <h3>🎬 Vidéos YouTube (max 5)</h3>
+<div id="youtube-inputs">
+  <input type="text" class="yt-input" placeholder="Lien YouTube 1" />
+  <input type="text" class="yt-input" placeholder="Lien YouTube 2" />
+  <input type="text" class="yt-input" placeholder="Lien YouTube 3" />
+  <input type="text" class="yt-input" placeholder="Lien YouTube 4" />
+  <input type="text" class="yt-input" placeholder="Lien YouTube 5" />
+</div>
+
+<h3>🎞️ Vidéos Footer (max 5 | 20s)</h3>
+<div id="footer-video-inputs">
+  <input type="text" class="footer-video-input" placeholder="URL vidéo footer 1" />
+  <input type="text" class="footer-video-input" placeholder="URL vidéo footer 2" />
+  <input type="text" class="footer-video-input" placeholder="URL vidéo footer 3" />
+  <input type="text" class="footer-video-input" placeholder="URL vidéo footer 4" />
+  <input type="text" class="footer-video-input" placeholder="URL vidéo footer 5" />
+</div>
+
+    <button id="add-ai-btn">Ajouter l'IA</button>
+  </section>
+
+
+   <section id="ai-preview">
+  <h2>Preview de la card</h2>
+  <div id="preview-card"></div>
+</section>
+
+
+<section id="ai-detail-preview">
+  <h2>Preview AI Detail</h2>
+  <div id="detail-preview-card"></div>
+</section>
+
+  <!-- Section pour voir toutes les IA -->
+  <section id="ai-list">
+    <h2>Liste des IA</h2>
+    <ul id="ais"></ul>
+  </section>
+
+
+  <script type="module" src="js/admin.js"></script>
+</body>
+
+</html>

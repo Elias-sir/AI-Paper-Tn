@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Profil utilisateur</title>
+  <link rel="icon" type="image/png" href="assents/fonts/favilove.png">
+  <!-- Font Awesome -->
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="css/profile.css">
+</head>
+<body>
+
+  <section class="profile-page">
+
+    <div class="profile-card">
+
+      <!-- Avatar -->
+      <div class="profile-avatar">
+        <img id="avatarImg" src="assents/icons/default-profile.png" alt="Avatar">
+   
+        <input type="file" id="avatarInput" hidden accept="image/*">
+        <button id="changeAvatarBtn">📸</button>
+      </div>
+
+      <!-- Mode View -->
+      <div id="viewMode">
+        <h2 id="viewPseudo">
+  PseudoUser
+  <span class="badge badge-vert verified pseudo-badge">
+    <i class="fa-solid fa-circle-check"></i>
+  </span>
+</h2>
+
+        <p id="viewBio">Bio courte</p>
+        <p id="viewEmail">email@example.com</p>
+        <p id="viewRole">Role: user</p>
+        <p id="viewCreated">Inscrit le: 01/01/2026</p>
+
+        <button id="editBtn">✏️ Modifier le profil</button>
+        <button id="proposeAiBtn" class="profile-btn">Proposer AI</button>
+        <button id="AproposdenousBtn" class="profile-btn">Apropos de nous</button>
+        <button id="logoutBtn" class="profile-btn">Déconnexion</button>
+      </div>
+
+      <!-- Mode Edit -->
+      <form id="editMode" class="hidden">
+        <input type="text" id="pseudoInput" maxlength="50" placeholder="Pseudo">
+        <textarea id="bioInput" maxlength="160" placeholder="Bio courte"></textarea>
+        <input type="email" id="emailInput" placeholder="Email">
+        <input type="password" id="passwordInput" placeholder="Nouveau mot de passe (laisser vide si inchangé)">
+
+        <button type="submit">💾 Sauvegarder</button>
+        <button type="button" id="cancelBtn">❌ Annuler</button>
+      </form>
+
+    </div>
+
+  </section>
+
+<script type="module" src="js/profile.js"></script>
+</body>
+</html>

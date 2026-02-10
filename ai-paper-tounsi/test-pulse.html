@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Test Pulse Conversation</title>
+<style>
+  .conversation { padding: 10px; margin: 5px; border: 1px solid #ccc; cursor: pointer; }
+  .conversation.pulse {
+    animation: pulseSidebar 1s ease-in-out 0s 2;
+    border-left: 3px solid #f39c12;
+  }
+  @keyframes pulseSidebar {
+    0% { background-color: transparent; }
+    50% { background-color: rgba(243, 156, 18, 0.2); }
+    100% { background-color: transparent; }
+  }
+</style>
+</head>
+<body>
+<h2>Liste de Conversations</h2>
+<div id="conversation-list">
+  <div class="conversation" data-conv-id="1">Admin 1</div>
+  <div class="conversation" data-conv-id="2">Admin 2</div>
+  <div class="conversation" data-conv-id="3">Admin 3</div>
+</div>
+
+<script type="module">
+// ================= TEST SIMULATION PULSE =================
+function pulseConversation(convId) {
+  const div = document.querySelector(`.conversation[data-conv-id="${convId}"]`);
+  if (!div) return;
+  div.classList.add('pulse');
+  setTimeout(() => div.classList.remove('pulse'), 2000);
+}
+
+// Simulation d'un message entrant après 3 secondes
+setTimeout(() => {
+  console.log("🔔 Nouveau message simulé pour Admin 2");
+  pulseConversation(2);
+}, 3000);
+
+// Simulation d'un autre message après 6 secondes
+setTimeout(() => {
+  console.log("🔔 Nouveau message simulé pour Admin 1");
+  pulseConversation(1);
+}, 6000);
+</script>
+</body>
+</html>

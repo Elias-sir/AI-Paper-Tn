@@ -1,0 +1,169 @@
+/* ============================ */
+/* 🌙 Search Moon Overlay */
+/* ============================ */
+.search-moon {
+  position: fixed;
+  inset: 0;
+  display: none;
+  flex-direction: column;
+  background: rgba(10, 10, 10, 0.95);
+  -webkit-backdrop-filter : blur(8px);
+  backdrop-filter : blur(8px);
+  z-index: 2000;
+}
+
+.search-moon.active {
+  display: flex;
+}
+
+/* ============================ */
+/* Header & Input */
+/* ============================ */
+.search-moon-header {
+  display: flex;
+  align-items: center;
+  padding: 16px;
+  gap: 12px;
+}
+
+#search-moon-input {
+  flex: 1;
+  padding: 12px 16px;
+  font-size: 16px;
+  border-radius: 12px;
+  border: none;
+  outline: none;
+  background: rgba(40, 40, 50, 0.85);
+  color: #fff;
+}
+
+.search-moon-close {
+  font-size: 20px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: #fff;
+}
+
+/* ============================ */
+/* Results Grid */
+/* ============================ */
+.search-moon-results {
+  flex: 1;
+  overflow-y: auto;
+  padding: 10px 16px;
+  display: grid;
+  gap: 12px;
+  grid-template-columns: 1fr; /* Mobile full width */
+}
+
+@media(min-width: 769px) {
+  .search-moon-results {
+    grid-template-columns: repeat(2, 1fr); /* 2 colonnes sur desktop */
+    gap: 16px;
+  }
+}
+
+/* ============================ */
+/* Mini Cards */
+/* ============================ */
+.search-moon-card.mini {
+  
+  background: #222;
+  padding: 5px;
+  border-radius: 14px;
+  color: #fff;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  transition: transform 0.2s, box-shadow 0.2s, background 0.2s;
+}
+
+.search-moon-card.mini:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.35);
+  background: #2a2a35;
+}
+
+/* Top Row - Logo + Name */
+.search-moon-card.mini .ai-top {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+}
+
+.search-moon-card.mini .ai-logo img {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.search-moon-card.mini .ai-info {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.search-moon-card.mini .ai-header {
+  font-size: 1.2rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  background: linear-gradient(90deg, #6cf2c2,#4cc9f0,#9b5de5,#f15bb5);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.search-moon-card.mini .ai-vibe {
+  font-size: 0.85rem;
+  opacity: 0.7;
+}
+
+/* Punchline */
+.search-moon-card.mini .ai-center {
+  text-align: center;
+  font-size: 1rem;
+  font-weight: 600;
+  color: #fff;
+}
+
+/* Badges */
+.search-moon-card.mini .ai-badges {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  justify-content: center;
+}
+
+.search-moon-card.mini .ai-badge {
+  font-size: 0.7rem;
+  font-weight: 600;
+  padding: 4px 8px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.08);
+  text-align: center;
+}
+
+/* Stats - utilisateurs / likes */
+.search-moon-card.mini .ai-stats {
+  text-align: center;
+  font-size: 0.8rem;
+  color: #aaa;
+  margin-top: 4px;
+}
+
+/* Scrollbar */
+.search-moon-results::-webkit-scrollbar {
+  width: 8px;
+}
+
+.search-moon-results::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.15);
+  border-radius: 4px;
+}
+
+.search-moon-results::-webkit-scrollbar-track {
+  background: transparent;
+}

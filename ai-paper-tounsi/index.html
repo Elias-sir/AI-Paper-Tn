@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>AI Paper Tn</title>
+<link rel="icon" type="image/png" href="assents/fonts/favilove.png">
+
+  <link rel="stylesheet" href="css/base.css" />
+  <link rel="stylesheet" href="css/feed.css" />
+  <link rel="stylesheet" href="css/card.css" />
+  
+   <link rel="stylesheet" href="css/search-moon.css" />
+   <link rel="stylesheet" href="css/notifications.css" />
+  
+   <link rel="stylesheet" href="css/login-register.css" />
+   <script src="https://unpkg.com/@phosphor-icons/web"></script>
+
+</head>
+<body>
+
+<nav class="apt-nav">
+  <div class="nav-left">
+    <span class="nav-btn">
+
+   <!--span class="icon-globe">🌍</span-->
+
+    <span class="ai-count">0</span> 
+    <i class="ph-bold ph-arrow-up-right icon-trend"></i>
+     <span class="ai-label">AI dans le monde</span>
+    
+    </span>
+
+  </div>
+<!-- la boulle au centre -->
+  <div class="nav-center">
+    <div class="ai-core"></div>
+  </div>
+
+
+  <!-- Nav droite -->
+   
+<div class="nav-right" id="nav-right">
+   <button class="nav-btn search-btn" id="search-open" aria-label="Recherche une IA">
+  <i class="ph ph-magnifying-glass" aria-hidden="true"></i>
+</button>
+
+  <a href="login.html" class="nav-btn" id="login-btn">Connexion</a>
+
+  
+<button class="nav-btn notif-btn" id="notif-btn" aria-label="Messagerie">
+  <i class="ph ph-chat-text"></i>
+  <span>Message</span>
+</button>
+
+
+
+</div>
+
+<button class="nav-burger" id="nav-burger">
+  ☰
+</button>
+
+</nav>
+
+
+
+<!-- les conteiner -->
+<main id="feed">
+
+ <section class="hero">
+
+  <div class="hero-badge">
+    🇹🇳 +<span id="tn-ai-count">0</span> Tunisiens utilisent l’AI chaque jour
+  </div>
+
+  <h1>
+    Votre guide IA <br>en Tunisie
+  </h1>
+
+ <p class="hero-line">
+  Découvre les AI utiles, rentables et tendances.<br>
+  Beaucoup les ont déjà adoptées à travers le monde. Chnowa tsta7na ? Le quotidien change, les opportunités aussi.
+</p>
+
+
+  <p class="hero-sub">
+    Contenu local • Paiement depuis la Tunisie • Cas réels • Créateurs & business
+  </p>
+
+  <div class="hero-actions">
+    <a href="login.html" class="hero-btn primary">🚀 Nous rejoindre</a>
+    <button class="hero-btn ghost hero-scroll">↓ Découvrir</button>
+  </div>
+
+</section>
+
+ <div id="feed-cards">
+  <!-- Les AI cards arrivent ici en JS -->
+ </div>
+
+</main>
+
+
+
+
+
+<!-- 🌙 Search Moon Overlay -->
+<div class="search-moon" id="search-moon" aria-hidden="true">
+  <div class="search-moon-header">
+    <input
+      type="text"
+      id="search-moon-input"
+      placeholder="Cherche une IA…"
+      aria-label="Rechercher une intelligence artificielle"
+    />
+
+    <button
+      class="search-moon-close"
+      id="search-moon-close"
+      aria-label="Fermer la recherche"
+    >
+      ✕
+    </button>
+  </div>
+
+  <div class="search-moon-body">
+    <p class="search-moon-hint">
+      🌙 Tape un nom, une catégorie ou une idée
+    </p>
+  </div>
+  <div class="search-moon-results" id="search-moon-results">
+  <!-- Les résultats apparaîtront ici -->
+</div>
+
+</div>
+
+
+<script type="module"  src="js/data.js"></script>
+<script type="module"  src="js/card.js"></script>
+<script type="module"  src="js/interactions.js"></script>
+<script type="module"  src="js/searchMoon.js"></script>
+<script type="module"  src="js/feed.js"></script>
+<script src="js/notifications.js"></script>
+
+<script type="module" src="js/auth.js"></script>
+
+<script type="module" src="./main.js"></script>
+
+</body>
+
+</html>

@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Messagerie – AI Paper Tounsi</title>
+  <link rel="icon" type="image/png" href="assents/fonts/favilove.png">
+  <link rel="stylesheet" href="css/messagerie.css" />
+  <link rel="stylesheet" href="css/notifications.css" />
+</head>
+<body>
+
+<div class="chat-app">
+
+<div id="chat-header" class="chat-header">
+  <button id="burger-btn">☰</button>
+  <span id="chat-user">Sélectionnez une conversation</span>
+</div>
+
+  <!-- SIDEBAR -->
+  <aside class="sidebar">
+  <div class="sidebar-header">
+    <h2>💬 Contacter un admin</h2>
+  </div>
+
+  <div id="conversation-list" class="conversation-list">
+ <div class="conversation" data-conv-id="1" data-admin-email="super_adminaipaper.visionon.world@gmail.com">
+  <img src="assents/icons/default-profile.png" class="conv-avatar" alt="Avatar Admin 1" />
+  <span>Admin 1</span>
+</div>
+<div class="conversation" data-conv-id="2" data-admin-email="super_adminaipaper.visionon.world2@gmail.com">
+  <img src="assents/icons/default-profile.png" class="conv-avatar" alt="Avatar Admin 2" />
+  <span>Admin 2</span>
+</div>
+<div class="conversation" data-conv-id="3" data-admin-email="super_adminaipaper.visionon.world3@gmail.com">
+  <img src="assents/icons/default-profile.png" class="conv-avatar" alt="Avatar Admin 3" />
+  <span>Admin 3</span>
+</div>
+
+
+  </div>
+</aside>
+
+
+  <!-- CHAT -->
+  <section class="chat-area">
+
+    <div id="chat-messages" class="chat-messages empty">
+  <p>👋 Écrivez-nous, un admin vous répondra.</p>
+</div>
+
+    <form id="chat-form" class="chat-form">
+      <input
+        type="text"
+        id="chat-input"
+        placeholder="Tapez un message…"
+        autocomplete="off"
+      />
+      <button type="submit">➤</button>
+    </form>
+
+  </section>
+
+</div>
+
+<script type="module" src="js/messagerie.js"></script>
+</body>
+</html>

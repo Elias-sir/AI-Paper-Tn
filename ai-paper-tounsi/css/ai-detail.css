@@ -1,0 +1,408 @@
+/* ==========================================================
+   CONTENEUR PRINCIPAL
+   ========================================================== */
+html, body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  font-family: 'Inter', sans-serif;
+  background: linear-gradient(135deg, #10101a, #1a1a28);
+  color: #fff;
+}
+
+.apt-nav {
+  height: var(--nav-h, 60px);
+  display: flex;
+  align-items: center;
+  padding: 0 16px;
+  background: rgba(20,20,28,0.95);
+  -webkit-backdrop-filter: blur(8px);
+   backdrop-filter: blur(8px);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+
+#ai-detail-container {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  padding: 16px;
+  gap: 24px;
+  max-height: calc(100vh - var(--nav-h, 60px));
+  overflow-y: auto;
+  scroll-behavior: smooth;
+  scroll-snap-type: y mandatory; /* effet magic */
+}
+
+#ai-detail-container::-webkit-scrollbar {
+  width: 6px;
+}
+
+#ai-detail-container::-webkit-scrollbar-thumb {
+  background: rgba(255,255,255,0.15);
+  border-radius: 3px;
+}
+
+#ai-detail-container::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+/* ==========================================================
+   CARD DÉTAILLÉE
+   ========================================================== */
+.ai-detail-card {
+  background: rgba(20,20,28,0.85); 
+  -webkit-backdrop-filter: blur(12px);
+  backdrop-filter: blur(12px);
+  padding: 32px;
+  border-radius: 36px;
+  box-shadow: 0 30px 60px rgba(0,0,0,0.5);
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+  color: #fff;
+  width: 100%;
+  max-width: 960px;
+  scroll-snap-align: start;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  position: relative;
+  max-width: 100%;
+  word-wrap: break-word;
+  white-space: pre-wrap;
+  overflow-wrap: break-word;
+  font-size: 1rem;
+  line-height: 1.6;
+  color: #ddd;
+}
+
+.ai-detail-card:hover {
+  transform: scale(1.01);
+  box-shadow: 0 40px 80px rgba(0,0,0,0.6);
+}
+
+.ai-detail-card > section,
+.ai-detail-card > div {
+  scroll-snap-align: start;
+}
+
+.ai-detail-card::-webkit-scrollbar {
+  width: 6px;
+}
+
+.ai-detail-card::-webkit-scrollbar-thumb {
+  background: rgba(255,255,255,0.15);
+  border-radius: 3px;
+}
+
+.ai-detail-card::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+/* ==========================================================
+   TOP SECTION: LOGO + INFO
+   ========================================================== */
+.ai-detail-card .ai-top {
+  position: relative;
+  padding: 16px;
+  background: rgba(20,20,28,0.6);
+  border-radius: 32px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 32px; 
+  align-items: flex-start;
+  box-shadow: 0 12px 32px rgba(0,0,0,0.45);
+  transition: transform 0.4s ease, box-shadow 0.4s ease;
+}
+
+.ai-detail-card .ai-top:hover {
+  transform: translateY(-2px) scale(1.005);
+  box-shadow: 0 20px 48px rgba(0,0,0,0.55);
+}
+
+/* ===== LOGO ===== */
+.ai-detail-card .ai-logo {
+  width: 140px;
+  height: 140px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  border: 2px solid rgba(108,242,194,0.3);
+  box-shadow: 0 0 32px rgba(108,242,194,0.2);
+  transition: transform 0.35s ease, box-shadow 0.35s ease;
+}
+
+.ai-detail-card .ai-logo img {
+  width: 85%;
+  height: 85%;
+  object-fit: contain;
+  filter: drop-shadow(0 12px 28px rgba(0,0,0,0.6)) saturate(1.15) contrast(1.1);
+  transition: transform 0.35s ease, filter 0.35s ease;
+}
+
+.ai-detail-card:hover .ai-logo img {
+  transform: scale(1.18) rotate(4deg);
+  filter: drop-shadow(0 18px 36px rgba(0,0,0,0.75)) saturate(1.25) contrast(1.15);
+}
+
+.ai-detail-card .ai-logo img:hover {
+  transform: scale(1.15) rotate(5deg);
+}
+
+/* Halo animé derrière le logo */
+.ai-detail-card .ai-logo::before {
+  content: "";
+  position: absolute;
+  inset: -16px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(108,242,194,0.3), rgba(76,201,240,0.2), transparent 70%);
+  filter: blur(24px);
+  z-index: -1;
+  animation: haloPulse 3s ease-in-out infinite;
+}
+
+@keyframes haloPulse {
+  0% { transform: scale(0.95); opacity: 0.6; }
+  50% { transform: scale(1.05); opacity: 0.9; }
+  100% { transform: scale(0.95); opacity: 0.6; }
+}
+
+/* ==========================================================
+   INFO TEXTE DANS LE HERD
+   ========================================================== */
+.ai-detail-card .ai-info {
+  flex: 1;
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.ai-detail-card .ai-info h1 {
+  font-size: 2.6rem;
+  line-height: 1.2;
+  font-weight: 800;
+  background: linear-gradient(120deg, #6cf2c2, #4cc9f0, #9b5de5, #f15bb5);
+  background-size: 200% auto;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  text-shadow: 0 8px 24px rgba(0,0,0,0.6);
+  transition: background-position 1.5s ease-in-out, transform 0.3s ease;
+}
+
+.ai-detail-card:hover .ai-info h1 {
+  background-position: 100% center;
+  transform: scale(1.02);
+}
+
+.ai-detail-card .ai-info p {
+  font-size: 1rem;
+  line-height: 1.65;
+  letter-spacing: 0.4px;
+  color: #e0e0e0;
+  max-width: 720px;
+  margin-bottom: 8px;
+}
+
+
+/* ==========================================================
+   PUNCHLINE
+   ========================================================== */
+.ai-punchline {
+  font-size: 1.6rem;
+  font-weight: 600;
+  max-width: 560px;
+  margin-top: 8px;
+  color: #a0ffea; /* couleur douce futuriste mais pas flashy */
+  line-height: 1.4;
+  text-shadow: 0 2px 8px rgba(0,0,0,0.4);
+  font-style: italic; /* style “citation” ou slogan */
+  letter-spacing: 0.5px;
+  transition: none; /* on enlève toute animation */
+}
+
+/* ==========================================================
+   BADGES & SIGNALS
+   ========================================================== */
+
+.ai-detail-card .ai-badges {
+  display: center;
+  gap: 10px;
+  flex-wrap: wrap;
+ 
+  align-items: center;
+  margin-top: 8px;
+  position: relative;
+}
+
+.ai-detail-card .ai-badge {
+  padding: 4px 10px;
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: #c0c0c0;
+  background: none; /* suppression du background coloré */
+  border-radius: 8px;
+  box-shadow: none; /* plus d’ombre ni halo */
+  animation: none; /* suppression animation float */
+  cursor: default;
+  transition: all 0.2s ease;
+}
+
+.ai-detail-card .ai-badge.signal {
+  color: #ff7f7f; /* signal rouge doux, reste subtil */
+ 
+}
+
+
+/* ======== STORY / RÉCIT ======== */
+.ai-story h2 {
+  text-align: center;           /* centre le titre */
+  font-size: 2rem;              /* taille un peu plus petite que le h1 */
+  font-weight: 700;
+  margin-bottom: 12px;
+  background: linear-gradient(120deg, #6cf2c2, #4cc9f0, #9b5de5); /* harmonisé */
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  text-shadow: 0 6px 18px rgba(0,0,0,0.55);
+}
+
+.ai-story p {
+  text-align: center;           /* centre aussi le texte */
+  max-width: 720px;
+  margin: 0 auto;
+  font-size: 1.05rem;
+  line-height: 1.75;
+  letter-spacing: 0.3px;
+  opacity: 0.95;
+}
+ 
+/* ======== VIDÉOS EXPLICATIVES ======== */
+.ai-detail-card .ai-videos {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  align-items: center;        /* centre le contenu */
+}
+
+.ai-detail-card .ai-videos h2 {
+  text-align: center;         /* titre centré */
+  font-size: 1.8rem;
+  font-weight: 700;
+  margin-bottom: 8px;
+  background: linear-gradient(120deg, #6cf2c2, #4cc9f0, #9b5de5);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  text-shadow: 0 6px 18px rgba(0,0,0,0.55);
+}
+
+.ai-detail-card .ai-videos a {
+  color: #1da1f2;
+  font-weight: 600;
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+.ai-detail-card .ai-videos a:hover {
+  text-decoration: underline;
+  color: #0d8ddb;
+}
+
+/* ======== YOUTUBE GRID ======== */
+.ai-detail-card .yt-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+  gap: 16px;
+  justify-items: center;      /* centre les thumbs */
+}
+
+.yt-thumb {
+  position: relative;
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: 0 10px 24px rgba(0,0,0,0.4);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  width: 100%;
+}
+
+.yt-thumb img {
+  width: 100%;
+  display: block;
+  object-fit: cover;
+}
+
+.yt-thumb .yt-play {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 42px;
+  color: white;
+  background: rgba(0,0,0,0.35);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.yt-thumb:hover {
+  transform: scale(1.05);
+  box-shadow: 0 20px 40px rgba(0,0,0,0.6);
+}
+
+.yt-thumb:hover .yt-play {
+  opacity: 1;
+}
+
+/* ======== SHORTS GRID ======== */
+.ai-detail-card .shorts-grid,
+.shorts-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+  gap: 16px;
+  justify-items: center;      /* centre les vidéos */
+}
+
+.ai-detail-card .shorts-grid video,
+.shorts-grid video {
+  width: 100%;
+  border-radius: 16px;
+  background: #000;
+  object-fit: cover;          /* garde le premier frame visible */
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.ai-detail-card .shorts-grid video:hover {
+  transform: scale(1.03);
+  box-shadow: 0 12px 28px rgba(0,0,0,0.6);
+}
+
+/* ======== TITRES YOUTUBE & SHORTS ======== */
+.ai-youtube h2,
+.ai-footer-video h2 {
+  text-align: center;
+  font-size: 1.9rem;
+  font-weight: 700;
+  margin-bottom: 12px;
+  background: linear-gradient(120deg, #6cf2c2, #4cc9f0, #9b5de5);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  text-shadow: 0 6px 18px rgba(0,0,0,0.55);
+}
+
+
+/* ======== LIGNE SÉPARATRICE ======== */
+.divider {
+  width: 80%;                    /* largeur de la ligne */
+  height: 1px;                   /* épaisseur */
+  margin: 10px auto;             /* espace et centré */
+  background: linear-gradient(to right, rgba(108,242,194,0), rgba(108,242,194,0.6), rgba(108,242,194,0));
+  border: none;
+  border-radius: 1px;
+}

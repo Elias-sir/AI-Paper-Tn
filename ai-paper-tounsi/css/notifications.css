@@ -1,0 +1,44 @@
+/*NOTIFICATIONS*/
+
+.notif-btn {
+  position: relative;
+  cursor: pointer;
+}
+
+.notif-badge {
+  position: absolute;
+  top: -5px;
+  right: -5px;
+  background: red;
+  color: white;
+  font-size: 0.7rem;
+  font-weight: bold;
+  padding: 2px 6px;
+  border-radius: 999px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 18px;
+  min-height: 18px;
+  box-shadow: 0 0 3px rgba(0,0,0,0.3);
+  transition: all 0.3s ease;
+}
+
+.notif-badge.hidden {
+  display: none;
+}
+
+/* Animation simple pour le fun */
+.notif-badge.pulse {
+  animation: pulse 1s infinite;
+}
+
+@keyframes pulse {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.3); }
+  100% { transform: scale(1); }
+}
+
+
+
+

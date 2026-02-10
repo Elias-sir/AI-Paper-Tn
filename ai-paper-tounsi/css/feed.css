@@ -1,0 +1,232 @@
+/* ===============================
+   FEED TikTok STYLE
+================================ */
+#feed {
+  height: 100dvh;
+  overflow-y: scroll;
+  scroll-snap-type: y mandatory;
+  scroll-behavior: smooth;
+  overscroll-behavior-y: contain;
+}
+
+/* Chrome / Safari / Edge */
+#feed::-webkit-scrollbar {
+  width: 0;
+  height: 0;
+}
+
+/* ===============================
+   HERO
+================================ */
+/* ===============================
+   HERO
+================================ */
+.hero {
+  height: 100dvh; /* occupe tout l'écran */
+  scroll-snap-align: start;
+  scroll-margin-top: var(--nav-h);
+
+  padding-top: calc(var(--nav-h) + 12px); /* réduit le padding top pour remonter le contenu */
+  padding-inline: 16px;
+  padding-bottom: 16px; /* moins d’espace pour que tout tienne */
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center; /* centré verticalement */
+  align-items: center;     /* centré horizontalement */
+  gap: 16px;               /* espace entre badge / titre / texte / boutons */
+
+  background: linear-gradient(180deg, #0f0f12, #14141a);
+  overflow-x: hidden;
+}
+
+/* HERO BADGE : remonter un peu */
+
+
+/* ===============================
+   HERO BADGE
+================================ */
+.hero-badge {
+  display: inline-block;
+  padding: 6px 16px;
+  border-radius: 999px;
+  font-size: 0.85rem;
+  font-weight: 700;
+  background: rgba(46,204,113,0.15);
+  color: #6cf2c2;
+  box-shadow: 0 0 20px rgba(46,204,113,0.35);
+  text-align: center;
+}
+
+.hero-badge {
+  padding: 4px 12px; /* plus petit pour mobile */
+  font-size: 0.75rem;
+  margin-bottom: 7px; /* rapprocher du titre */
+}
+
+
+/* ===============================
+   TITRE HERO
+================================ */
+.hero h1 {
+  font-size: clamp(2.4rem, 6vw, 3.6rem);
+  font-weight: 900;
+  line-height: 1.1;
+  max-width: 680px;
+  text-align: center;
+  white-space: nowrap; /* ligne droite desktop */
+  background: linear-gradient(90deg, #ffffff, #6cf2c2, #f39c12);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+/* ===============================
+   TEXTE HERO
+================================ */
+.hero-line {
+  font-size: 1.12rem;
+  font-weight: 600;
+  max-width: 680px;
+  text-align: center;
+  white-space: normal; /* <-- changer de nowrap à normal pour desktop */
+  line-height: 1.4;    /* améliorer lisibilité multi-lignes */
+  word-wrap: break-word; /* couper correctement les longs mots si nécessaire */
+}
+
+
+.hero-sub {
+  font-size: 0.9rem;
+  opacity: 0.65;
+  max-width: 560px;
+  text-align: center;
+}
+
+/* ===============================
+   ACTIONS HERO
+================================ */
+.hero-actions {
+  display: flex;
+  gap: 16px;
+  margin-top: 24px;
+  align-items: center;
+  flex-wrap: wrap;
+  justify-content: center; /* centré horizontalement */
+}
+
+.hero-btn {
+  min-width: 180px;
+  height: 48px;
+  padding: 0 20px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 14px;
+  font-weight: 700;
+  font-size: 0.95rem;
+  cursor: pointer;
+  border: none;
+  text-decoration: none;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.hero-btn.primary {
+  background: linear-gradient(45deg, #2ecc71, #6cf2c2);
+  color: #0f0f12;
+  box-shadow: 0 10px 30px rgba(46,204,113,0.4);
+}
+
+.hero-btn.primary:hover {
+  transform: scale(1.05);
+}
+
+.hero-btn.ghost {
+  background: rgba(255,255,255,0.06);
+  color: #fff;
+  border: 1px solid rgba(255,255,255,0.18);
+}
+
+.hero-btn.ghost:hover {
+  background: rgba(255,255,255,0.1);
+}
+
+/* ===============================
+   SCROLL INDICATEUR
+================================ */
+.hero-scroll {
+  opacity: 0.7;
+  font-size: 0.95rem;
+  animation: floatDown 2s infinite ease-in-out;
+  margin: 0;
+  align-self: center; /* centré comme bouton principal */
+}
+
+@keyframes floatDown {
+  0% { transform: translateY(0); }
+  50% { transform: translateY(6px); }
+  100% { transform: translateY(0); }
+}
+
+/* ===============================
+   RESPONSIVE
+================================ */
+@media (max-width: 640px) {
+  .hero h1,
+  .hero-line {
+    white-space: normal; /* autoriser retour à la ligne mobile */
+  }
+
+  .hero-line br,
+  .hero h1 br {
+    display: inline; /* réactiver le br */
+  }
+
+  .hero-actions {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .hero-btn {
+    width: 100%;
+  }
+
+  .hero-badge {
+    text-align: center;
+  }
+}
+
+/*RESPONSIVE GLOBALE et scrole */
+@media (max-width: 768px) {
+  #feed {
+    height: 100dvh;
+    overflow-y: scroll;
+    scroll-snap-type: y mandatory;
+  }
+}
+
+
+@media (min-width: 1024px) {
+  #feed {
+    height: auto;
+    overflow: visible;
+    scroll-snap-type: none;
+  }
+}
+
+
+@media (min-width: 1024px) {
+  html, body {
+    height: auto;
+    overflow-y: auto;
+  }
+}
+
+@media (min-width: 1024px) {
+  html, body {
+    height: auto;
+    overflow-y: auto;
+  }
+}
+
+
+
