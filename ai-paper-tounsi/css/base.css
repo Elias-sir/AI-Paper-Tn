@@ -450,4 +450,21 @@ html, body {
 }
 
 
+/*RESPONSIVE AI CORE ET LABEL */
+@media (max-width: 414px) {
+  .nav-left {
+    display: flex;           /* transforme le conteneur en ligne */
+    flex-direction: row;     /* horizontal */
+    align-items: center;     /* centre verticalement */
+    gap: 6px;                /* espace entre core et label */
+  }
 
+  .ai-core {
+    margin-top: 0;           /* supprime l’espace vertical */
+  }
+
+  .ai-label {
+    font-size: 0.85rem;      /* ajuste si nécessaire pour mobile */
+    white-space: nowrap;      /* empêche le label de passer à la ligne */
+  }
+}

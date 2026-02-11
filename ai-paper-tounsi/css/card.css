@@ -527,28 +527,3 @@
   }
 }
 
-
-
-
-/*RESPONSIVRE AI CORE ET LABEL*/
-
-@media (max-width: 414px) {
-  .nav-left {
-    display: flex;
-    flex-direction: row;    /* ligne horizontale */
-    align-items: center;    /* centre verticalement */
-    gap: 6px;               /* espace entre core et label */
-  }
-
-  .ai-core {
-    width: 30px;
-    height: 30px;
-    margin-top: 0;          /* pas d’espace vertical */
-  }
-
-  .ai-label {
-    font-size: 0.8rem;
-    white-space: normal;
-  }
-}
-
