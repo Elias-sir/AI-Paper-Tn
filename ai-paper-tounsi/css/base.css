@@ -451,20 +451,27 @@ html, body {
 
 
 /*RESPONSIVE AI CORE ET LABEL */
-@media (max-width: 414px) {
-  .nav-left {
-    display: flex;           /* transforme le conteneur en ligne */
-    flex-direction: row;     /* horizontal */
-    align-items: center;     /* centre verticalement */
-    gap: 6px;                /* espace entre core et label */
+@media (max-width: 768px) {
+  /* Décale AI core vers le burger sur mobile */
+  .ai-core {
+    position: absolute;       /* le sort du flux normal */
+    left: 16px;               /* proche du burger / bord gauche */
+    top: 50%;                 /* centre verticalement dans la nav */
+    transform: translateY(-50%); /* ajuste le centrage vertical */
+    margin: 0;                /* supprime tout margin */
+    z-index: 1010;            /* au-dessus du reste si besoin */
   }
 
-  .ai-core {
-    margin-top: 0;           /* supprime l’espace vertical */
+  .nav-left {
+    display: flex;            /* garde label et compteur en ligne */
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-start; /* label reste normal */
+    gap: 6px;
+    position: relative;       /* parent relatif pour .ai-core absolu */
   }
 
   .ai-label {
-    font-size: 0.85rem;      /* ajuste si nécessaire pour mobile */
-    white-space: nowrap;      /* empêche le label de passer à la ligne */
+    margin-left: 0;           /* pas de décalage du label */
   }
 }
