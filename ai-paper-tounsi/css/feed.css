@@ -22,25 +22,23 @@
    HERO
 ================================ */
 .hero {
-  height: 100dvh; /* occupe tout l'écran */
+  height: calc(100dvh - var(--nav-h)); /* ajuste pour enlever l’espace sous la nav */
   scroll-snap-align: start;
   scroll-margin-top: var(--nav-h);
 
-  padding-top: calc(var(--nav-h) + 12px); /* réduit le padding top pour remonter le contenu */
+  padding-top: 12px;      /* réduit padding top inutile */
   padding-inline: 16px;
-  padding-bottom: 16px; /* moins d’espace pour que tout tienne */
+  padding-bottom: 16px;
 
   display: flex;
   flex-direction: column;
-  justify-content: center; /* centré verticalement */
-  align-items: center;     /* centré horizontalement */
-  gap: 16px;               /* espace entre badge / titre / texte / boutons */
+  justify-content: center; /* vertical centré */
+  align-items: center;     /* horizontal centré */
+  gap: 16px;
 
   background: linear-gradient(180deg, #0f0f12, #14141a);
   overflow-x: hidden;
 }
-
-/* HERO BADGE : remonter un peu */
 
 
 /* ===============================
@@ -225,6 +223,16 @@
   html, body {
     height: auto;
     overflow-y: auto;
+  }
+}
+
+
+/*RESPONSIVE HERO*/
+@media (max-width: 414px) {
+  .hero {
+    height: calc(100dvh - var(--nav-h)); /* enlève l’espace supplémentaire */
+    padding-top: 12px;                  /* juste un petit padding */
+    justify-content: center;            /* vertical centré */
   }
 }
 
