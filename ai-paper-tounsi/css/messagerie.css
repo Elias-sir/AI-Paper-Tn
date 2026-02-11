@@ -321,3 +321,53 @@ body {
 
 
 
+/* ================== RESPONSIVE / MOBILE ================== */
+@media (max-width: 768px) {
+  .chat-app {
+    flex-direction: column;
+  }
+
+  .sidebar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100%;
+    transform: translateX(-100%);
+    max-width: 260px;
+  }
+
+  .sidebar.open {
+    transform: translateX(0);
+  }
+
+  #burger-btn {
+    display: block;
+  }
+
+  .chat-area {
+    flex: 1;
+    width: 100%;
+  }
+
+  .chat-form {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    z-index: 15;
+  }
+
+  .chat-messages {
+    padding-bottom: 80px;
+  }
+
+  .conversation {
+    padding: 10px;
+    font-size: 14px;
+  }
+
+  .conv-avatar {
+    width: 28px;
+    height: 28px;
+     }
+}

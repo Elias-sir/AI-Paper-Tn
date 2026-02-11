@@ -3,51 +3,76 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  font-family: 'Segoe UI', sans-serif;
+  font-family: 'Inter', sans-serif;
 }
 
 body {
-  background: #fdfdfd;
-  color: #222;
+  background: linear-gradient(135deg, #10101a, #1a1a28);
+  color: #e0e0e0;
   line-height: 1.6;
   padding: 20px;
 }
 
+/* Header */
 header {
   text-align: center;
   margin-bottom: 40px;
 }
 
 header h1 {
-  font-size: 2.5rem;
-  color: #1a73e8;
+  font-size: 2.8rem;
+  background: linear-gradient(90deg, #6cf2c2, #4cc9f0, #9b5de5, #f15bb5);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  text-shadow: 0 4px 16px rgba(0,0,0,0.6);
 }
 
 header .subtitle {
   font-size: 1.2rem;
-  color: #555;
+  color: #aaa;
+  margin-top: 8px;
 }
 
 /* Card style */
 .card {
-  background: #fff;
-  border-radius: 12px;
+  background: rgba(20, 20, 28, 0.85);
+  -webkit-backdrop-filter: blur(8px);
+  backdrop-filter: blur(8px);
+  border-radius: 20px;
   padding: 25px;
   margin-bottom: 25px;
-  box-shadow: 0 6px 18px rgba(0,0,0,0.08);
-  transition: transform 0.3s, box-shadow 0.3s;
+  box-shadow: 0 16px 32px rgba(0,0,0,0.28);
+  transition: transform 0.3s ease, box-shadow 0.3s ease, background 0.3s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.card::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: 20px;
+  background: linear-gradient(135deg, rgba(108,242,194,0.05), rgba(155,93,229,0.05));
+  pointer-events: none;
 }
 
 .card:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 12px 24px rgba(0,0,0,0.12);
+  transform: translateY(-6px) scale(1.02);
+  box-shadow: 0 24px 48px rgba(0,0,0,0.35);
 }
 
-h2 {
+/* Headings inside cards */
+.card h2 {
   margin-bottom: 15px;
-  color: #1a73e8;
+  background: linear-gradient(90deg, #6cf2c2, #4cc9f0, #9b5de5);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  text-shadow: 0 4px 12px rgba(0,0,0,0.5);
 }
 
+/* Lists */
 ul {
   margin: 10px 0 15px 20px;
 }
@@ -56,12 +81,16 @@ ul li {
   margin-bottom: 8px;
 }
 
+/* Blockquotes */
 blockquote {
   margin: 10px 0 15px 20px;
   padding-left: 15px;
-  border-left: 4px solid #1a73e8;
+  border-left: 4px solid #6cf2c2;
   font-style: italic;
-  color: #555;
+  color: #ccc;
+  background: rgba(255,255,255,0.02);
+  border-radius: 6px;
+  padding: 10px 15px;
 }
 
 /* Footer */
@@ -77,8 +106,7 @@ html {
   scroll-behavior: smooth;
 }
 
-
-
+/* Fade-in animation for cards */
 .card {
   opacity: 0;
   transform: translateY(30px);
@@ -90,19 +118,21 @@ html {
   transform: translateY(0);
 }
 
-
+/* Chat button */
 .chat-btn {
   display: inline-block;
   margin-top: 10px;
-  padding: 10px 20px;
-  background: #1a73e8;
-  color: white;
+  padding: 12px 24px;
+  background: linear-gradient(45deg, #2ecc71, #6cf2c2);
+  color: #0f0f12;
   text-decoration: none;
-  border-radius: 8px;
-  font-weight: bold;
-  transition: background 0.3s;
+  border-radius: 14px;
+  font-weight: 700;
+  transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.3s ease;
 }
 
 .chat-btn:hover {
-  background: #1664c1;
+  transform: scale(1.05);
+  box-shadow: 0 10px 30px rgba(46,204,113,0.4);
+  background: linear-gradient(45deg, #6cf2c2, #2ecc71);
 }

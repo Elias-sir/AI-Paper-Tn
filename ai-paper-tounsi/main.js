@@ -33,7 +33,7 @@ if (pseudo) {
 
 <button class="nav-btn notif-btn" id="notif-btn" aria-label="Messagerie">
   <i class="ph ph-chat-text"></i>
-  <span>Message</span>
+  <span>Chat</span>
 </button>
 
 
@@ -56,7 +56,7 @@ if (pseudo) {
     
    <button class="nav-btn notif-btn" id="notif-btn" aria-label="Messagerie">
   <i class="ph ph-chat-text"></i>
-  <span>Message</span>
+  <span>Chat</span>
 </button>
 
   `;

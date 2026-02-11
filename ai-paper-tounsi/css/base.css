@@ -84,7 +84,7 @@ html, body {
   transform: translateX(-50%);
 }
 
-/* BULLE AI CORE */
+/* =======  BULLE AI CORE =======*/
 .ai-core {
   width: 23px;
   height: 23px;
@@ -454,24 +454,10 @@ html, body {
 @media (max-width: 768px) {
   /* Décale AI core vers le burger sur mobile */
   .ai-core {
-    position: absolute;       /* le sort du flux normal */
-    left: 16px;               /* proche du burger / bord gauche */
+    position: relative;       /* le sort du flux normal */
+    left: 100px;               /* proche du burger / bord gauche */
     top: 50%;                 /* centre verticalement dans la nav */
     transform: translateY(-50%); /* ajuste le centrage vertical */
     margin: 0;                /* supprime tout margin */
-    z-index: 1010;            /* au-dessus du reste si besoin */
-  }
-
-  .nav-left {
-    display: flex;            /* garde label et compteur en ligne */
-    flex-direction: row;
-    align-items: center;
-    justify-content: flex-start; /* label reste normal */
-    gap: 6px;
-    position: relative;       /* parent relatif pour .ai-core absolu */
-  }
-
-  .ai-label {
-    margin-left: 0;           /* pas de décalage du label */
   }
 }
