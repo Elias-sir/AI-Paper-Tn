@@ -37,6 +37,14 @@ if (pseudo) {
 </button>
 
 
+
+<a href="apropos-de-nous.html" class="nav-btn about-btn">
+  <i class="ph ph-info"></i>
+  <span>Nexus</span>
+</a>
+
+
+
 `;
 
 
@@ -58,6 +66,13 @@ if (pseudo) {
   <i class="ph ph-chat-text"></i>
   <span>Chat</span>
 </button>
+
+
+
+<a href="apropos-de-nous.html" class="nav-btn about-btn">
+  <i class="ph ph-info"></i>
+  <span>Nexus</span>
+</a>
 
   `;
 }

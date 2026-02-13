@@ -461,3 +461,26 @@ html, body {
     margin: 0;                /* supprime tout margin */
   }
 }
+
+
+
+/* ===================== BOUTON A PROPOS ===================== */
+
+.about-btn {
+  background: linear-gradient(135deg, #9b5de5, #f15bb5);
+  color: white;
+}
+
+.about-btn:hover {
+  background: linear-gradient(135deg, #f15bb5, #9b5de5);
+}
+
+.about-btn i {
+  animation: infoFloat 2.5s infinite ease-in-out;
+}
+
+@keyframes infoFloat {
+  0% { transform: translateY(0); }
+  50% { transform: translateY(-3px); }
+  100% { transform: translateY(0); }
+}
