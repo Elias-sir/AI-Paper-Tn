@@ -17,6 +17,15 @@ function getYoutubeThumb(url) {
 }
 
 
+function formatUsers(count) {
+  if (!count) return "0";
+  if (count >= 1_000_000) return Math.round(count / 1_000_000) + "M";
+  if (count >= 1_000) return Math.round(count / 1_000) + "k";
+  return count.toString();
+}
+
+
+
 // 👇👇👇 COLLE ICI 👇👇👇
 document.addEventListener("play", e => {
   const v = e.target;
@@ -70,8 +79,26 @@ const punchline = ai.punchline || "";
 const description = ai.description || "Pas de description";
 const story = ai.story || "";
 const category = ai.category || "-18/+18";
+const utility = ai.utility || "";
+const target = ai.target || "";
+const payment = ai.payment || "";
+const advantages = ai.advantages || "";
+const disadvantages = ai.disadvantages || "";
 const author = ai.author || "Auteur inconnu";
-const usersCount = ai.users_count || 0;
+// transformer users en nombre
+
+// Récupérer le nombre d'utilisateurs correctement
+let usersCount = 0;
+
+if (ai.users) {
+  if (typeof ai.users === "string") {
+    // enlever tout ce qui n'est pas un chiffre et convertir en nombre
+    usersCount = parseInt(ai.users.replace(/\D/g, '')) || 0;
+  } else if (typeof ai.users === "number") {
+    usersCount = ai.users;
+  }
+}
+
 let badges = [];
 
 if (Array.isArray(ai.badges)) {
@@ -111,6 +138,16 @@ if (typeof ai.footer_videos === "string") {
 
 
 
+const featuresHTML = `
+<section class="ai-features">
+  <h2>💡 Fonctionnalités & Infos Clés</h2>
+  ${utility ? `<p><strong>Utilité :</strong> ${utility}</p>` : ""}
+  ${target ? `<p><strong>Cible :</strong> ${target}</p>` : ""}
+  ${payment ? `<p><strong>Modes de paiement :</strong> ${payment}</p>` : ""}
+  ${advantages ? `<p><strong>Avantages :</strong> ${advantages}</p>` : ""}
+  ${disadvantages ? `<p><strong>Désavantages :</strong> ${disadvantages}</p>` : ""}
+</section>
+`;
 
 
 const ytHTML = youtubeVideos
@@ -143,7 +180,8 @@ console.log("Footer Videos:", footerVideos);
       <h1>${name}</h1>
       <p class="ai-category"><strong>Catégorie:</strong> ${category}</p>
       <p class="ai-author"><strong>Page rédigé par:</strong> ${author}</p>
-      <p class="ai-users"><strong>Utilisateurs dans le monde :</strong> ${usersCount.toLocaleString()}</p>
+      <p><strong>Pays :</strong> ${ai.country || "Non spécifié"}</p>
+     <p class="ai-users"><strong>Utilisateurs dans le monde :</strong> ${formatUsers(usersCount)}</p>
       ${websiteUrl ? `<p><strong>Site:</strong> <a href="${websiteUrl}" target="_blank">${websiteUrl}</a></p>` : ""}
     </div>
   </div>
@@ -159,6 +197,13 @@ console.log("Footer Videos:", footerVideos);
 
   <!-- Story / récit -->
   ${story ? `<div class="ai-story"><h2>Histoire & Explications</h2><p>${story}</p></div>` : ""}
+
+
+    <!-- Ligne séparatrice -->
+<div class="divider"></div>
+
+
+  ${featuresHTML}  <!-- <-- notre nouveau bloc -->
 
   <!-- Ligne séparatrice -->
 <div class="divider"></div>

@@ -406,3 +406,51 @@ html, body {
   border: none;
   border-radius: 1px;
 }
+
+
+
+/* =========================
+   FONCTIONNALITÉS & INFOS CLÉS
+========================= */
+.ai-features {
+  background: rgba(30, 30, 50, 0.7); /* fond semi-transparent style card */
+  padding: 20px 24px;
+  border-radius: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  box-shadow: 0 12px 28px rgba(0,0,0,0.45);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.ai-features:hover {
+  transform: scale(1.02);
+  box-shadow: 0 18px 36px rgba(0,0,0,0.55);
+}
+
+.ai-features h2 {
+  font-size: 1.8rem;
+  font-weight: 700;
+  margin-bottom: 12px;
+  text-align: center;
+  background: linear-gradient(120deg, #6cf2c2, #4cc9f0, #9b5de5);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  text-shadow: 0 6px 18px rgba(0,0,0,0.55);
+}
+
+.ai-features p {
+  font-size: 1rem;
+  line-height: 1.5;
+  color: #ddd;
+  padding: 8px 12px;
+  background: rgba(20, 20, 28, 0.6);
+  border-left: 4px solid #6cf2c2; /* accent visuel */
+  border-radius: 12px;
+  word-wrap: break-word;
+}
+
+.ai-features p strong {
+  color: #4cc9f0;
+}

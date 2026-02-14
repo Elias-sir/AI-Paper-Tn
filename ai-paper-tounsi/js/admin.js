@@ -69,6 +69,8 @@ async function checkAdminAccess() {
   }
 }
 
+
+
 // -------------------- FETCH IA --------------------
 async function fetchAIs() {
   const ul = document.getElementById('ais');
@@ -127,8 +129,16 @@ async function handleAddOrEdit() {
   const punchline = document.getElementById("ai-punchline").value.trim();
   const signals = document.getElementById("ai-signals").value.trim();
 const story = document.getElementById("ai-story").value.trim();
-const users = document.getElementById("ai-users").value.trim();
-const author = document.getElementById("ai-author").value.trim();
+const users = document.getElementById("ai-users")?.value.trim() || "";
+const country = document.getElementById("ai-country")?.value.trim() || "";
+const author = document.getElementById("ai-author")?.value.trim() || "Auteur inconnu";
+const utility = document.getElementById("ai-utility")?.value.trim() || "";
+const target = document.getElementById("ai-target")?.value.trim() || "";
+const payment = document.getElementById("ai-payment")?.value.trim() || "";
+const advantages = document.getElementById("ai-advantages")?.value.trim() || "";
+const disadvantages = document.getElementById("ai-disadvantages")?.value.trim() || "";
+
+
 
 const use_cases = document
   .getElementById("ai-use-cases")
@@ -164,7 +174,7 @@ if (youtube_videos.length >= 5) {
   badges, signals, punchline,
   youtube_videos,
   footer_videos,use_cases,
-  website_url, story, users, author
+  website_url, story, users, author , country , utility, target, payment, advantages, disadvantages
 })
 
       .eq('id', currentEditingAI.id);
@@ -181,7 +191,7 @@ if (youtube_videos.length >= 5) {
     .insert([
   { name, description, logo_url, category, 
     badges, signals, punchline,youtube_videos, website_url, story, 
-    users, author,footer_videos ,use_cases, status: 'published', 
+    users, author,country,utility, target, payment, advantages, disadvantages ,footer_videos ,use_cases, status: 'published', 
     created_by: null },
 ]);
 
@@ -274,6 +284,15 @@ function updatePreview() {
 updatePreview();
 
 ///////////////////////   preview ai detail   ////////////////
+
+function formatUsers(count) {
+  if (count >= 1_000_000) return (count / 1_000_000).toFixed(0) + " millions";
+  if (count >= 1_000) return (count / 1_000).toFixed(0) + "k";
+  return count.toString();
+}
+
+
+
 const detailPreview = document.getElementById("detail-preview-card");
 
 function updateDetailPreview() {
@@ -285,8 +304,17 @@ function updateDetailPreview() {
   const logo = document.getElementById("ai-logo").value.trim() || "assets/icons/default-profile.png";
   const punchline = document.getElementById("ai-punchline").value.trim() || "Ta punchline ici";
   const story = document.getElementById("ai-story").value.trim() || "Récit de l'IA...";
-  const users = document.getElementById("ai-users").value.trim() || "+0 utilisateurs";
+  const usersInput = document.getElementById("ai-users").value.trim();
+const usersCount = usersInput ? parseInt(usersInput.replace(/\D/g, '')) : 0;
   const author = document.getElementById("ai-author").value.trim() || "Auteur inconnu";
+  const countryInput = document.getElementById("ai-country");
+const country = countryInput ? countryInput.value.trim() : "Pays inconnu";
+const utility = document.getElementById("ai-utility").value.trim();
+const target = document.getElementById("ai-target").value.trim();
+const payment = document.getElementById("ai-payment").value.trim();
+const advantages = document.getElementById("ai-advantages").value.trim();
+const disadvantages = document.getElementById("ai-disadvantages").value.trim();
+
   const badges = document.getElementById("ai-signals").value.split(",").map(b => b.trim()).filter(b => b);
   const ytVideos = [...document.querySelectorAll(".yt-input")]
   .map(i => i.value.trim())
@@ -312,8 +340,10 @@ const ytHTML = ytVideos.map(url => {
         <div class="ai-info">
           <h1>${name}</h1>
           <p class="ai-punchline">${punchline}</p>
-          <p><strong>Utilisateurs:</strong> ${users}</p>
+          <p><strong>Utilisateurs:</strong> ${formatUsers(usersCount)}</p>
           <p><strong>Rédacteur:</strong> ${author}</p>
+          <p><strong>Pays:</strong> ${country}</p>
+
           ${badges.length ? `<div class="ai-badges">${badges.map(b => `<div class="ai-badge">${b}</div>`).join('')}</div>` : ""}
         </div>
       </div>
@@ -322,6 +352,18 @@ const ytHTML = ytVideos.map(url => {
         <h2>Histoire / Explication</h2>
         <p>${story}</p>
       </div>
+
+      ${(utility || target || payment || advantages || disadvantages) ? `
+<div class="ai-features">
+  <h2>💡 Fonctionnalités & Infos Clés</h2>
+  ${utility ? `<p><strong>Utilité :</strong> ${utility}</p>` : ""}
+  ${target ? `<p><strong>Cible :</strong> ${target}</p>` : ""}
+  ${payment ? `<p><strong>Moyens de paiement :</strong> ${payment}</p>` : ""}
+  ${advantages ? `<p><strong>Avantages :</strong> ${advantages}</p>` : ""}
+  ${disadvantages ? `<p><strong>Désavantages :</strong> ${disadvantages}</p>` : ""}
+</div>
+` : ""}
+
 
 ${ytHTML ? `
 <div class="ai-youtube">

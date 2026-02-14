@@ -13,54 +13,45 @@ console.log("DEBUG NAV AVATAR →", avatarUrl);
 
 
 
-if (pseudo) {
+if (pseudo) { 
   // User connecté → afficher profil + logout
   navRight.innerHTML = `
 
- <button class="nav-btn search-btn" id="search-open" aria-label="Rechercher une IA">
-  <i class="ph ph-magnifying-glass"></i>
-  <span>Recherche AI</span>
-</button>
+    <button class="nav-btn search-btn" id="search-open" title="Rechercher une IA" aria-label="Rechercher une IA">
+      <i class="ph ph-magnifying-glass"></i>
+    </button>  
 
+    <button class="nav-btn notif-btn" id="notif-btn" title="Messagerie" aria-label="Messagerie">
+      <i class="ph ph-chat-text"></i>
+      <span>Chat</span>
+    </button>
 
- <button id="profile-btn" class="nav-profile">
-  <img class="nav-avatar" src="${avatarUrl}" alt="Avatar">
-  <span>${pseudo}</span>
-</button>
+    <a href="apropos-de-nous.html" class="nav-btn about-btn" title="À propos nexus">
+      <i class="ph ph-info"></i>
+    </a>
 
-    
-  <button id="logout-btn" class="nav-btn">Déconnexion</button>
+    <button id="logout-btn" class="nav-btn" title="Déconnexion">
+      Déconnexion
+    </button>
 
-<button class="nav-btn notif-btn" id="notif-btn" aria-label="Messagerie">
-  <i class="ph ph-chat-text"></i>
-  <span>Chat</span>
-</button>
+    <button id="profile-btn" class="nav-profile" title="${pseudo}">
+      <img class="nav-avatar" src="${avatarUrl}" alt="Avatar">
+      <span>${pseudo}</span>
+    </button>
 
-
-
-<a href="apropos-de-nous.html" class="nav-btn about-btn">
-  <i class="ph ph-info"></i>
-  <span>Nexus</span>
-</a>
-
-
-
-`;
-
-
+  `;
 
 } else {
   // User pas connecté → garder nav normal
   navRight.innerHTML = `
 
-  <button class="nav-btn search-btn" id="search-open" aria-label="Rechercher une IA">
-  <i class="ph ph-magnifying-glass"></i>
-  <span>Recherche AI</span>
-</button>
+  <button class="nav-btn search-btn" id="search-open" title="Rechercher une IA" aria-label="Rechercher une IA">
+      <i class="ph ph-magnifying-glass"></i>
+    </button>  
 
 
 
-    <a href="login.html" class="nav-btn" id="login-btn">Connexion</a>
+    
     
    <button class="nav-btn notif-btn" id="notif-btn" aria-label="Messagerie">
   <i class="ph ph-chat-text"></i>
@@ -69,11 +60,11 @@ if (pseudo) {
 
 
 
-<a href="apropos-de-nous.html" class="nav-btn about-btn">
-  <i class="ph ph-info"></i>
-  <span>Nexus</span>
-</a>
+<a href="apropos-de-nous.html" class="nav-btn about-btn" title="À propos Nexus">
+      <i class="ph ph-info"></i>
+    </a>
 
+<a href="login.html" class="nav-btn" id="login-btn">Connexion</a>
   `;
 }
 
