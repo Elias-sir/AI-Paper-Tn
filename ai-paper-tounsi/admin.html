@@ -6,6 +6,7 @@
 
   <title>Nexus Admin</title>
   <link rel="stylesheet" href="css/admin.css" />
+  <link rel="stylesheet" href="css/admin_sponsor.css" />
   <link rel="icon" type="image/png" href="assents/fonts/favilove.png">
 </head>
 <body>
@@ -125,8 +126,72 @@
     <ul id="ais"></ul>
   </section>
 
+  
+  <!-- ─── Sponsor Cards Admin ─── -->
+<!-- ─── Sponsor Cards Admin ─── -->
+<section id="admin-sponsor-section">
+  <h2>💎 Gestion des Sponsor Cards</h2>
+
+  <!-- Formulaire création / update -->
+ <!-- Formulaire création / update -->
+<form id="sponsor-card-form" class="admin-sponsor-form">
+  <input type="text" name="title" placeholder="Titre de la carte" required />
+  <input type="url" name="logo_url" placeholder="URL du logo (optionnel)" />
+  <input type="url" name="media_url" placeholder="URL image/vidéo" required />
+  <select name="media_type" aria-label="Type de media">
+    <option value="image">Image</option>
+    <option value="video">Vidéo</option>
+  </select>
+  <input type="url" name="link" placeholder="Lien de l'annonceur" />
+  <input type="text" name="signals" placeholder="Badges séparés par ,"/>
+  <button type="submit">Créer / Mettre à jour</button>
+</form>
+
+
+  <!-- Preview live -->
+  <div id="sponsor-preview"></div>
+
+  <!-- Liste des cartes existantes -->
+  <div id="sponsor-cards-list"></div>
+</section>
+
+<!-- ─── Statistiques ─── -->
+<section id="sponsor-stats-section">
+  <h2>📊 Statistiques des Sponsor Cards</h2>
+  <table id="sponsor-stats-table">
+    <thead>
+      <tr>
+        <th>Titre</th>
+        <th>Vues</th>
+        <th>Clics</th>
+        <th>Date création</th>
+      </tr>
+    </thead>
+    <tbody></tbody>
+  </table>
+</section>
+
+
+
+
+<script type="module">
+  import { initSponsorAdmin } from "./js/admin_sponsor.js";
+
+  document.addEventListener("DOMContentLoaded", () => {
+    // ⚡ on passe aussi l'id du tableau stats
+    initSponsorAdmin(
+      "sponsor-card-form",
+      "sponsor-cards-list",
+      "sponsor-preview",
+      "sponsor-stats-table"
+    );
+  });
+</script>
+
+
 
   <script type="module" src="js/admin.js"></script>
+  <script type="module" src="js/admin_sponsor.js"></script>
 </body>
 
 </html>

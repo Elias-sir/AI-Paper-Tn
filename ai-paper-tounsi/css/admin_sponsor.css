@@ -1,0 +1,266 @@
+/* ================== Admin Sponsor Cards ================== */
+
+/* Container global pour chaque carte admin */
+.sponsor-admin-card {
+  background: rgba(25, 25, 35, 0.95);
+  -webkit-backdrop-filter: blur(8px);
+  backdrop-filter: blur(8px);
+  
+  border-radius: 28px;
+  padding: 20px;
+  margin: 20px 0;
+  box-shadow: 0 18px 36px rgba(0,0,0,0.3);
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.sponsor-admin-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 28px 56px rgba(0,0,0,0.35);
+}
+
+/* Header: titre + badge */
+.sponsor-admin-card .sponsor-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.sponsor-admin-card .sponsor-title {
+  font-size: 1.4rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  background: linear-gradient(90deg, #6cf2c2, #4cc9f0, #9b5de5, #f15bb5);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  text-shadow: 0 6px 20px rgba(0,0,0,0.45);
+}
+
+.sponsor-admin-card .sponsor-badge {
+  padding: 4px 12px;
+  font-size: 0.85rem;
+  font-weight: 700;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.08);
+  -webkit-backdrop-filter: blur(6px);
+  backdrop-filter: blur(6px);
+  color: #fff;
+  text-transform: uppercase;
+  letter-spacing: 0.02em;
+}
+
+/* Media (image / video) style YouTube shorts */
+.sponsor-admin-card .sponsor-media {
+  width: 100%;
+  max-height: 280px;
+  border-radius: 20px;
+  overflow: hidden;
+  background: rgba(0,0,0,0.2);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.sponsor-admin-card .sponsor-media img,
+.sponsor-admin-card .sponsor-media video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.35s ease, filter 0.35s ease;
+  filter: drop-shadow(0 12px 28px rgba(0,0,0,0.6))
+          saturate(1.1)
+          contrast(1.1);
+  border-radius: 20px;
+}
+
+.sponsor-admin-card:hover .sponsor-media img,
+.sponsor-admin-card:hover .sponsor-media video {
+  transform: scale(1.05);
+  filter: drop-shadow(0 18px 36px rgba(0,0,0,0.7))
+          saturate(1.2)
+          contrast(1.15);
+}
+
+/* Description / punchline */
+.sponsor-admin-card .sponsor-description {
+  font-size: 1.1rem;
+  font-weight: 600;
+  line-height: 1.4;
+  color: #eee;
+}
+
+/* Bouton / lien */
+.sponsor-admin-card .sponsor-link {
+  margin-top: 8px;
+  padding: 10px 16px;
+  background: linear-gradient(90deg, #6cf2c2, #4cc9f0, #9b5de5, #f15bb5);
+  border-radius: 12px;
+  color: #000;
+  font-weight: 700;
+  text-align: center;
+  cursor: pointer;
+  transition: transform 0.2s ease, opacity 0.2s ease;
+  text-decoration: none;
+}
+
+.sponsor-admin-card .sponsor-link:hover {
+  transform: scale(1.05);
+  opacity: 0.9;
+}
+
+/* ================== Preview Live ================== */
+#sponsor-preview {
+  margin: 20px 0;
+}
+
+#sponsor-preview .ai-card {
+  background: rgba(25, 25, 35, 0.9);
+  border-radius: 24px;
+  padding: 16px;
+  box-shadow: 0 12px 28px rgba(0,0,0,0.25);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+#sponsor-preview .ai-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 20px 36px rgba(0,0,0,0.3);
+}
+
+#sponsor-preview .ai-logo-img {
+  width: 100%;
+  height: 180px;
+  object-fit: cover;
+  border-radius: 16px;
+  margin-bottom: 12px;
+}
+
+#sponsor-preview .ai-badge {
+  display: inline-block;
+  padding: 4px 8px;
+  margin-right: 6px;
+  background: rgba(255,255,255,0.1);
+  border-radius: 999px;
+  font-size: 0.8rem;
+  color: #fff;
+  text-transform: uppercase;
+}
+
+/* ================== Liste des cartes ================== */
+#sponsor-cards-list {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  margin-top: 16px;
+}
+
+/* ================== Formulaire admin ================== */
+.admin-sponsor-form {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.admin-sponsor-form label {
+  font-weight: 600;
+  font-size: 0.95rem;
+  color: #ccc;
+}
+
+.admin-sponsor-form input,
+.admin-sponsor-form textarea,
+.admin-sponsor-form select {
+  padding: 8px 12px;
+  border-radius: 10px;
+  border: none;
+  background: rgba(255,255,255,0.05);
+  color: #fff;
+  outline: none;
+  font-size: 1rem;
+}
+
+.admin-sponsor-form textarea {
+  resize: vertical;
+}
+
+.admin-sponsor-form input::placeholder,
+.admin-sponsor-form textarea::placeholder {
+  color: #aaa;
+}
+
+.admin-sponsor-form button {
+  padding: 10px 16px;
+  border-radius: 12px;
+  background: linear-gradient(90deg, #6cf2c2, #4cc9f0, #9b5de5, #f15bb5);
+  color: #000;
+  font-weight: 700;
+  cursor: pointer;
+  border: none;
+  transition: transform 0.2s ease, opacity 0.2s ease;
+}
+
+.admin-sponsor-form button:hover {
+  transform: scale(1.05);
+  opacity: 0.9;
+}
+
+/* ================== Stats Table ================== */
+#sponsor-stats-section {
+  margin-top: 40px;
+}
+
+#sponsor-stats-table {
+  width: 100%;
+  border-collapse: collapse;
+  background: rgba(25,25,35,0.9);
+  border-radius: 16px;
+  overflow: hidden;
+}
+
+#sponsor-stats-table th,
+#sponsor-stats-table td {
+  padding: 12px 16px;
+  text-align: left;
+  border-bottom: 1px solid rgba(255,255,255,0.05);
+  color: #eee;
+}
+
+#sponsor-stats-table th {
+  background: rgba(0,0,0,0.2);
+  font-weight: 700;
+  text-transform: uppercase;
+  font-size: 0.9rem;
+}
+
+#sponsor-stats-table tbody tr:hover {
+  background: rgba(255,255,255,0.05);
+}
+
+/* ================== Responsive ================== */
+@media (max-width: 414px) {
+  .sponsor-admin-card, #sponsor-preview .ai-card {
+    padding: 16px;
+    margin: 16px 0;
+  }
+
+  .sponsor-admin-card .sponsor-title,
+  #sponsor-preview .ai-card .ai-header {
+    font-size: 1.2rem;
+  }
+
+  .sponsor-admin-card .sponsor-description,
+  #sponsor-preview .ai-card .ai-punchline {
+    font-size: 1rem;
+  }
+
+  .sponsor-admin-card .sponsor-media,
+  #sponsor-preview .ai-card .ai-logo-img {
+    max-height: 180px;
+  }
+
+  #sponsor-stats-table th, #sponsor-stats-table td {
+    padding: 8px 12px;
+  }
+}
