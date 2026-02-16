@@ -3,9 +3,7 @@ import { createAICard } from "./card.js";
 
 const feedCards = document.getElementById("feed-cards");
 
-/* ─────────────────────────────
-   🔹 Mélange un tableau (Fisher-Yates)
-───────────────────────────── */
+// 🔹 Shuffle tableau Fisher-Yates
 function shuffleArray(array) {
   const arr = [...array];
   for (let i = arr.length - 1; i > 0; i--) {
@@ -15,10 +13,8 @@ function shuffleArray(array) {
   return arr;
 }
 
-/* ─────────────────────────────
-   🔹 Fetch IA et sponsors + rendu feed
-───────────────────────────── */
-async function fetchFeed() {
+// 🔹 Fetch IA + sponsors + rendu feed
+export async function fetchFeed() {
   const { data: { user } } = await supabase.auth.getUser();
 
   // 1️⃣ Fetch IA normales
@@ -46,22 +42,37 @@ async function fetchFeed() {
 
   aisData.sort((a, b) => b.ai_likes.length - a.ai_likes.length);
 
-  // 2️⃣ Fetch cartes sponsor
-  // 2️⃣ Fetch cartes sponsor
-const { data: sponsorData, error: sponsorError } = await supabase
-  .from("sponsor_cards")
-  .select("*")
-  .order("created_at", { ascending: false });
+  // 2️⃣ Fetch cartes sponsor actives
+  const { data: sponsorData, error: sponsorError } = await supabase
+    .from("sponsor_cards")
+    .select("*")
+    .eq("active", true)
+    .order("priority", { ascending: false })
+    .order("created_at", { ascending: false });
 
-if (sponsorError) console.error("Erreur fetch sponsor cards:", sponsorError);
+  if (sponsorError) console.error("Erreur fetch sponsor cards:", sponsorError);
 
-// ⚡ Mélange pour ne pas répéter le même sponsor
-let shuffledSponsors = sponsorData ? shuffleArray(sponsorData) : [];
-let usedSponsorIndexes = new Set(); // pour éviter répétition immédiate
-let sponsorIndex = 0;
+  // Trie et shuffle sponsors par priorité
+  let sponsorsByPriority = {};
+  (sponsorData || []).forEach(s => {
+    const p = s.priority || 0;
+    if (!sponsorsByPriority[p]) sponsorsByPriority[p] = [];
+    sponsorsByPriority[p].push(s);
+  });
 
+  let sortedPriorities = Object.keys(sponsorsByPriority)
+    .map(Number)
+    .sort((a, b) => b - a);
 
-  // 3️⃣ Boucle sur les IA pour afficher feed + sponsors
+  let sortedSponsors = [];
+  sortedPriorities.forEach(p => {
+    sortedSponsors.push(...shuffleArray(sponsorsByPriority[p]));
+  });
+
+  let usedSponsorIndexes = new Set();
+  let sponsorIndex = 0;
+
+  // 3️⃣ Boucle IA + insertion sponsor toutes les 2 IA
   for (let i = 0; i < aisData.length; i++) {
     const ai = aisData[i];
     const likes = ai.ai_likes.length;
@@ -83,54 +94,94 @@ let sponsorIndex = 0;
       created_at: ai.created_at
     };
 
-    // ⚡ Ajouter IA normale
     const aiCard = await createAICard(aiCardData);
     feedCards.appendChild(aiCard);
 
-    // ⚡ Insérer sponsor toutes les 2 IA
-   if ((i + 1) % 2 === 0 && shuffledSponsors.length > 0) {
-  // ⚡ Sélection sponsor non utilisé récemment
-  let attempts = 0;
-  while (usedSponsorIndexes.has(sponsorIndex) && attempts < shuffledSponsors.length) {
-    sponsorIndex = (sponsorIndex + 1) % shuffledSponsors.length;
-    attempts++;
+    // Insertion sponsor toutes les 2 IA
+    if ((i + 1) % 2 === 0 && sortedSponsors.length > 0) {
+      let attempts = 0;
+      while (usedSponsorIndexes.has(sponsorIndex) && attempts < sortedSponsors.length) {
+        sponsorIndex = (sponsorIndex + 1) % sortedSponsors.length;
+        attempts++;
+      }
+
+      const sponsor = sortedSponsors[sponsorIndex];
+
+      // 🔹 Création du logo, image et badges
+      const logoEl = sponsor.logo_url
+        ? `<div class="ai-logo-img"><img src="${sponsor.logo_url}" alt="${sponsor.title} logo"></div>`
+        : "";
+
+      const mediaHtml = sponsor.media_url
+        ? `<img src="${sponsor.media_url}" class="sponsor-media" alt="${sponsor.title}">`
+        : "";
+
+      const badges = (sponsor.signals || [])
+        .map(s => `<div class="badge-feed">${s}</div>`)
+        .join("");
+
+      // 🔹 Carte sponsor
+      const sponsorCard = document.createElement("section");
+      sponsorCard.className = "ai-card sponsor-card";
+
+      sponsorCard.innerHTML = `
+        <div class="ai-top">
+          <div class="ai-info">
+            <div class="ai-header tag-amber">
+              ${sponsor.title}
+              <span class="header-badge-wrapper">
+                <span class="badge-feed sponsor-badge">Partenaire</span>
+              </span>
+            </div>
+            <div class="ai-vibe">Annonce sélectionnée par APT</div>
+          </div>
+          ${logoEl}
+        </div>
+
+        <div class="ai-center sponsor-center">
+          ${mediaHtml}
+        </div>
+
+        <div class="ai-badges">
+          ${badges}
+        </div>
+      `;
+
+      // Click ouvre lien
+      if (sponsor.link) {
+        sponsorCard.addEventListener("click", async () => {
+          await supabase
+            .from("sponsor_cards")
+            .update({ clicks_count: (sponsor.clicks_count || 0) + 1 })
+            .eq("id", sponsor.id);
+
+          window.open(sponsor.link, "_blank");
+        });
+      }
+
+      // Tracking vues sponsor
+      const observer = new IntersectionObserver(async (entries) => {
+        entries.forEach(async (entry) => {
+          if (entry.isIntersecting) {
+            await supabase
+              .from("sponsor_cards")
+              .update({ views_count: (sponsor.views_count || 0) + 1 })
+              .eq("id", sponsor.id);
+
+            observer.unobserve(sponsorCard);
+          }
+        });
+      }, { threshold: 0.6 });
+
+      observer.observe(sponsorCard);
+
+      feedCards.appendChild(sponsorCard);
+
+      usedSponsorIndexes.add(sponsorIndex);
+      sponsorIndex = (sponsorIndex + 1) % sortedSponsors.length;
+    }
   }
-  const sponsor = shuffledSponsors[sponsorIndex];
-
-  const sponsorCard = document.createElement("section");
-  sponsorCard.className = "ai-card sponsor-card";
-
-  const mediaHtml = sponsor.media_type === "video"
-    ? `<video src="${sponsor.media_url}" autoplay muted loop playsinline class="ai-logo-img"></video>`
-    : `<img src="${sponsor.media_url}" alt="${sponsor.title}" class="ai-logo-img">`;
-
-  const badges = (sponsor.signals || []).map(s => `<div class="ai-badge">${s}</div>`).join("");
-
-  sponsorCard.innerHTML = `
-    <div class="ai-top ai-card-content">
-      <div class="ai-info">
-        <div class="ai-header tag-red">${sponsor.title} <span class="ai-badge">Sponsor</span></div>
-      </div>
-      <div class="ai-logo">${mediaHtml}</div>
-    </div>
-    <div class="ai-badges">${badges}</div>
-  `;
-
-  if (sponsor.link) {
-    sponsorCard.addEventListener("click", () => window.open(sponsor.link, "_blank"));
-  }
-
-  feedCards.appendChild(sponsorCard);
-
-  // ⚡ Ajouter à la liste des sponsors utilisés récemment
-  usedSponsorIndexes.add(sponsorIndex);
-
-  // passe au sponsor suivant pour la prochaine insertion
-  sponsorIndex = (sponsorIndex + 1) % shuffledSponsors.length;
 }
 
-  }
-}
-
-// 🔹 Fetch au chargement
+// 🔹 Lancer fetch feed
 fetchFeed();

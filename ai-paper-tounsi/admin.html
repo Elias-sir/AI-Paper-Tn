@@ -127,32 +127,56 @@
   </section>
 
   
-  <!-- ─── Sponsor Cards Admin ─── -->
+ <!-- ─── Sponsor Cards Admin ─── -->
 <!-- ─── Sponsor Cards Admin ─── -->
 <section id="admin-sponsor-section">
   <h2>💎 Gestion des Sponsor Cards</h2>
 
-  <!-- Formulaire création / update -->
- <!-- Formulaire création / update -->
-<form id="sponsor-card-form" class="admin-sponsor-form">
-  <input type="text" name="title" placeholder="Titre de la carte" required />
-  <input type="url" name="logo_url" placeholder="URL du logo (optionnel)" />
-  <input type="url" name="media_url" placeholder="URL image/vidéo" required />
-  <select name="media_type" aria-label="Type de media">
-    <option value="image">Image</option>
-    <option value="video">Vidéo</option>
-  </select>
-  <input type="url" name="link" placeholder="Lien de l'annonceur" />
-  <input type="text" name="signals" placeholder="Badges séparés par ,"/>
-  <button type="submit">Créer / Mettre à jour</button>
-</form>
+  <form id="sponsor-card-form" class="admin-sponsor-form">
+
+    <label for="sponsor-title">Titre</label>
+    <input type="text" id="sponsor-title" name="title" placeholder="Titre de la carte" />
+
+    <label for="sponsor-logo">Logo (optionnel)</label>
+    <input type="text" id="sponsor-logo" name="logo_url" placeholder="URL du logo" />
+
+    <label for="sponsor-media">Image URL</label>
+    <input type="text" id="sponsor-media" name="media_url" placeholder="URL de l'image" />
+
+    <label for="sponsor-link">Lien annonceur</label>
+    <input type="url" id="sponsor-link" name="link" placeholder="Lien de redirection" />
+
+    <label for="sponsor-signals">Badges</label>
+    <input type="text" id="sponsor-signals" name="signals" placeholder="Badges séparés par ," />
+
+    <label for="sponsor-priority">Priorité</label>
+    <input type="number" id="sponsor-priority" name="priority" placeholder="Priorité (optionnel)" />
+
+    <label for="sponsor-start">Date début</label>
+    <input type="datetime-local" id="sponsor-start" name="start_date" />
+
+    <label for="sponsor-end">Date fin</label>
+    <input type="datetime-local" id="sponsor-end" name="end_date" />
+
+    <label for="sponsor-active">
+      <input type="checkbox" id="sponsor-active" name="active" checked />
+      Activer cette sponsor
+    </label>
+
+    <button type="submit">Créer / Mettre à jour</button>
+
+  </form>
 
 
-  <!-- Preview live -->
-  <div id="sponsor-preview"></div>
+  <!-- Preview -->
+  <section id="sponsor-preview-section">
+    <h3>Preview Live</h3>
+    <div id="sponsor-preview" class="preview-wrapper"></div>
+  </section>
 
-  <!-- Liste des cartes existantes -->
+  <!-- Liste -->
   <div id="sponsor-cards-list"></div>
+
 </section>
 
 <!-- ─── Statistiques ─── -->
@@ -164,6 +188,7 @@
         <th>Titre</th>
         <th>Vues</th>
         <th>Clics</th>
+        <th>CTR</th>
         <th>Date création</th>
       </tr>
     </thead>
@@ -171,14 +196,10 @@
   </table>
 </section>
 
-
-
-
 <script type="module">
   import { initSponsorAdmin } from "./js/admin_sponsor.js";
 
   document.addEventListener("DOMContentLoaded", () => {
-    // ⚡ on passe aussi l'id du tableau stats
     initSponsorAdmin(
       "sponsor-card-form",
       "sponsor-cards-list",
@@ -189,9 +210,8 @@
 </script>
 
 
-
   <script type="module" src="js/admin.js"></script>
-  <script type="module" src="js/admin_sponsor.js"></script>
+  
 </body>
 
 </html>

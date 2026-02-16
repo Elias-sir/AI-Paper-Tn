@@ -1,27 +1,35 @@
-/* ================== Admin Sponsor Cards ================== */
+ /* =====================================================
+   SPONSOR ADMIN CARD
+===================================================== */
 
-/* Container global pour chaque carte admin */
 .sponsor-admin-card {
   background: rgba(25, 25, 35, 0.95);
   -webkit-backdrop-filter: blur(8px);
   backdrop-filter: blur(8px);
-  
+
   border-radius: 28px;
   padding: 20px;
   margin: 20px 0;
-  box-shadow: 0 18px 36px rgba(0,0,0,0.3);
+
+  box-shadow: 0 18px 36px rgba(0, 0, 0, 0.3);
+
   display: flex;
   flex-direction: column;
   gap: 16px;
+
   transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
 .sponsor-admin-card:hover {
   transform: translateY(-4px);
-  box-shadow: 0 28px 56px rgba(0,0,0,0.35);
+  box-shadow: 0 28px 56px rgba(0, 0, 0, 0.35);
 }
 
-/* Header: titre + badge */
+
+/* =====================================================
+   HEADER
+===================================================== */
+
 .sponsor-admin-card .sponsor-header {
   display: flex;
   justify-content: space-between;
@@ -32,11 +40,20 @@
   font-size: 1.4rem;
   font-weight: 800;
   text-transform: uppercase;
-  background: linear-gradient(90deg, #6cf2c2, #4cc9f0, #9b5de5, #f15bb5);
+
+  background: linear-gradient(
+    90deg,
+    #6cf2c2,
+    #4cc9f0,
+    #9b5de5,
+    #f15bb5
+  );
+
   -webkit-background-clip: text;
   background-clip: text;
   -webkit-text-fill-color: transparent;
-  text-shadow: 0 6px 20px rgba(0,0,0,0.45);
+
+  text-shadow: 0 6px 20px rgba(0, 0, 0, 0.45);
 }
 
 .sponsor-admin-card .sponsor-badge {
@@ -44,21 +61,28 @@
   font-size: 0.85rem;
   font-weight: 700;
   border-radius: 999px;
+
   background: rgba(255, 255, 255, 0.08);
-  -webkit-backdrop-filter: blur(6px);
-  backdrop-filter: blur(6px);
   color: #fff;
+
   text-transform: uppercase;
   letter-spacing: 0.02em;
 }
 
-/* Media (image / video) style YouTube shorts */
+
+/* =====================================================
+   MEDIA
+===================================================== */
+
 .sponsor-admin-card .sponsor-media {
   width: 100%;
   max-height: 280px;
+
   border-radius: 20px;
   overflow: hidden;
-  background: rgba(0,0,0,0.2);
+
+  background: rgba(0, 0, 0, 0.2);
+
   display: flex;
   align-items: center;
   justify-content: center;
@@ -69,22 +93,32 @@
   width: 100%;
   height: 100%;
   object-fit: cover;
-  transition: transform 0.35s ease, filter 0.35s ease;
-  filter: drop-shadow(0 12px 28px rgba(0,0,0,0.6))
-          saturate(1.1)
-          contrast(1.1);
+
   border-radius: 20px;
+
+  transition: transform 0.35s ease, filter 0.35s ease;
+
+  filter:
+    drop-shadow(0 12px 28px rgba(0, 0, 0, 0.6))
+    saturate(1.1)
+    contrast(1.1);
 }
 
 .sponsor-admin-card:hover .sponsor-media img,
 .sponsor-admin-card:hover .sponsor-media video {
   transform: scale(1.05);
-  filter: drop-shadow(0 18px 36px rgba(0,0,0,0.7))
-          saturate(1.2)
-          contrast(1.15);
+
+  filter:
+    drop-shadow(0 18px 36px rgba(0, 0, 0, 0.7))
+    saturate(1.2)
+    contrast(1.15);
 }
 
-/* Description / punchline */
+
+/* =====================================================
+   DESCRIPTION
+===================================================== */
+
 .sponsor-admin-card .sponsor-description {
   font-size: 1.1rem;
   font-weight: 600;
@@ -92,18 +126,33 @@
   color: #eee;
 }
 
-/* Bouton / lien */
+
+/* =====================================================
+   SPONSOR LINK BUTTON
+===================================================== */
+
 .sponsor-admin-card .sponsor-link {
   margin-top: 8px;
   padding: 10px 16px;
-  background: linear-gradient(90deg, #6cf2c2, #4cc9f0, #9b5de5, #f15bb5);
+
+  background: linear-gradient(
+    90deg,
+    #6cf2c2,
+    #4cc9f0,
+    #9b5de5,
+    #f15bb5
+  );
+
   border-radius: 12px;
+
   color: #000;
   font-weight: 700;
   text-align: center;
+
   cursor: pointer;
-  transition: transform 0.2s ease, opacity 0.2s ease;
   text-decoration: none;
+
+  transition: transform 0.2s ease, opacity 0.2s ease;
 }
 
 .sponsor-admin-card .sponsor-link:hover {
@@ -111,7 +160,11 @@
   opacity: 0.9;
 }
 
-/* ================== Preview Live ================== */
+
+/* =====================================================
+   PREVIEW LIVE
+===================================================== */
+
 #sponsor-preview {
   margin: 20px 0;
 }
@@ -120,13 +173,21 @@
   background: rgba(25, 25, 35, 0.9);
   border-radius: 24px;
   padding: 16px;
-  box-shadow: 0 12px 28px rgba(0,0,0,0.25);
+
+  box-shadow: 0 12px 28px rgba(0, 0, 0, 0.25);
+
   transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
 #sponsor-preview .ai-card:hover {
   transform: translateY(-3px);
-  box-shadow: 0 20px 36px rgba(0,0,0,0.3);
+  box-shadow: 0 20px 36px rgba(0, 0, 0, 0.3);
+}
+
+#sponsor-preview .ai-card {
+  padding: 24px;
+  min-height: 420px;
+  max-width: 420px;
 }
 
 #sponsor-preview .ai-logo-img {
@@ -137,18 +198,28 @@
   margin-bottom: 12px;
 }
 
+#sponsor-preview .ai-logo-img {
+  height: 220px;
+}
+
 #sponsor-preview .ai-badge {
   display: inline-block;
   padding: 4px 8px;
   margin-right: 6px;
-  background: rgba(255,255,255,0.1);
+
+  background: rgba(255, 255, 255, 0.1);
   border-radius: 999px;
+
   font-size: 0.8rem;
   color: #fff;
   text-transform: uppercase;
 }
 
-/* ================== Liste des cartes ================== */
+
+/* =====================================================
+   SPONSOR LIST
+===================================================== */
+
 #sponsor-cards-list {
   display: flex;
   flex-direction: column;
@@ -156,7 +227,11 @@
   margin-top: 16px;
 }
 
-/* ================== Formulaire admin ================== */
+
+/* =====================================================
+   ADMIN FORM
+===================================================== */
+
 .admin-sponsor-form {
   display: flex;
   flex-direction: column;
@@ -175,8 +250,10 @@
   padding: 8px 12px;
   border-radius: 10px;
   border: none;
-  background: rgba(255,255,255,0.05);
+
+  background: rgba(255, 255, 255, 0.05);
   color: #fff;
+
   outline: none;
   font-size: 1rem;
 }
@@ -193,11 +270,21 @@
 .admin-sponsor-form button {
   padding: 10px 16px;
   border-radius: 12px;
-  background: linear-gradient(90deg, #6cf2c2, #4cc9f0, #9b5de5, #f15bb5);
+
+  background: linear-gradient(
+    90deg,
+    #6cf2c2,
+    #4cc9f0,
+    #9b5de5,
+    #f15bb5
+  );
+
   color: #000;
   font-weight: 700;
+
   cursor: pointer;
   border: none;
+
   transition: transform 0.2s ease, opacity 0.2s ease;
 }
 
@@ -206,7 +293,11 @@
   opacity: 0.9;
 }
 
-/* ================== Stats Table ================== */
+
+/* =====================================================
+   STATS TABLE
+===================================================== */
+
 #sponsor-stats-section {
   margin-top: 40px;
 }
@@ -214,7 +305,8 @@
 #sponsor-stats-table {
   width: 100%;
   border-collapse: collapse;
-  background: rgba(25,25,35,0.9);
+
+  background: rgba(25, 25, 35, 0.9);
   border-radius: 16px;
   overflow: hidden;
 }
@@ -223,24 +315,137 @@
 #sponsor-stats-table td {
   padding: 12px 16px;
   text-align: left;
-  border-bottom: 1px solid rgba(255,255,255,0.05);
+
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
   color: #eee;
 }
 
 #sponsor-stats-table th {
-  background: rgba(0,0,0,0.2);
+  background: rgba(0, 0, 0, 0.2);
   font-weight: 700;
   text-transform: uppercase;
   font-size: 0.9rem;
 }
 
 #sponsor-stats-table tbody tr:hover {
-  background: rgba(255,255,255,0.05);
+  background: rgba(255, 255, 255, 0.05);
 }
 
-/* ================== Responsive ================== */
+
+/* =====================================================
+   BADGES
+===================================================== */
+
+.badge-feed {
+  display: inline-block;
+  padding: 4px 10px;
+  margin-left: 6px;
+
+  font-size: 0.85rem;
+  font-weight: 700;
+
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.08);
+  color: #fff;
+
+  text-transform: uppercase;
+  letter-spacing: 0.02em;
+
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+.sponsor-badge {
+  background: linear-gradient(90deg, #ffd700, #ff8c00);
+  color: #000;
+  font-weight: 800;
+
+  text-shadow: 0 2px 6px rgba(0, 0, 0, 0.5);
+
+  padding: 4px 12px;
+  border-radius: 999px;
+
+  text-transform: uppercase;
+  letter-spacing: 0.02em;
+
+  -webkit-backdrop-filter: none !important;
+  backdrop-filter: none !important;
+}
+
+.header-badge-wrapper {
+  display: inline-block;
+  -webkit-text-fill-color: initial;
+  filter: none;
+}
+
+
+/* =====================================================
+   SPONSOR CARD (FEED STYLE)
+===================================================== */
+
+.sponsor-card {
+  position: relative;
+  border: 1px solid rgba(255, 215, 0, 0.15);
+}
+
+@media (min-width: 1024px) {
+  .sponsor-card {
+    min-height: 400px;
+    max-width: 370px;
+  }
+}
+
+.sponsor-card::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  pointer-events: none;
+
+  background: radial-gradient(
+    circle at top right,
+    rgba(255, 215, 0, 0.08),
+    transparent 60%
+  );
+}
+
+.sponsor-card::before {
+  content: "Partenaire";
+  position: absolute;
+  top: 14px;
+  right: 18px;
+
+  font-size: 0.65rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+
+  color: rgba(255, 255, 255, 0.4);
+}
+
+@media (hover: hover) {
+  .sponsor-card {
+    animation: sponsorGlow 6s ease-in-out infinite;
+  }
+
+  .sponsor-card:hover {
+    animation: none;
+  }
+}
+
+@keyframes sponsorGlow {
+  0%   { box-shadow: 0 16px 32px rgba(0, 0, 0, 0.28); }
+  50%  { box-shadow: 0 20px 40px rgba(255, 215, 0, 0.15); }
+  100% { box-shadow: 0 16px 32px rgba(0, 0, 0, 0.28); }
+}
+
+
+/* =====================================================
+   RESPONSIVE
+===================================================== */
+
 @media (max-width: 414px) {
-  .sponsor-admin-card, #sponsor-preview .ai-card {
+
+  .sponsor-admin-card,
+  #sponsor-preview .ai-card {
     padding: 16px;
     margin: 16px 0;
   }
@@ -260,7 +465,62 @@
     max-height: 180px;
   }
 
-  #sponsor-stats-table th, #sponsor-stats-table td {
+  #sponsor-stats-table th,
+  #sponsor-stats-table td {
     padding: 8px 12px;
   }
+}
+
+
+/* Logo dans le feed sponsor */
+.sponsor-card .ai-logo-img {
+  width: 100%;
+  max-height: 120px; /* plus petit que le preview */
+  object-fit: contain;
+  border-radius: 12px;
+  margin-bottom: 12px;
+  display: block;
+}
+
+
+
+/* Image principale dans le feed */
+.sponsor-card .sponsor-media {
+  width: 100%;
+  max-height: 250px;
+  border-radius: 16px;
+  overflow: hidden;
+  background: rgba(0,0,0,0.1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.sponsor-card .sponsor-media img,
+.sponsor-card .sponsor-media video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.35s ease, filter 0.35s ease;
+  filter: drop-shadow(0 12px 28px rgba(0,0,0,0.4)) saturate(1.1) contrast(1.1);
+}
+
+.sponsor-card:hover .sponsor-media img,
+.sponsor-card:hover .sponsor-media video {
+  transform: scale(1.05);
+  filter: drop-shadow(0 18px 36px rgba(0,0,0,0.5)) saturate(1.2) contrast(1.15);
+}
+
+.sponsor-card .ai-top {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+
+.sponsor-card .ai-badges {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-top: 8px;
 }

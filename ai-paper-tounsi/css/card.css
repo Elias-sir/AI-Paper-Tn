@@ -49,15 +49,6 @@
 .tag-amber { color: var(--apt-amber); }
 .tag-red { color: var(--apt-red); }
 
-.ai-card::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  border-radius: inherit;
-  border: 1px solid rgba(255,255,255,0.05);
-  pointer-events: none;
-}
-
 .ai-card:hover .ai-badge {
   transform: scale(1.15) translateY(-2px);
   background: rgba(46,204,113,0.25);
@@ -527,3 +518,96 @@
   }
 }
 
+/* =====================================================
+   AI CARD — VERIFIED FUSION LOGIC
+   (à placer tout en bas du CSS)
+===================================================== */
+
+/* On s'assure que la card peut accueillir des éléments absolus */
+.ai-card {
+  position: relative;
+  overflow: hidden;
+}
+
+
+/* =====================================================
+   ::before = Bordure fine + label "Vérifié"
+===================================================== */
+
+.ai-card::before {
+  content: "Vérifié";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+
+  /* Bordure fine existante conservée */
+  border: 1px solid rgba(255,255,255,0.05);
+
+  pointer-events: none;
+
+  /* Placement texte */
+  display: flex;
+  justify-content: flex-end;
+  align-items: flex-start;
+  padding: 14px 18px;
+
+  font-size: 0.65rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+
+  background: linear-gradient(
+    120deg,
+    #6cf2c2,
+    #4cc9f0,
+    #9b5de5,
+    #f15bb5
+  );
+
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+
+  opacity: 0.65;
+}
+
+
+/* =====================================================
+   ::after = Halo punchline subtil
+===================================================== */
+
+.ai-card::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  pointer-events: none;
+
+  background: radial-gradient(
+    circle at top right,
+    rgba(108, 242, 194, 0.08),
+    rgba(76, 201, 240, 0.06),
+    rgba(155, 93, 229, 0.05),
+    transparent 65%
+  );
+}
+
+
+/* =====================================================
+   Animation respiration verified
+===================================================== */
+
+@media (hover: hover) {
+  .ai-card {
+    animation: verifiedGlow 6s ease-in-out infinite;
+  }
+
+  .ai-card:hover {
+    animation: none;
+  }
+}
+
+@keyframes verifiedGlow {
+  0%   { box-shadow: 0 16px 32px rgba(0,0,0,0.28); }
+  50%  { box-shadow: 0 20px 40px rgba(108,242,194,0.15); }
+  100% { box-shadow: 0 16px 32px rgba(0,0,0,0.28); }
+}
