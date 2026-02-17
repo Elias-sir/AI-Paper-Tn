@@ -67,7 +67,7 @@ export function renderSponsorCard(sponsor) {
           ${sponsor.title || "Sponsor"}
           <span class="sponsor-badge">Partenaire</span>
         </div>
-        <div class="ai-vibe">Annonce sélectionnée par APT</div>
+        <div class="ai-vibe">${sponsor.description || "Pas de description"}</div>
       </div>
       ${logoEl}
     </div>
@@ -130,7 +130,8 @@ export function setupLivePreview(form, previewContainer) {
       link: formData.get("link"),
       signals: formData.get("signals")?.split(",").map(s => s.trim()) || [],
       priority: formData.get("priority") || 0,
-      active: formData.get("active") === "on"  // checkbox
+      active: formData.get("active") === "on",  // checkbox
+      description: formData.get("description") || "" 
     };
     
     previewContainer.innerHTML = "";
@@ -154,7 +155,8 @@ export function setupSponsorForm(form, listContainer, previewContainer) {
       link: formData.get("link"),
       signals: formData.get("signals")?.split(",").map(s => s.trim()) || [],
       priority: parseInt(formData.get("priority")) || 0,
-        active: formData.get("active") === "on"  // checkbox
+        active: formData.get("active") === "on",  // checkbox
+        description: formData.get("description") || "" 
     };
 
    if (form.dataset.editId) {

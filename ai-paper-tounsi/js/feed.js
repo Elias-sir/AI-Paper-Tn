@@ -112,9 +112,14 @@ export async function fetchFeed() {
         ? `<div class="ai-logo-img"><img src="${sponsor.logo_url}" alt="${sponsor.title} logo"></div>`
         : "";
 
-      const mediaHtml = sponsor.media_url
-        ? `<img src="${sponsor.media_url}" class="sponsor-media" alt="${sponsor.title}">`
-        : "";
+    const mediaHtml = sponsor.media_url
+  ? `
+    <div class="sponsor-media">
+      <img src="${sponsor.media_url}" alt="${sponsor.title}">
+    </div>
+  `
+  : "";
+
 
       const badges = (sponsor.signals || [])
         .map(s => `<div class="badge-feed">${s}</div>`)
@@ -130,10 +135,11 @@ export async function fetchFeed() {
             <div class="ai-header tag-amber">
               ${sponsor.title}
               <span class="header-badge-wrapper">
-                <span class="badge-feed sponsor-badge">Partenaire</span>
+                
               </span>
             </div>
-            <div class="ai-vibe">Annonce sélectionnée par APT</div>
+            <div class="ai-vibe">${sponsor.description || "Pas de description"}</div>
+
           </div>
           ${logoEl}
         </div>
