@@ -284,6 +284,8 @@ function updatePreview() {
  const media = document.getElementById("ai-media").value.trim();
   const category = document.getElementById("ai-category").value.trim() || "green";
   const signals = document.getElementById("ai-signals").value.trim() || "";
+  const description = document.getElementById("ai-description").value.trim() || "Description de l'IA";
+
   
 
   // badges animés
@@ -299,7 +301,7 @@ function updatePreview() {
           <img src="${logo}" alt="${name}" />
         </div>
       </div>
-
+<p class="ai-description">${description}</p> 
    <div class="ai-center">
       ${
         media
@@ -308,7 +310,7 @@ function updatePreview() {
       }
     </div>
 
-
+ 
       <div class="ai-badges">
         ${badgesArray.map(b => `<div class="ai-badge">${b}</div>`).join('')}
       </div>
@@ -317,7 +319,7 @@ function updatePreview() {
 }
 
 // écoute sur tous les inputs pertinents
-["ai-name","ai-logo","ai-category","ai-media","ai-signals"].forEach(id => {
+["ai-name","ai-logo","ai-category","ai-media","ai-signals","ai-description"].forEach(id => {
   document.getElementById(id).addEventListener("input", updatePreview);
 });
 

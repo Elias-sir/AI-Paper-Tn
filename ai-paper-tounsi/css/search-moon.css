@@ -108,7 +108,7 @@
 
 .search-moon-card.mini .ai-header {
   font-size: 1.2rem;
-  font-weight: 700;
+  font-weight: 700; /*titre */
   text-transform: uppercase;
   background: linear-gradient(90deg, #6cf2c2,#4cc9f0,#9b5de5,#f15bb5);
   -webkit-background-clip: text;
@@ -166,4 +166,81 @@
 
 .search-moon-results::-webkit-scrollbar-track {
   background: transparent;
+}
+
+
+/* ===== CENTER IMAGE ===== */
+
+.ai-center.mini {
+  margin-top: 10px;
+  border-radius: 14px;
+  overflow: hidden;
+  max-height: 250px; /* avant 140px, maintenant plus visible */
+}
+
+
+.ai-center.mini {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.search-moon-card.mini .ai-placeholder {
+  height: 140px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #888;
+  background: rgba(255,255,255,0.05);
+  border-radius: 12px;
+  font-size: 0.9rem;
+}
+
+
+
+/*LOUPE */
+.search-moon-hint {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  font-size: 1.2rem;
+  color: #ccc;
+  text-align: center;
+}
+
+/* Icônes vivantes */
+.search-moon-hint .left-icon,
+.search-moon-hint .right-icon {
+  font-size: 2rem;
+  color: var(--loupe-color, #4fc3f7); /* couleur modifiable via variable CSS */
+  display: inline-block;
+  animation: wiggle 2s infinite ease-in-out alternate;
+}
+
+/* Décalage opposé pour la droite */
+.search-moon-hint .right-icon {
+  animation-delay: 0.2s; /* léger décalage pour effet dynamique */
+}
+
+/* Animation “va-et-vient” */
+@keyframes wiggle {
+  0% { transform: rotate(-10deg) scale(1); }
+  50% { transform: rotate(10deg) scale(1.2); }
+  100% { transform: rotate(-10deg) scale(1); }
+}
+
+
+/*DESCRIPTION */
+
+/* Description dans les mini-cards */
+.search-moon-card.mini .ai-description {
+  font-size: 0.75rem;      /* petit pour mini-cards */
+  color: #aaa;             /* gris clair */
+  text-align: center;      
+  margin: 4px 0;           /* petit espace vertical */
+  line-height: 1.2;        
+  max-height: 3em;         /* limite hauteur si trop long */
+  overflow: hidden;        
+  text-overflow: ellipsis; /* coupe le texte trop long */
 }
