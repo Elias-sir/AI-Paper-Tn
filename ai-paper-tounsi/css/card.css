@@ -21,6 +21,8 @@
   transform: translateY(-6px);
   box-shadow: 0 30px 60px rgba(0,0,0,0.35);
 }
+
+
 .ai-vibe {
   opacity: 0.8;
   margin-top: 8px;
@@ -127,7 +129,7 @@
 }
 
 
-/* =======================  logo  ========================= */ 
+/* =======================  LOGO FIX   ========================= */ 
 
 .ai-logo img {
   border-radius: 50%;
@@ -159,27 +161,13 @@
   transform: translateY(-8px);
 }
 
-/*LOGO FIX */
-
-.ai-logo {
-  width: 88px;
-  height: 88px;
-  border-radius: 50%;
-  border: 3px solid rgba(255,255,255,0.1);
-  background: rgba(255,255,255,0.04);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-shrink: 0;
-}
-
 .ai-logo {
   width: 90px;              /* ajuste si tu veux plus grand */
   height: 90px;
   border-radius: 50%;
   overflow: hidden;         /* OBLIGATOIRE */
   border: 3px solid rgba(255,255,255,0.1);
-  background: rgba(255,255,255,0.04);
+  
   display: flex;
   align-items: center;
   justify-content: center;
@@ -245,7 +233,7 @@
   100% { text-shadow: 0 4px 12px rgba(155,93,229,0.5); }
 }
 
-/*-----------  FLASH  -------  */
+/*-----------  FLASH  -------  
 
 .punchlight {
   display: inline-block;
@@ -273,7 +261,7 @@
   100% { filter: drop-shadow(0 4px 12px rgba(155,93,229,0.5)); }
 }
 
-
+*/
 
 /* =============== Like button modernisé ====================  */
 .like-btn {
@@ -409,7 +397,7 @@
   padding: 20px;
 }
 
-/* PC / Desktop */
+/*============= RESPONSIVE  PC / Desktop ============== */
 @media (min-width: 1024px) {
 
  #feed-cards {
@@ -422,7 +410,7 @@
   }
 
   .ai-card {
-    min-height: 400px;          /* même hauteur pour toutes, tu peux ajuster */
+    min-height: 413px;          /* même hauteur pour toutes, tu peux ajuster */
     max-width: 370px;           /* largeur fixe pour toutes les cartes */
     height: auto;               /* laisse le contenu décider si c’est plus grand */
     scroll-snap-align: none;    /* désactive snap sur PC */
@@ -476,7 +464,7 @@
 
 
 
-/*RESPONSIVE MOBILE */
+/* ================  RESPONSIVE MOBILE ================ */
 
 @media (max-width: 414px) {
   /* Cards prennent presque toute la largeur */
@@ -610,3 +598,31 @@
   100% { box-shadow: 0 16px 32px rgba(0,0,0,0.28); }
 }
 ===================================================== */
+
+/* ===================== MEDIA CENTER ====================== */
+.ai-center {
+  width: 100%;
+  max-height: 250px; /* comme sponsor card */
+  border-radius: 20px;
+  overflow: hidden;
+  
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+}
+
+.ai-center img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 20px;
+  transition: transform 0.35s ease, filter 0.35s ease;
+  
+}
+
+.ai-card:hover .ai-center img {
+  transform: scale(1.05);
+  
+}

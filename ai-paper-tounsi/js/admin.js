@@ -127,6 +127,7 @@ async function handleAddOrEdit() {
   const badges = document.getElementById('ai-badges').value.split(',').map(b => b.trim());
   const website_url = document.getElementById('ai-website').value;
   const punchline = document.getElementById("ai-punchline").value.trim();
+
   const signals = document.getElementById("ai-signals").value.trim();
 const story = document.getElementById("ai-story").value.trim();
 const users = document.getElementById("ai-users")?.value.trim() || "";
@@ -137,6 +138,7 @@ const target = document.getElementById("ai-target")?.value.trim() || "";
 const payment = document.getElementById("ai-payment")?.value.trim() || "";
 const advantages = document.getElementById("ai-advantages")?.value.trim() || "";
 const disadvantages = document.getElementById("ai-disadvantages")?.value.trim() || "";
+const media_url = document.getElementById("ai-media")?.value.trim() || "";
 
 
 
@@ -171,7 +173,7 @@ if (youtube_videos.length >= 5) {
 
       .update({
   name, description, logo_url, category,
-  badges, signals, punchline,
+  badges, signals,media_url,punchline,
   youtube_videos,
   footer_videos,use_cases,
   website_url, story, users, author , country , utility, target, payment, advantages, disadvantages
@@ -190,7 +192,7 @@ if (youtube_videos.length >= 5) {
 
     .insert([
   { name, description, logo_url, category, 
-    badges, signals, punchline,youtube_videos, website_url, story, 
+    badges, signals, media_url,punchline,youtube_videos, website_url, story, 
     users, author,country,utility, target, payment, advantages, disadvantages ,footer_videos ,use_cases, status: 'published', 
     created_by: null },
 ]);
@@ -201,14 +203,24 @@ if (youtube_videos.length >= 5) {
   }
 
   // Reset formulaire
-  document.getElementById('ai-name').value = '';
+document.getElementById('ai-name').value = '';
   document.getElementById('ai-description').value = '';
   document.getElementById('ai-logo').value = '';
   document.getElementById('ai-category').value = '';
   document.getElementById('ai-badges').value = '';
   document.getElementById('ai-website').value = '';
+  document.getElementById('ai-media').value = '';
   document.getElementById('ai-punchline').value = '';
   document.getElementById('ai-signals').value = '';
+  document.getElementById('ai-users').value = '';
+  document.getElementById('ai-author').value = '';
+  document.getElementById('ai-country').value = '';
+  document.getElementById('ai-utility').value = '';
+  document.getElementById('ai-target').value = '';
+  document.getElementById('ai-payment').value = '';
+  document.getElementById('ai-advantages').value = '';
+  document.getElementById('ai-disadvantages').value = '';
+  document.getElementById('ai-story').value = '';
   document.querySelectorAll(".yt-input, .footer-video-input")
   .forEach(i => i.value = "");
 
@@ -221,14 +233,38 @@ if (youtube_videos.length >= 5) {
 // -------------------- EDIT IA --------------------
 function editAI(ai) {
   currentEditingAI = ai;
-  document.getElementById('ai-name').value = ai.name;
-  document.getElementById('ai-description').value = ai.description;
-  document.getElementById('ai-logo').value = ai.logo_url;
-  document.getElementById('ai-category').value = ai.category;
-  document.getElementById('ai-badges').value = (ai.badges || []).join(', ');
-  document.getElementById('ai-website').value = ai.website_url;
+
+   document.getElementById('ai-name').value = ai.name || '';
+  document.getElementById('ai-description').value = ai.description || '';
+  document.getElementById('ai-logo').value = ai.logo_url || '';
+  document.getElementById('ai-category').value = ai.category || '';
+  
+  document.getElementById('ai-website').value = ai.website_url || '';
+  document.getElementById('ai-media').value = ai.media_url || '';
   document.getElementById('ai-punchline').value = ai.punchline || '';
-  document.getElementById('ai-signals').value = ai.signals || '';
+
+  document.getElementById('ai-badges').value = 
+  Array.isArray(ai.badges) ? ai.badges.join(', ') : (ai.badges || '');
+
+document.getElementById('ai-signals').value = 
+  Array.isArray(ai.signals) ? ai.signals.join(', ') : (ai.signals || '');
+
+ document.getElementById('ai-users').value =
+  Array.isArray(ai.users) ? ai.users.join(', ') : (ai.users || '');
+
+  document.getElementById('ai-author').value = ai.author || '';
+  document.getElementById('ai-country').value = ai.country || '';
+  document.getElementById('ai-utility').value = ai.utility || '';
+  document.getElementById('ai-target').value = ai.target || '';
+  document.getElementById('ai-payment').value = ai.payment || '';
+
+  document.getElementById('ai-advantages').value =
+  Array.isArray(ai.advantages) ? ai.advantages.join(', ') : (ai.advantages || '');
+
+document.getElementById('ai-disadvantages').value =
+  Array.isArray(ai.disadvantages) ? ai.disadvantages.join(', ') : (ai.disadvantages || '');
+
+  document.getElementById('ai-story').value = ai.story || '';
 document.querySelectorAll(".yt-input").forEach((input, i) => {
   input.value = ai.youtube_videos?.[i] || "";
 });
@@ -245,7 +281,7 @@ const previewCard = document.getElementById("preview-card");
 function updatePreview() {
   const name = document.getElementById("ai-name").value.trim() || "Nom de l'IA";
   const logo = document.getElementById("ai-logo").value.trim() || "assents/icons/...png";
-  const punchline = document.getElementById("ai-punchline").value.trim() || "Ta punchline apparaîtra ici";
+ const media = document.getElementById("ai-media").value.trim();
   const category = document.getElementById("ai-category").value.trim() || "green";
   const signals = document.getElementById("ai-signals").value.trim() || "";
   
@@ -264,9 +300,14 @@ function updatePreview() {
         </div>
       </div>
 
-      <div class="ai-center">
-        <p class="ai-punchline">${punchline}</p>
-      </div>
+   <div class="ai-center">
+      ${
+        media
+          ? `<img src="${media}" class="ai-main-image" alt="${name}" />`
+          : `<div class="ai-placeholder">Image IA</div>`
+      }
+    </div>
+
 
       <div class="ai-badges">
         ${badgesArray.map(b => `<div class="ai-badge">${b}</div>`).join('')}
@@ -276,7 +317,7 @@ function updatePreview() {
 }
 
 // écoute sur tous les inputs pertinents
-["ai-name","ai-logo","ai-category","ai-punchline","ai-signals"].forEach(id => {
+["ai-name","ai-logo","ai-category","ai-media","ai-signals"].forEach(id => {
   document.getElementById(id).addEventListener("input", updatePreview);
 });
 
@@ -302,6 +343,7 @@ function updateDetailPreview() {
 
   const name = document.getElementById("ai-name").value.trim() || "Nom de l'IA";
   const logo = document.getElementById("ai-logo").value.trim() || "assets/icons/default-profile.png";
+  const media = document.getElementById("ai-media").value.trim();
   const punchline = document.getElementById("ai-punchline").value.trim() || "Ta punchline ici";
   const story = document.getElementById("ai-story").value.trim() || "Récit de l'IA...";
   const usersInput = document.getElementById("ai-users").value.trim();
@@ -339,7 +381,7 @@ const ytHTML = ytVideos.map(url => {
         </div>
         <div class="ai-info">
           <h1>${name}</h1>
-          <p class="ai-punchline">${punchline}</p>
+    <p class="ai-punchline">${punchline}</p>
           <p><strong>Utilisateurs:</strong> ${formatUsers(usersCount)}</p>
           <p><strong>Rédacteur:</strong> ${author}</p>
           <p><strong>Pays:</strong> ${country}</p>

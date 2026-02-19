@@ -31,7 +31,8 @@ export async function createAICard(ai) {
   const name      = ai.name || "IA inconnue";
   const vibe      = ai.vibe || "Pas de description";
   const category  = ai.category || "green";
-  const punchline = ai.punchline || "";
+  
+   const media = ai.media || ""; // media au centre
 
  let signals = [];
 if (ai.signals) {
@@ -54,8 +55,12 @@ if (ai.signals) {
       </div>
     </div>
 
-    <div class="ai-center">
-      <p class="ai-punchline">${punchline}</p>
+     <div class="ai-center">
+      ${
+        media
+          ? `<img src="${media}" class="ai-main-image" alt="${name}" />`
+          : `<div class="ai-placeholder">Image IA</div>`
+      }
     </div>
 
       <div class="ai-badges">
@@ -76,8 +81,8 @@ if (ai.signals) {
   `;
 
   // JS : micro effet emoji
-const punchlineEl = card.querySelector(".ai-punchline");
-punchlineEl.innerHTML += `<span class="punchlight">⚡</span>`;
+//const punchlineEl = card.querySelector(".ai-punchline");
+//punchlineEl.innerHTML += `<span class="punchlight">⚡</span>`;
 
  // petit éclair pour attirer l'oeil
 
