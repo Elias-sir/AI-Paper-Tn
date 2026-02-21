@@ -32,7 +32,14 @@ export async function updateSponsorCard(id, data) {
 }
 
 export async function deleteSponsorCard(id) {
-  const { error } = await supabase.from("sponsor_cards").delete().eq("id", id);
+  const { data, error } = await supabase
+    .from("sponsor_cards")
+    .delete()
+    .eq("id", id)
+    .select();
+
+  console.log("Delete result:", data, error);
+
   if (error) console.error("Erreur delete sponsor card:", error);
   return !error;
 }

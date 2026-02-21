@@ -16,7 +16,7 @@ function shuffleArray(array) {
 // 🔹 Fetch IA + sponsors + rendu feed
 export async function fetchFeed() {
   const { data: { user } } = await supabase.auth.getUser();
-
+console.log("Current user:", user);
   // 1️⃣ Fetch IA normales
   const { data: aisData, error: aisError } = await supabase
     .from("ai_tools")
@@ -154,30 +154,46 @@ export async function fetchFeed() {
       `;
 
       // Click ouvre lien
-      if (sponsor.link) {
-        sponsorCard.addEventListener("click", async () => {
-          await supabase
-            .from("sponsor_cards")
-            .update({ clicks_count: (sponsor.clicks_count || 0) + 1 })
-            .eq("id", sponsor.id);
-
-          window.open(sponsor.link, "_blank");
-        });
+    if (sponsor.link) {
+  sponsorCard.addEventListener("click", async () => {
+    try {
+      if (user) {
+        await supabase.rpc("increment_sponsor_click", { sponsor_id: sponsor.id });
+      } else {
+        await supabase.rpc("increment_sponsor_click_public", { sponsor_id: sponsor.id });
       }
+    } catch (err) {
+      console.error("Erreur incrément clic sponsor :", err);
+    }
+
+    // ouvrir le lien après l'update
+    setTimeout(() => {
+      window.open(sponsor.link, "_blank");
+    }, 50); // petit délai pour être sûr que l'update passe
+  });
+}
+
 
       // Tracking vues sponsor
-      const observer = new IntersectionObserver(async (entries) => {
-        entries.forEach(async (entry) => {
-          if (entry.isIntersecting) {
-            await supabase
-              .from("sponsor_cards")
-              .update({ views_count: (sponsor.views_count || 0) + 1 })
-              .eq("id", sponsor.id);
-
-            observer.unobserve(sponsorCard);
-          }
-        });
-      }, { threshold: 0.6 });
+  // 🔹 Tracking vues sponsor
+const observer = new IntersectionObserver(async (entries) => {
+  entries.forEach(async (entry) => {
+    if (entry.isIntersecting) {
+      try {
+        if (user) {
+          // user connecté
+          await supabase.rpc("increment_sponsor_view", { sponsor_id: sponsor.id });
+        } else {
+          // visiteur non connecté
+          await supabase.rpc("increment_sponsor_public", { sponsor_id: sponsor.id });
+        }
+      } catch (err) {
+        console.error("Erreur incrément vue sponsor :", err);
+      }
+      observer.unobserve(sponsorCard);
+    }
+  });
+}, { threshold: 0.6 });
 
       observer.observe(sponsorCard);
 
