@@ -8,6 +8,7 @@
   <!-- Font Awesome -->
 <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" rel="stylesheet">
   <link rel="stylesheet" href="css/profile.css">
+  <script src="https://unpkg.com/@phosphor-icons/web"></script>
 </head>
 <body>
 
@@ -16,32 +17,39 @@
     <div class="profile-card">
 
       <!-- Avatar -->
-      <div class="profile-avatar">
-        <img id="avatarImg" src="assents/icons/default-profile.png" alt="Avatar">
-   
-        <input type="file" id="avatarInput" hidden accept="image/*">
-        <button id="changeAvatarBtn">📸</button>
-      </div>
+      <!-- Avatar -->
+<div class="profile-avatar hidden">
+  <img id="avatarImg" src="assents/icons/default-profile.png" alt="Avatar">
+  <input type="file" id="avatarInput" hidden accept="image/*">
+  <button id="changeAvatarBtn" aria-label="Changer l'avatar">
+    <i class="ph ph-camera" aria-hidden="true"></i>
+  </button>
+</div>
 
-      <!-- Mode View -->
-      <div id="viewMode">
-        <h2 id="viewPseudo">
-  PseudoUser
-  <span class="badge badge-vert verified pseudo-badge">
-    <i class="fa-solid fa-circle-check"></i>
-  </span>
-</h2>
+<!-- Loader skeleton -->
+<div id="profileLoader" class="loader">
+  <div class="avatar-skeleton"></div>
+  <div class="text-skeleton short"></div>
+  <div class="text-skeleton long"></div>
+  <div class="text-skeleton medium"></div>
+</div>
 
-        <p id="viewBio">Bio courte</p>
-        <p id="viewEmail">email@example.com</p>
-        <p id="viewRole">Role: user</p>
-        <p id="viewCreated">Inscrit le: 01/01/2026</p>
+<!-- Mode View (vraies infos) -->
+<div id="viewMode" class="hidden">
+  <h2 id="viewPseudo"></h2>
+  <p id="viewBio"></p>
+  <p id="viewEmail"></p>
+  <p id="viewRole"></p>
+  <p id="viewCreated"></p>
 
-        <button id="editBtn">✏️ Modifier le profil</button>
-        <button id="proposeAiBtn" class="profile-btn">Proposer AI</button>
-        <button id="AproposdenousBtn" class="profile-btn">Apropos de nous</button>
-        <button id="logoutBtn" class="profile-btn">Déconnexion</button>
-      </div>
+  <button id="editBtn">
+    <i class="ph ph-pencil-simple"></i> Modifier le profil
+  </button>
+  <button id="proposeAiBtn" class="profile-btn">Proposer AI</button>
+  <button id="AproposdenousBtn" class="profile-btn">Apropos de nous</button>
+  <button id="logoutBtn" class="profile-btn">Déconnexion</button>
+</div>
+
 
       <!-- Mode Edit -->
       <form id="editMode" class="hidden">
@@ -50,8 +58,14 @@
         <input type="email" id="emailInput" placeholder="Email">
         <input type="password" id="passwordInput" placeholder="Nouveau mot de passe (laisser vide si inchangé)">
 
-        <button type="submit">💾 Sauvegarder</button>
-        <button type="button" id="cancelBtn">❌ Annuler</button>
+        <button type="submit">
+  <i class="ph ph-floppy-disk"></i>
+  Sauvegarder
+</button>
+        <button type="button" id="cancelBtn">
+  <i class="ph ph-x"></i>
+  Annuler
+</button>
       </form>
 
     </div>

@@ -69,7 +69,7 @@ console.log("DEBUG authData:", authData.user);
 
         if (authError) throw authError;
 
-        window.location.href = 'login.html';
+        window.location.href = 'index.html';
 
       } catch (err) {
         registerError.textContent = err.message;

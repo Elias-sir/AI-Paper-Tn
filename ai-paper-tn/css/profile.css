@@ -48,16 +48,45 @@ body {
 
 #changeAvatarBtn {
   position: absolute;
-  bottom: 0;
-  right: 0;
-  width: 35px;
-  height: 40px;
-  border-radius: 50%;
+  bottom: 4px;
+  right: 4px;
+  width: 36px;
+  height: 36px;
+  border-radius: 100%;
   border: none;
-  background-color: #07070700;
+  background: none;
+  -webkit-backdrop-filter : blur(5px);
+  backdrop-filter: blur(5px);
   color: #fff;
-  font-size: 10px;
+  font-size: 18px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+#changeAvatarBtn:hover {
+  background: #25d366;
+  transform: scale(1.1);
+  box-shadow: 0 0 10px #25d366aa;
+}
+
+
+#changeAvatarBtn {
+  animation: cameraPulse 2.2s infinite ease-in-out;
+}
+
+@keyframes cameraPulse {
+  0% {
+    box-shadow: 0 0 0 0 rgba(37, 211, 102, 0.6);
+  }
+  70% {
+    box-shadow: 0 0 0 10px rgba(37, 211, 102, 0);
+  }
+  100% {
+    box-shadow: 0 0 0 0 rgba(37, 211, 102, 0);
+  }
 }
 
 /* --- View mode --- */
@@ -76,20 +105,29 @@ body {
 button, .profile-btn {
   width: 100%;
   padding: 12px;
-  border-radius: 12px;
-  border: none;
+  border-radius: 14px;
+  border: 1px solid #252525;
   cursor: pointer;
   margin-top: 10px;
-  background-color: #1f1f1f;
+  background: linear-gradient(145deg, #1f1f1f, #181818);
   color: #fff;
   font-size: 15px;
-  transition: background 0.2s;
+  transition: all 0.2s ease;
 }
 
 button:hover, .profile-btn:hover {
-  background-color: #333;
+  background: #25d366;
+  color: #000;
+  transform: translateY(-2px);
+  box-shadow: 0 5px 15px #25d36655;
 }
 
+
+@keyframes pulseGlow {
+  0% { transform: scale(0.9); opacity: 0.7; }
+  50% { transform: scale(1.1); opacity: 0.4; }
+  100% { transform: scale(0.9); opacity: 0.7; }
+}
 /* --- Edit mode --- */
 .hidden {
   display: none;
@@ -129,37 +167,132 @@ button:hover, .profile-btn:hover {
 }
 
 
-/* Badge positionné sur l’avatar */
+/*========= BADGES =========*/
+/* Badge ultra premium vert */
 .pseudo-badge {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  width: 22px;
-  height: 22px;
-  font-size: 14px;
-  margin-left: 6px; /* espace entre pseudo et badge */
+  width: 26px;              /* un peu plus grand */
+  height: 26px;
+  font-size: 16px;
+  margin-left: 8px;         /* espace légèrement plus large */
   border-radius: 50%;
-  box-shadow: 0 0 6px #25d366aa;
+  box-shadow: 0 0 10px #25d366aa, 0 0 20px #25d36655 inset; /* glow + profondeur */
   vertical-align: middle;
   position: relative;
+  
+  cursor: pointer;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 
-/* Pulse / glow */
+/* Halo animé plus premium */
 .pseudo-badge.verified::before {
   content: "";
   position: absolute;
-  inset: -4px;
+  inset: -6px;
   border-radius: 50%;
-  background: radial-gradient(circle, #25d36655, transparent 70%);
-  animation: pulseGlow 1.8s infinite ease-in-out;
+ 
+  animation: pulseGlow 1.6s infinite ease-in-out;
   z-index: 0;
 }
 
-/* Micro hover */
+/* Hover plus vivant */
 .pseudo-badge:hover {
-  transform: scale(1.2);
-  transition: transform 0.2s;
+  transform: scale(1.3) rotate(-5deg);
+  box-shadow: 0 0 15px #25d366cc, 0 0 30px #25d36677 inset;
+}
+
+/* Animation pulse */
+@keyframes pulseGlow {
+  0% { transform: scale(0.9); opacity: 0.5; }
+  50% { transform: scale(1.15); opacity: 1; }
+  100% { transform: scale(0.9); opacity: 0.5; }
 }
 
 
 
+
+/* Donner plus de profondeur à la card*/
+.profile-card {
+  background: linear-gradient(145deg, #141414, #101010);
+  border: 1px solid #1f1f1f;
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+.profile-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 15px 35px rgba(0,0,0,0.6);
+}
+
+
+/* --- Loader skeleton --- */
+.loader {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  padding: 20px;
+}
+
+/* Avatar skeleton */
+.avatar-skeleton {
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  background: #222;
+  position: relative;
+  overflow: hidden;
+}
+
+.avatar-skeleton::after {
+  content: '';
+  position: absolute;
+  top: 0; left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, #444, transparent);
+  animation: shimmer 1.5s infinite;
+}
+
+/* Text skeleton */
+.text-skeleton {
+  height: 16px;
+  width: 80%;
+  background: #222;
+  border-radius: 8px;
+  position: relative;
+  overflow: hidden;
+}
+
+.text-skeleton.short { width: 40%; }
+.text-skeleton.medium { width: 60%; }
+.text-skeleton.long { width: 80%; }
+
+.text-skeleton::after {
+  content: '';
+  position: absolute;
+  top: 0; left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, #444, transparent);
+  animation: shimmer 1.5s infinite;
+}
+
+/* Animation shimmer */
+@keyframes shimmer {
+  0% { left: -100%; }
+  100% { left: 100%; }
+}
+
+.hidden {
+  display: none;
+}
+
+
+/* Cacher email, rôle et date d'inscription dans le profil */
+#viewEmail,
+#viewRole,
+#viewCreated {
+  display: none;
+}

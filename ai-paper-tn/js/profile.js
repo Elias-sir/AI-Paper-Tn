@@ -30,7 +30,7 @@ const logoutBtn = document.getElementById("logoutBtn");
 // --- Upload avatar helper ---
 async function uploadAvatar(file, userId) {
   const fileExt = file.name.split('.').pop();
-  const fileName = `avatar_${userId}.${fileExt}`;
+  const fileName = `avatar_${userId}_${Date.now()}.${fileExt}`;
   const filePath = `${fileName}`;
 
   // upload dans Supabase Storage
@@ -59,14 +59,21 @@ async function uploadAvatar(file, userId) {
 
 // --- Charger profil depuis Supabase ---
 async function loadProfile() {
-  // 1️⃣ user connecté
+  const loader = document.getElementById("profileLoader");
+
+  // cache le vrai avatar pendant le chargement
+  const avatarContainer = document.querySelector(".profile-avatar");
+  avatarContainer.classList.add("hidden"); 
+  loader.style.display = "flex"; // montre le loader
+  viewMode.classList.add("hidden"); // cache le contenu
+
+  // --- fetch user & profile comme avant ---
   const { data: { user }, error } = await supabase.auth.getUser();
   if (!user) {
     window.location.href = "login.html";
     return;
   }
 
-  // 2️⃣ profil user
   const { data: profile, error: profileError } = await supabase
     .from("users")
     .select("pseudo, bio, avatar, created_at")
@@ -78,48 +85,35 @@ async function loadProfile() {
     return;
   }
 
-  // 3️⃣ rôle (optionnel)
- const { data: roles, error: roleError } = await supabase
-  .from("roles")
-  .select("role")
-  .eq("user_id", user.id);
+  // rôle
+  const { data: roles } = await supabase
+    .from("roles")
+    .select("role")
+    .eq("user_id", user.id);
+  const role = roles?.[0]?.role || "user";
 
-if (roleError) {
-  console.error("Erreur récupération rôle :", roleError);
-}
+  // --- remplir les infos ---
+  avatarImg.src = profile.avatar || "assents/icons/default-profile.png";
+  viewPseudo.textContent = profile.pseudo;
+  const badgeSpan = document.createElement("span");
+  badgeSpan.className = "badge badge-vert verified pseudo-badge";
+  badgeSpan.innerHTML = `<i class="fa-solid fa-circle-check"></i>`;
+  viewPseudo.appendChild(badgeSpan);
 
-// Prendre le premier rôle ou "user" si aucun
-const role = roles?.[0]?.role || "user";
+  viewBio.textContent = profile.bio || "";
+  viewEmail.textContent = user.email;
+  viewRole.textContent = "Role: " + role;
+  viewCreated.textContent = "Inscrit le: " + new Date(profile.created_at).toLocaleDateString();
 
-
-  // 4️⃣ affichage
-// 4️⃣ affichage
-avatarImg.src = profile.avatar || "assents/icons/default-profile.png";
-
-// pseudo
-viewPseudo.textContent = profile.pseudo;
-
-// ajouter le badge après le pseudo
-const badgeSpan = document.createElement("span");
-badgeSpan.className = "badge badge-vert verified pseudo-badge";
-badgeSpan.innerHTML = `<i class="fa-solid fa-circle-check"></i>`;
-
-// append après le pseudo
-viewPseudo.appendChild(badgeSpan);
-
-viewBio.textContent = profile.bio || "";
-viewEmail.textContent = user.email;
-viewRole.textContent = "Role: " + role;
-viewCreated.textContent =
-  "Inscrit le: " + new Date(profile.created_at).toLocaleDateString();
-
-
-  // edit
   pseudoInput.value = profile.pseudo;
   bioInput.value = profile.bio || "";
   emailInput.value = user.email;
-}
 
+  // --- afficher tout après chargement ---
+  loader.style.display = "none";       // cache loader
+  viewMode.classList.remove("hidden"); // montre contenu
+  avatarContainer.classList.remove("hidden"); // montre avatar
+}
 
 
 // --- Mode édition ---
@@ -135,12 +129,37 @@ cancelBtn.addEventListener("click", () => {
 
 // --- Change avatar preview ---
 changeAvatarBtn.addEventListener("click", () => avatarInput.click());
-avatarInput.addEventListener("change", () => {
+avatarInput.addEventListener("change", async () => {
   const file = avatarInput.files[0];
   if (!file) return;
+
+  // preview immédiat
   const reader = new FileReader();
   reader.onload = () => avatarImg.src = reader.result;
   reader.readAsDataURL(file);
+
+  // récupérer user
+  const { data: { user } } = await supabase.auth.getUser();
+  if (!user) return;
+
+  // upload direct
+  const uploadedUrl = await uploadAvatar(file, user.id);
+  if (!uploadedUrl) return;
+
+  // update base
+  const { error } = await supabase
+    .from("users")
+    .update({ avatar: uploadedUrl })
+    .eq("id", user.id);
+
+  if (error) {
+    console.error(error);
+    alert("Erreur mise à jour avatar");
+    return;
+  }
+
+  avatarImg.src = uploadedUrl;
+  alert("Avatar mis à jour ✅");
 });
 
 // --- Sauvegarder profil ---
@@ -193,18 +212,13 @@ const { error: updateError } = await supabase
     }
 
    // 6️⃣ mise à jour instantanée de l'écran
-updateViewUI({
-  pseudo: pseudoInput.value,
-  bio: bioInput.value,
-  email: emailInput.value || user.email,
-  avatar: avatarUrl
-});
+// 6️⃣ Recharger les vraies données depuis Supabase
+await loadProfile();
 
 // 7️⃣ nettoyage & retour en mode view
 passwordInput.value = "";
 editMode.classList.add("hidden");
 viewMode.classList.remove("hidden");
-
 
 
 alert("Profil mis à jour avec succès ! 🎉");

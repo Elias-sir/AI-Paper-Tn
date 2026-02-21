@@ -37,7 +37,7 @@ if (authError) throw authError;
     if (error) throw error;
 
     // 3️⃣ Redirection vers login
-    window.location.href = 'login.html';
+    window.location.href = 'index.html';
 
   } catch (err) {
     registerError.textContent = err.message;
