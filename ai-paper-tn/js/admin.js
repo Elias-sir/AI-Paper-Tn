@@ -71,22 +71,26 @@ async function checkAdminAccess() {
 
 
 
-// -------------------- FETCH IA --------------------
+// -------------------- FETCH IA + STAT CLICK --------------------
 async function fetchAIs() {
   const ul = document.getElementById('ais');
   if (!ul) return console.error('Ul not found');
 
   const { data, error } = await supabase
     .from('ai_tools')
-    .select('*')
-    .order('created_at', { ascending: false });
+    .select('*');
 
   if (error) return console.error('Erreur fetch IA:', error);
 
+  // Trier par clicks_count décroissant
+  const sortedData = data.sort((a, b) => (b.clicks_count || 0) - (a.clicks_count || 0));
+
   ul.innerHTML = '';
-  data.forEach(ai => {
+  sortedData.forEach(ai => {
     const li = document.createElement('li');
-    li.textContent = `${ai.name} [${ai.category}] - ${ai.status}`;
+
+    // Affichage avec clicks_count
+    li.textContent = `${ai.name} [${ai.category}] - ${ai.status} - Clicks: ${ai.clicks_count || 0}`;
 
     const editBtn = document.createElement('button');
     editBtn.textContent = 'Modifier';

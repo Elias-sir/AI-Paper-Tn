@@ -2,6 +2,23 @@ import { supabase } from "./supabase.js";
 
 export async function createAICard(ai) {
 
+  function getVisitorId() {
+  let visitorId = localStorage.getItem("visitor_id");
+  if (!visitorId) {
+    visitorId = crypto.randomUUID();
+    localStorage.setItem("visitor_id", visitorId);
+  }
+  return visitorId;
+}
+
+// card.js - en haut du fichier
+function formatUsers(count) {
+  if (!count) return "0";
+  if (count >= 1_000_000) return Math.round(count / 1_000_000) + "M";
+  if (count >= 1_000) return Math.round(count / 1_000) + "k";
+  return count.toString();
+}
+
   /* ─────────────────────────────
      🔐 USER CONNECTÉ
   ───────────────────────────── */
@@ -31,6 +48,7 @@ export async function createAICard(ai) {
   const name      = ai.name || "IA inconnue";
   const vibe      = ai.vibe || "Pas de description";
   const category  = ai.category || "green";
+  const usersCount = ai.usersCount;
   
    const media = ai.media || ""; // media au centre
 
@@ -55,6 +73,12 @@ if (ai.signals) {
       </div>
     </div>
 
+    <div class="ai-users-wrapper" title="Utilisateurs dans le monde" >
+  <i class="ph ph-users"></i>
+  <span class="ai-users-count">${formatUsers(usersCount)}</span>
+</div>
+
+
      <div class="ai-center">
       ${
         media
@@ -67,7 +91,8 @@ if (ai.signals) {
   ${signals.map(b => `<div class="ai-badge">${b}</div>`).join("")}
 </div>
 
-
+<!-- Footer -->
+  <div class="ai-footer">
       <div class="ai-btn like-btn">
         <svg xmlns="http://www.w3.org/2000/svg" fill="none"
           viewBox="0 0 24 24" stroke="currentColor"
@@ -77,9 +102,19 @@ if (ai.signals) {
             </svg>
         <span class="like-count">${likes}</span>
       </div>
+
+        <!-- COMPTEUR CLICS -->
+    <div class="clicks-display" title="Visiteurs">
+      <i class="ph ph-user-circle"></i>
+      <span class="clicks-count">${ai.clicks_count || 0}</span>
+    </div>
+
+
     </div>
   `;
+  
 
+  
   // JS : micro effet emoji
 //const punchlineEl = card.querySelector(".ai-punchline");
 //punchlineEl.innerHTML += `<span class="punchlight">⚡</span>`;
@@ -154,12 +189,54 @@ if (ai.signals) {
   /* ─────────────────────────────
      🔗 NAVIGATION
   ───────────────────────────── */
-  card.addEventListener("click", (e) => {
-    if (e.target.closest(".like-btn")) return;
+ /* ─────────────────────────────
+   🔢 TRACK CLICK AI CARD (ILLIMITÉ)
+───────────────────────────── */
+/* ─────────────────────────────
+   🔢 TRACK CLICK AI CARD (ILLIMITÉ)
+───────────────────────────── */
+card.addEventListener("click", async (e) => {
+  // Ignorer le clic sur le bouton like
+  if (e.target.closest(".like-btn")) return;
+
+  console.log("CLICK détecté sur la card");
+  console.log("ai.id:", ai.id);
+
+  try {
+    const { data: { user } } = await supabase.auth.getUser();
+
+    if (user) {
+      // Utilisateur connecté → click illimité
+      const result = await supabase.rpc('increment_ai_clicks', { 
+        ai_id: ai.id, 
+        user_id: user.id  // juste pour info, on peut utiliser si historique
+      });
+      console.log("RPC result (user):", result);
+
+    } else {
+      // Visiteur non-connecté → click illimité
+      const visitorId = getVisitorId();
+      const result = await supabase.rpc('increment_ai_clicks_public', { 
+        ai_id: ai.id, 
+        visitor_id: visitorId 
+      });
+      console.log("RPC result (visitor):", result);
+    }
+
+    // 🔹 Mise à jour locale du compteur pour UI immédiate
+    ai.clicks_count = (ai.clicks_count || 0) + 1;
+
+    // (Optionnel) Affichage compteur quelque part si tu veux
+    const clicksEl = card.querySelector(".clicks-count");
+    if (clicksEl) clicksEl.textContent = ai.clicks_count;
+
+    // 🔹 Navigation vers détail
     window.location.href = `ai-detail.html?id=${ai.id}`;
-  });
 
-
+  } catch (err) {
+    console.error("Erreur incrément click AI :", err.message, err);
+  }
+});
 
   return card;
 }

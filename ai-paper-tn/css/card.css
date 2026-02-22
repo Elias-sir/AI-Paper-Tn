@@ -626,3 +626,36 @@
   transform: scale(1.05);
   
 }
+
+
+
+.ai-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 12px;
+  padding: 0 8px;
+}
+
+.clicks-display {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: rgba(255,255,255,0.75);
+  -webkit-user-select: none;
+  user-select: none;
+
+}
+
+.clicks-display i.ph {
+  font-size: 1.2rem;
+  color: #6cf2c2; /* couleur flashy */
+}
+
+/* afficher au hover */
+.clicks-display:hover::after {
+  opacity: 1;
+  transform: translateX(-50%) translateY(-4px);
+}

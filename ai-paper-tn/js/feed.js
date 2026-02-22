@@ -3,6 +3,15 @@ import { createAICard } from "./card.js";
 
 const feedCards = document.getElementById("feed-cards");
 
+function getVisitorId() {
+  let visitorId = localStorage.getItem("visitor_id");
+  if (!visitorId) {
+    visitorId = crypto.randomUUID();
+    localStorage.setItem("visitor_id", visitorId);
+  }
+  return visitorId;
+}
+
 // 🔹 Shuffle tableau Fisher-Yates
 function shuffleArray(array) {
   const arr = [...array];
@@ -30,7 +39,9 @@ console.log("Current user:", user);
       signals,
       use_cases,
       likes_count,
+      clicks_count,
       ai_likes(user_id),
+      users,
       created_at
     `)
     .order("created_at", { ascending: false });
@@ -91,7 +102,9 @@ console.log("Current user:", user);
       likes,
       userHasLiked,
       use_cases: ai.use_cases || [],
-      created_at: ai.created_at
+      created_at: ai.created_at,
+      clicks_count: ai.clicks_count || 0,  
+      usersCount: ai.users || "0"
     };
 
     const aiCard = await createAICard(aiCardData);
@@ -153,49 +166,65 @@ console.log("Current user:", user);
         </div>
       `;
 
-      // Click ouvre lien
-    if (sponsor.link) {
+      //========== Click ouvre lien   ========  //
+if (sponsor.link) {
   sponsorCard.addEventListener("click", async () => {
+
+    // 🔹 ouvrir immédiatement
+    window.open(sponsor.link, "_blank");
+
     try {
-      if (user) {
-        await supabase.rpc("increment_sponsor_click", { sponsor_id: sponsor.id });
+
+     if (user) {
+  await supabase.rpc("increment_sponsor_click", {
+    sponsor_id: sponsor.id,
+    user_id: user.id
+  });
+
       } else {
-        await supabase.rpc("increment_sponsor_click_public", { sponsor_id: sponsor.id });
+        const visitorId = getVisitorId();
+
+        await supabase.rpc("increment_sponsor_click_public", {
+          sponsor_id: sponsor.id,
+          visitor_id: visitorId
+        });
       }
+
     } catch (err) {
       console.error("Erreur incrément clic sponsor :", err);
     }
 
-    // ouvrir le lien après l'update
-    setTimeout(() => {
-      window.open(sponsor.link, "_blank");
-    }, 50); // petit délai pour être sûr que l'update passe
   });
 }
 
 
-      // Tracking vues sponsor
+      // ======== Tracking vues sponsor ========  ////
   // 🔹 Tracking vues sponsor
-const observer = new IntersectionObserver(async (entries) => {
-  entries.forEach(async (entry) => {
-    if (entry.isIntersecting) {
+const observer = new IntersectionObserver((entries, observer) => {
+  entries.forEach(entry => {
+    if (!entry.isIntersecting) return;
+
+    const sponsorCard = entry.target;
+
+    (async () => {
       try {
         if (user) {
-          // user connecté
-          await supabase.rpc("increment_sponsor_view", { sponsor_id: sponsor.id });
+          await supabase.rpc("increment_sponsor_view", { sponsor_id: sponsorCard.dataset.id });
         } else {
-          // visiteur non connecté
-          await supabase.rpc("increment_sponsor_public", { sponsor_id: sponsor.id });
+          await supabase.rpc("increment_sponsor_public", { sponsor_id: sponsorCard.dataset.id });
         }
       } catch (err) {
         console.error("Erreur incrément vue sponsor :", err);
       }
-      observer.unobserve(sponsorCard);
-    }
+    })();
+
+    observer.unobserve(sponsorCard); // on arrête après la première vue
   });
 }, { threshold: 0.6 });
 
-      observer.observe(sponsorCard);
+// Assurez-vous que chaque carte a son id
+sponsorCard.dataset.id = sponsor.id;
+observer.observe(sponsorCard);
 
       feedCards.appendChild(sponsorCard);
 
