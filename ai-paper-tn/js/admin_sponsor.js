@@ -4,17 +4,64 @@ import { supabase } from "./supabase.js";
    🎛️ Fetch toutes les cartes sponsor
 ───────────────────────────── */
 export async function fetchSponsorCards() {
+  const now = new Date();
+
   const { data, error } = await supabase
     .from("sponsor_cards")
     .select("*")
-    .order("priority", { ascending: false }) // priorité en premier
+    .order("priority", { ascending: false })
     .order("created_at", { ascending: false });
+
   if (error) {
     console.error("Erreur fetch sponsor cards:", error);
     return [];
   }
-  return data;
+
+  const validCards = [];
+
+  for (const card of data) {
+    const start = card.start_date ? new Date(card.start_date) : null;
+    const end = card.end_date ? new Date(card.end_date) : null;
+
+    // 🔴 Supprimer si expiré
+    if (end && end < now) {
+      await deleteSponsorCard(card.id);
+      continue;
+    }
+
+    validCards.push(card);
+  }
+
+  return validCards;
 }
+
+export async function fetchActiveSponsorCards() {
+  const now = new Date();
+
+  const { data, error } = await supabase
+    .from("sponsor_cards")
+    .select("*")
+    .eq("active", true)
+    .order("priority", { ascending: false })
+    .order("created_at", { ascending: false });
+
+  if (error) {
+    console.error("Erreur fetch active sponsor cards:", error);
+    return [];
+  }
+
+  return data.filter(card => {
+    const start = card.start_date ? new Date(card.start_date) : null;
+    const end = card.end_date ? new Date(card.end_date) : null;
+
+    if (start && start > now) return false;
+    if (end && end < now) return false;
+
+    return true;
+  });
+}
+
+
 
 /* ─────────────────────────────
    ➕ Créer / ✏️ Mettre à jour / ❌ Supprimer
@@ -103,10 +150,36 @@ export function renderSponsorListRow(card) {
     .filter(Boolean)
     .join(", ");
 
+
+const now = new Date();
+const start = card.start_date ? new Date(card.start_date) : null;
+const end = card.end_date ? new Date(card.end_date) : null;
+
+function formatDate(date) {
+  return date.toLocaleString("fr-FR", {
+    day: "2-digit",
+    month: "2-digit",
+    year: "numeric",
+    hour: "2-digit",
+    minute: "2-digit"
+  });
+}
+
+let status = "🟢 En cours";
+
+if (start && start > now) {
+  status = `🟡 Programmé du ${formatDate(start)}${end ? " au " + formatDate(end) : ""}`;
+} else if (end && end > now) {
+  status = `🟢 En cours jusqu'au ${formatDate(end)}`;
+} else if (end && end < now) {
+  status = "🔴 Expiré";
+}
+
+
   el.innerHTML = `
     <span><strong>${card.title}</strong>
     ${card.priority ? `(Priorité: ${card.priority})` : ""}
-    ${card.active ? "✅ Actif" : "❌ Inactif"}
+    ${status}
     ${badges ? ` | Badges: ${badges}` : ""}</span>
 
     <span class="sponsor-row-actions">
@@ -156,15 +229,17 @@ export function setupSponsorForm(form, listContainer, previewContainer) {
     e.preventDefault();
     const formData = new FormData(form);
     const data = {
-      title: formData.get("title"),
-      logo_url: formData.get("logo_url"),
-      media_url: formData.get("media_url"),
-      link: formData.get("link"),
-      signals: formData.get("signals")?.split(",").map(s => s.trim()) || [],
-      priority: parseInt(formData.get("priority")) || 0,
-        active: formData.get("active") === "on",  // checkbox
-        description: formData.get("description") || "" 
-    };
+  title: formData.get("title"),
+  logo_url: formData.get("logo_url"),
+  media_url: formData.get("media_url"),
+  link: formData.get("link"),
+  signals: formData.get("signals")?.split(",").map(s => s.trim()) || [],
+  priority: parseInt(formData.get("priority")) || 0,
+  active: formData.get("active") === "on",
+  description: formData.get("description") || "",
+  start_date: formData.get("start_date") || null,
+  end_date: formData.get("end_date") || null
+};
 
    if (form.dataset.editId) {
   if (!form.dataset.editId) {

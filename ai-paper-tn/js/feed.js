@@ -54,14 +54,27 @@ console.log("Current user:", user);
   aisData.sort((a, b) => b.ai_likes.length - a.ai_likes.length);
 
   // 2️⃣ Fetch cartes sponsor actives
-  const { data: sponsorData, error: sponsorError } = await supabase
-    .from("sponsor_cards")
-    .select("*")
-    .eq("active", true)
-    .order("priority", { ascending: false })
-    .order("created_at", { ascending: false });
+const now = new Date();
 
-  if (sponsorError) console.error("Erreur fetch sponsor cards:", sponsorError);
+const { data: sponsorRaw, error: sponsorError } = await supabase
+  .from("sponsor_cards")
+  .select("*")
+  .eq("active", true)
+  .order("priority", { ascending: false })
+  .order("created_at", { ascending: false });
+
+if (sponsorError) console.error("Erreur fetch sponsor cards:", sponsorError);
+
+// 🔹 Filtrage temporel
+const sponsorData = (sponsorRaw || []).filter(s => {
+  const start = s.start_date ? new Date(s.start_date) : null;
+  const end = s.end_date ? new Date(s.end_date) : null;
+
+  if (start && start > now) return false;
+  if (end && end < now) return false;
+
+  return true;
+});
 
   // Trie et shuffle sponsors par priorité
   let sponsorsByPriority = {};

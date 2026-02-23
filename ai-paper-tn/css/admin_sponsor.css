@@ -565,3 +565,73 @@
 
   max-width: 260px; /* évite de pousser le logo */
 }
+
+
+
+/* ──────────────────────────────────
+   LISTE ADMIN – HYPER VISUELLE
+────────────────────────────────── */
+
+#sponsor-cards-list .sponsor-list-row {
+  background: rgba(30, 30, 45, 0.85);
+  -webkit-backdrop-filter: blur(6px);
+  backdrop-filter: blur(6px);
+  border-radius: 20px;
+  padding: 16px 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  cursor: pointer;
+}
+
+#sponsor-cards-list .sponsor-list-row:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 20px 36px rgba(255, 215, 0, 0.25);
+}
+
+#sponsor-cards-list .sponsor-list-row span:first-child {
+  font-weight: 600;
+  color: #fff;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+#sponsor-cards-list .sponsor-list-row span:first-child strong {
+  background: linear-gradient(90deg, #6cf2c2, #4cc9f0, #9b5de5, #f15bb5);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  font-size: 1.1rem;
+  text-transform: uppercase;
+}
+
+#sponsor-cards-list .sponsor-list-row .sponsor-row-actions button {
+  background: linear-gradient(90deg, #ffd700, #ff8c00);
+  border: none;
+  border-radius: 12px;
+  color: #000;
+  font-weight: 700;
+  padding: 6px 12px;
+  margin-left: 6px;
+  transition: transform 0.2s ease, opacity 0.2s ease;
+}
+
+#sponsor-cards-list .sponsor-row-actions button:hover {
+  transform: scale(1.05);
+  opacity: 0.9;
+}
+
+/* Statut admin coloré */
+#sponsor-cards-list .sponsor-list-row span:first-child .status {
+  font-weight: 700;
+  padding: 2px 8px;
+  border-radius: 999px;
+  text-transform: uppercase;
+}
+
+#sponsor-cards-list .sponsor-list-row span:first-child .status.ongoing { background: #28a745; color: #fff; } /* 🟢 */
+#sponsor-cards-list .sponsor-list-row span:first-child .status.scheduled { background: #ffc107; color: #000; } /* 🟡 */
+#sponsor-cards-list .sponsor-list-row span:first-child .status.expired { background: #dc3545; color: #fff; } /* 🔴 */
