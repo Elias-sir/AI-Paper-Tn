@@ -134,11 +134,7 @@ if (mobileSearchOpen && mobileMenu) {
 </div>
 
 
-    ${signals.length > 0 ? `
-      <div class="ai-badges">
-        ${signals.map(b => `<div class="ai-badge">${b}</div>`).join("")}
-      </div>
-    ` : ""}
+  
 
    <div class="ai-stats">
 
@@ -146,6 +142,13 @@ if (mobileSearchOpen && mobileMenu) {
     <i class="ph ph-users"></i>
     <span>${formatUsers(ai.users || 0)}</span>
   </div>
+
+
+   <div class="ai-views">
+    <i class="ph ph-eye"></i>
+    <span>${formatUsers(ai.clicks_count || 0)}</span>
+  </div>
+
 
   <div class="ai-btn like-btn">
     <svg xmlns="http://www.w3.org/2000/svg" fill="none"

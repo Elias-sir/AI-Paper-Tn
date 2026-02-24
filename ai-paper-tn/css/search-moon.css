@@ -1,5 +1,5 @@
 /* ============================ */
-/* 🌙 Search Moon Overlay */
+/* 🌙 Search Moon Overlay Compact */
 /* ============================ */
 .search-moon {
   position: fixed;
@@ -7,8 +7,8 @@
   display: none;
   flex-direction: column;
   background: rgba(10, 10, 10, 0.95);
-  -webkit-backdrop-filter : blur(8px);
-  backdrop-filter : blur(8px);
+  -webkit-backdrop-filter : blur(6px);
+  backdrop-filter: blur(6px);
   z-index: 2000;
 }
 
@@ -16,29 +16,27 @@
   display: flex;
 }
 
-/* ============================ */
 /* Header & Input */
-/* ============================ */
 .search-moon-header {
   display: flex;
   align-items: center;
-  padding: 16px;
-  gap: 12px;
+  padding: 10px 12px;
+  gap: 8px;
 }
 
 #search-moon-input {
   flex: 1;
-  padding: 12px 16px;
-  font-size: 16px;
-  border-radius: 12px;
+  padding: 8px 12px;
+  font-size: 14px;
+  border-radius: 8px;
   border: none;
   outline: none;
-  background: rgba(40, 40, 50, 0.85);
+  background: rgba(40,40,50,0.85);
   color: #fff;
 }
 
 .search-moon-close {
-  font-size: 20px;
+  font-size: 18px;
   background: none;
   border: none;
   cursor: pointer;
@@ -46,57 +44,47 @@
 }
 
 /* ============================ */
-/* Results Grid */
+/* Results Grid Compact */
 /* ============================ */
 .search-moon-results {
   flex: 1;
   overflow-y: auto;
-  padding: 10px 16px;
+  padding: 10px;
   display: grid;
-  gap: 12px;
-  grid-template-columns: 1fr; /* Mobile full width */
-}
-
-@media(min-width: 769px) {
-  .search-moon-results {
-    grid-template-columns: repeat(2, 1fr); /* 2 colonnes sur desktop */
-    gap: 16px;
-  }
+  gap: 8px;
+  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
 }
 
 /* ============================ */
-/* Mini Cards */
+/* Mini Cards Compact */
 /* ============================ */
 .search-moon-card.mini {
-  
-  background: #222;
-  padding: 5px;
-  border-radius: 14px;
-  color: #fff;
-  cursor: pointer;
+  background: #1a1a1f;
+  padding: 8px;
+  border-radius: 40px;
   display: flex;
   flex-direction: column;
-  gap: 6px;
-  transition: transform 0.2s, box-shadow 0.2s, background 0.2s;
+  gap: 4px;
+  transition: 0.2s ease;
 }
 
+/* Hover léger */
 .search-moon-card.mini:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.35);
-  background: #2a2a35;
+  background: #242430;
+  transform: scale(1.02);
 }
 
-/* Top Row - Logo + Name */
+/* Top Row: logo + info */
 .search-moon-card.mini .ai-top {
   display: flex;
-  gap: 12px;
   align-items: center;
+  gap: 6px;
 }
 
 .search-moon-card.mini .ai-logo img {
-  width: 60px;
-  height: 60px;
-  border-radius: 50%;
+  width: 36px;
+  height: 36px;
+  border-radius: 6px;
   object-fit: cover;
 }
 
@@ -104,64 +92,87 @@
   flex: 1;
   display: flex;
   flex-direction: column;
+  justify-content: center;
+  gap: 2px;
 }
 
 .search-moon-card.mini .ai-header {
-  font-size: 1.2rem;
-  font-weight: 700; /*titre */
-  text-transform: uppercase;
-  background: linear-gradient(90deg, #6cf2c2,#4cc9f0,#9b5de5,#f15bb5);
-  -webkit-background-clip: text;
-  background-clip: text;
-  -webkit-text-fill-color: transparent;
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: #fff;
+  line-height: 1.1;
 }
 
 .search-moon-card.mini .ai-vibe {
-  font-size: 0.85rem;
-  opacity: 0.7;
-}
-
-/* Punchline */
-.search-moon-card.mini .ai-center {
-  text-align: center;
-  font-size: 1rem;
-  font-weight: 600;
-  color: #fff;
-}
-
-/* Badges */
-.search-moon-card.mini .ai-badges {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 6px;
-  justify-content: center;
-}
-
-.search-moon-card.mini .ai-badge {
   font-size: 0.7rem;
-  font-weight: 600;
-  padding: 4px 8px;
-  border-radius: 999px;
-  background: rgba(255, 255, 255, 0.08);
-  text-align: center;
+  opacity: 0.6;
 }
 
-/* Stats - utilisateurs / likes */
-.search-moon-card.mini .ai-stats {
-  text-align: center;
+/* Image ou punchline centrée */
+.search-moon-card.mini .ai-center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
   font-size: 0.8rem;
-  color: #aaa;
+  font-weight: 500;
+  color: #fff;
   margin-top: 4px;
+  border-radius: 8px;
+  overflow: hidden;
+  max-height: 120px;
 }
 
-/* Scrollbar */
+.search-moon-card.mini .ai-placeholder {
+  height: 100px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #888;
+  background: rgba(255,255,255,0.05);
+  border-radius: 8px;
+  font-size: 0.75rem;
+}
+
+/* Stats mini et alignées */
+.search-moon-card.mini .ai-stats {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 0.65rem;
+  color: #888;
+  margin-top: 2px;
+  gap: 4px;
+}
+
+.search-moon-card.mini .ai-users,
+.search-moon-card.mini .ai-views {
+  display: flex;
+  align-items: center;
+  gap: 3px;
+}
+
+.search-moon-card.mini .ai-users i,
+.search-moon-card.mini .ai-views i {
+  font-size: 0.65rem;
+  opacity: 0.6;
+}
+
+
+/* Couleurs icônes stats */
+.ai-users i { color: #6cf2c2; }
+.ai-views i { color: #4fc3f7; }
+.ai-btn i, .like-count { 
+  color: #f15bb5;
+  font-weight: 600;
+}
+/* Scrollbar discrète */
 .search-moon-results::-webkit-scrollbar {
-  width: 8px;
+  width: 5px;
 }
 
 .search-moon-results::-webkit-scrollbar-thumb {
-  background: rgba(255, 255, 255, 0.15);
-  border-radius: 4px;
+  background: rgba(255,255,255,0.15);
+  border-radius: 3px;
 }
 
 .search-moon-results::-webkit-scrollbar-track {
@@ -169,78 +180,3 @@
 }
 
 
-/* ===== CENTER IMAGE ===== */
-
-.ai-center.mini {
-  margin-top: 10px;
-  border-radius: 14px;
-  overflow: hidden;
-  max-height: 250px; /* avant 140px, maintenant plus visible */
-}
-
-
-.ai-center.mini {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-.search-moon-card.mini .ai-placeholder {
-  height: 140px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: #888;
-  background: rgba(255,255,255,0.05);
-  border-radius: 12px;
-  font-size: 0.9rem;
-}
-
-
-
-/*LOUPE */
-.search-moon-hint {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 12px;
-  font-size: 1.2rem;
-  color: #ccc;
-  text-align: center;
-}
-
-/* Icônes vivantes */
-.search-moon-hint .left-icon,
-.search-moon-hint .right-icon {
-  font-size: 2rem;
-  color: var(--loupe-color, #4fc3f7); /* couleur modifiable via variable CSS */
-  display: inline-block;
-  animation: wiggle 2s infinite ease-in-out alternate;
-}
-
-/* Décalage opposé pour la droite */
-.search-moon-hint .right-icon {
-  animation-delay: 0.2s; /* léger décalage pour effet dynamique */
-}
-
-/* Animation “va-et-vient” */
-@keyframes wiggle {
-  0% { transform: rotate(-10deg) scale(1); }
-  50% { transform: rotate(10deg) scale(1.2); }
-  100% { transform: rotate(-10deg) scale(1); }
-}
-
-
-/*DESCRIPTION */
-
-/* Description dans les mini-cards */
-.search-moon-card.mini .ai-description {
-  font-size: 0.75rem;      /* petit pour mini-cards */
-  color: #aaa;             /* gris clair */
-  text-align: center;      
-  margin: 4px 0;           /* petit espace vertical */
-  line-height: 1.2;        
-  max-height: 3em;         /* limite hauteur si trop long */
-  overflow: hidden;        
-  text-overflow: ellipsis; /* coupe le texte trop long */
-}

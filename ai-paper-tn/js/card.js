@@ -105,7 +105,7 @@ if (ai.signals) {
 
         <!-- COMPTEUR CLICS -->
     <div class="clicks-display" title="Visiteurs">
-      <i class="ph ph-user-circle"></i>
+      <i class="ph ph-eye"></i>
       <span class="clicks-count">${ai.clicks_count || 0}</span>
     </div>
 

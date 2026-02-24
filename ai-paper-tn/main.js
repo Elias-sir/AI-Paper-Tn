@@ -69,9 +69,28 @@ async function updateNav() {
     window.location.href = 'index.html';
   });
 
-  const notifBtn = document.getElementById('notif-btn');
-  if (notifBtn) notifBtn.addEventListener('click', () => window.location.href = 'messagerie.html');
 }
 
 // --- Init ---
 updateNav();
+
+document.addEventListener("click", (e) => {
+
+  // 🔎 Ouvrir Search Moon
+  if (e.target.closest("#search-open")) {
+    const searchMoon = document.getElementById("search-moon");
+    const searchInput = document.getElementById("search-moon-input");
+
+    if (searchMoon) {
+      searchMoon.classList.add("active");
+      searchMoon.setAttribute("aria-hidden", "false");
+      setTimeout(() => searchInput?.focus(), 100);
+    }
+  }
+
+  // 💬 Aller vers la messagerie
+  if (e.target.closest("#notif-btn")) {
+    window.location.href = "messagerie.html";
+  }
+
+});
