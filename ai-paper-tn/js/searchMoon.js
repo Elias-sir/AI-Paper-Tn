@@ -8,6 +8,17 @@ function formatUsers(count) {
   return count.toString();
 }
 
+// Fonction visitorId
+function getVisitorId() {
+  let visitorId = localStorage.getItem("visitor_id");
+  if (!visitorId) {
+    visitorId = crypto.randomUUID();
+    localStorage.setItem("visitor_id", visitorId);
+  }
+  return visitorId;
+}
+
+
 // -------------------- Search Moon --------------------
 document.addEventListener('DOMContentLoaded', () => {
   const searchMoon = document.getElementById("search-moon");
@@ -81,25 +92,34 @@ if (mobileSearchOpen && mobileMenu) {
 
   // --- filtrage + tri ---
   searchInput.addEventListener("input", () => {
-    const query = searchInput.value.toLowerCase().trim();
+  const query = searchInput.value.toLowerCase().trim();
 
-    // filtre texte + use_cases
-    let filtered = allAIs.filter(ai => {
-      const nameMatch = ai.name.toLowerCase().includes(query);
-      const categoryMatch = (ai.category || '').toLowerCase().includes(query);
-      const useCasesMatch = (ai.use_cases || []).some(u => u.toLowerCase().includes(query));
-      return nameMatch || categoryMatch || useCasesMatch;
-    });
+  // Filtrage intelligent multi-colonnes
+  let filtered = allAIs.filter(ai => {
+    const columns = [
+      ai.name,
+      ai.description,
+      ai.category,
+      ai.signals ? (Array.isArray(ai.signals) ? ai.signals.join(" ") : ai.signals) : "",
+      ai.use_cases ? ai.use_cases.join(" ") : "",
+      ai.story,
+      ai.utility,
+      ai.target,
+      ai.payment,
+      ai.advantages,
+      ai.disadvantages
+    ];
 
-    // tri par popularité (likes) puis utilisateurs puis recent
-    filtered.sort((a, b) => {
-      // plus de likes d'abord
-      if ((b.likes || 0) !== (a.likes || 0)) return (b.likes || 0) - (a.likes || 0);
-      // plus d'utilisateurs d'abord
-      if ((b.users || 0) !== (a.users || 0)) return (b.users || 0) - (a.users || 0);
-      // plus récent
-      return new Date(b.created_at) - new Date(a.created_at);
-    });
+    // Normaliser et checker si query apparaît dans au moins une colonne
+    return columns.some(col => col && col.toLowerCase().includes(query));
+  });
+
+  // Tri : popularité > utilisateurs > récent
+  filtered.sort((a, b) => {
+    if ((b.likes || 0) !== (a.likes || 0)) return (b.likes || 0) - (a.likes || 0);
+    if ((b.users || 0) !== (a.users || 0)) return (b.users || 0) - (a.users || 0);
+    return new Date(b.created_at) - new Date(a.created_at);
+  });
 
     // affichage
    resultsContainer.innerHTML = filtered.length > 0
@@ -115,7 +135,6 @@ if (mobileSearchOpen && mobileMenu) {
 
       return `
   <div class="search-moon-card mini ai-card-content" data-id="${ai.id}">
-    
     <div class="ai-top">
       <div class="ai-info">
         <div class="ai-header tag-${category}">${name}</div>
@@ -168,24 +187,49 @@ if (mobileSearchOpen && mobileMenu) {
 
 
     }).join('')
-  : `<p style="color:#888;text-align:center;margin-top:10px;">
-       Aucun résultat.
-       <a href="propose-ai.html" style="color:#4fc3f7; text-decoration:underline;">
-         Proposez votre AI à l’administrateur
-       </a>
-     </p>`;
+  : `<p class="search-moon-no-results">
+  Pas de résultat ?
+  <a href="propose-ai.html">Ton inspiration compte ! Clique ici pour suggérer l’IA que tu recherches</a>
+</p>`;
 
 
     // clic carte → détail
-    document.querySelectorAll('.search-moon-card').forEach(card => {
-  card.addEventListener('click', () => {
-    const id = card.dataset.id;
-    if (id) {
-      // redirection vers la page détail avec query param
-      window.location.href = `ai-detail.html?id=${id}`;
+ // après avoir rendu les cards
+document.querySelectorAll('.search-moon-card').forEach(card => {
+
+  
+  card.addEventListener('click', async (e) => {
+    // ignorer le clic sur like
+    if (e.target.closest(".like-btn")) return;
+
+    const aiId = card.dataset.id;
+    if (!aiId) return;
+
+    const visitorId = getVisitorId(); // comme dans createAICard
+    const clicksEl = card.querySelector(".ai-views span");
+
+    try {
+      const { data: { user } } = await supabase.auth.getUser();
+
+      if (user) {
+        await supabase.rpc('increment_ai_clicks', { ai_id: aiId, user_id: user.id });
+      } else {
+        await supabase.rpc('increment_ai_clicks_public', { ai_id: aiId, visitor_id: visitorId });
+      }
+
+      // update UI immédiat
+      let current = parseInt(clicksEl.textContent.replace(/\D/g, "")) || 0;
+      clicksEl.textContent = formatUsers(current + 1);
+
+      // redirection vers détail
+      window.location.href = `ai-detail.html?id=${aiId}`;
+    } catch (err) {
+      console.error("Erreur click AI:", err.message);
     }
   });
 });
+
+
 
   });
 });

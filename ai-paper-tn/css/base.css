@@ -362,6 +362,33 @@ html, body {
 }
 
 
+
+/* Bouton profil minimaliste */
+#profile-btn.nav-profile {
+  background: none;        /* pas de couleur de fond */
+  box-shadow: none;        /* pas d’ombre */
+  border: none;            /* pas de bordure */
+  padding: 0;              /* pas de padding */
+  display: inline-flex;    
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+
+#profile-btn.nav-profile span {
+  display: none;           /* on cache le texte pour garder juste l'avatar */
+}
+
+#profile-btn.nav-profile img.nav-avatar {
+  width: 36px;             /* taille de l'avatar */
+  height: 36px;
+  border-radius: 50%;      /* rond parfait */
+  object-fit: cover;
+  border: 2px solid #6cf2c2; /* optionnel : un contour fin */
+  box-shadow: none;        /* supprime toutes ombres */
+  animation: none;         /* supprime animation si tu avais avatarCorePulse ou Magic */
+}
+
 /* ============================================================ */
 /* ===================== RESPONSIVE NAV ======================= */
 /* ============================================================ */
@@ -414,9 +441,9 @@ html, body {
 }
 
 /* ===================== ICONE RECHERCHE ===================== */
-.search-btn i {
+/*.search-btn i {
   animation: searchBounce 2s infinite;
-}
+}*/
 
 .search-btn:hover i {
   transform: translateY(-3px) scale(1.1);
@@ -432,7 +459,7 @@ html, body {
 /* ===================== ICONE CHAT ===================== */
 .notif-btn i {
   font-size: 22px;
-  animation: chatPulse 1.8s infinite ease-in-out;
+  /*animation: chatPulse 1.8s infinite ease-in-out;*/
 }
 
 .notif-btn:hover i {
@@ -475,12 +502,22 @@ html, body {
   background: linear-gradient(135deg, #f15bb5, #9b5de5);
 }
 
-.about-btn i {
+/*.about-btn i {
   animation: infoFloat 2.5s infinite ease-in-out;
-}
+}*/
 
 @keyframes infoFloat {
   0% { transform: translateY(0); }
   50% { transform: translateY(-3px); }
   100% { transform: translateY(0); }
+}
+
+
+
+/* Cacher Chat et About sur desktop uniquement */
+@media (min-width: 769px) {
+  .notif-btn,
+  .about-btn {
+    display: none !important;
+  }
 }

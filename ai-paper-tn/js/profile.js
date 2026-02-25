@@ -26,7 +26,7 @@ const cancelBtn = document.getElementById("cancelBtn");
 const proposeAiBtn = document.getElementById("proposeAiBtn");
 const settingsBtn = document.getElementById("settingsBtn");
 const logoutBtn = document.getElementById("logoutBtn");
-
+const notifBtn = document.getElementById("notif-btn");
 // --- Upload avatar helper ---
 async function uploadAvatar(file, userId) {
   const fileExt = file.name.split('.').pop();
@@ -128,7 +128,10 @@ cancelBtn.addEventListener("click", () => {
 });
 
 // --- Change avatar preview ---
-changeAvatarBtn.addEventListener("click", () => avatarInput.click());
+changeAvatarBtn.addEventListener("click", () => {
+  avatarInput.value = ""; // 🔥 reset important
+  avatarInput.click();
+});
 avatarInput.addEventListener("change", async () => {
   const file = avatarInput.files[0];
   if (!file) return;
@@ -241,7 +244,11 @@ logoutBtn.addEventListener("click", async () => {
   window.location.href = "index.html";
 });
 
-
+if (notifBtn) {
+  notifBtn.addEventListener("click", () => {
+    window.location.href = "messagerie.html";
+  });
+}
 
 // --- Mettre à jour l'affichage instantanément ---
 function updateViewUI({ pseudo, bio, email, avatar }) {
