@@ -87,9 +87,9 @@ if (ai.signals) {
       }
     </div>
 
-      <div class="ai-badges">
+     <!--  <div class="ai-badges">
   ${signals.map(b => `<div class="ai-badge">${b}</div>`).join("")}
-</div>
+</div>-->
 
 <!-- Footer -->
   <div class="ai-footer">

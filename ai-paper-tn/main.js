@@ -13,13 +13,17 @@ async function updateNav() {
       <button class="nav-btn search-btn" id="search-open">
         <i class="ph ph-magnifying-glass"></i>
       </button>
-      <button class="nav-btn notif-btn" id="notif-btn">
+
+       <!--  <button class="nav-btn notif-btn" id="notif-btn">
         <i class="ph ph-chat-text"></i>
         <span>Chat</span>
-      </button>
-      <a href="apropos-de-nous.html" class="nav-btn about-btn">
+      </button>-->
+
+
+       <!--  <a href="apropos-de-nous.html" class="nav-btn about-btn">
         <i class="ph ph-info"></i>
-      </a>
+      </a>-->
+
       <a href="login.html" class="nav-btn" id="login-btn">Connexion</a>
     `;
     return;
@@ -45,20 +49,26 @@ async function updateNav() {
     <button class="nav-btn search-btn" id="search-open">
       <i class="ph ph-magnifying-glass"></i>
     </button>  
-    <button class="nav-btn notif-btn" id="notif-btn">
+
+
+     <!--  <button class="nav-btn notif-btn" id="notif-btn">
       <i class="ph ph-chat-text"></i>
       <span>Chat</span>
-    </button>
-    <a href="apropos-de-nous.html" class="nav-btn about-btn">
+    </button> -->
+
+
+    <!-- <a href="apropos-de-nous.html" class="nav-btn about-btn">
       <i class="ph ph-info"></i>
-    </a>
-    <button id="logout-btn" class="nav-btn">Déconnexion</button>
+    </a>-->
+
+    <!--<button id="logout-btn" class="nav-btn">Déconnexion</button>-->
+
     <button id="profile-btn" class="nav-profile" title="${pseudo}">
       <img class="nav-avatar" src="${avatarUrl}" alt="Avatar">
       <span>${pseudo}</span>
     </button>
   `;
-
+ 
   // 4️⃣ ajouter events
   const profileBtn = document.getElementById('profile-btn');
   if (profileBtn) profileBtn.addEventListener('click', () => window.location.href = 'profile.html');
