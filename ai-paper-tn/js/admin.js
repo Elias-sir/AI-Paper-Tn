@@ -452,7 +452,47 @@ document.querySelectorAll(".yt-input, .footer-video-input")
 updateDetailPreview();
 
 
+// -------------------- FETCH USERS --------------------
+async function fetchUsers() {
+  const container = document.getElementById('users-list');
+  if (!container) return console.error('Container users-list non trouvé');
 
+  const { data: users, error } = await supabase
+    .from('users')
+    .select('id,email,pseudo,created_at,avatar,bio,badge_id');
+
+  if (error) return console.error('Erreur fetch users:', error);
+
+  container.innerHTML = '';
+
+  users.forEach(user => {
+    const div = document.createElement('div');
+    div.classList.add('user-card');
+
+    div.innerHTML = `
+      <div class="user-avatar">
+        <img src="${user.avatar || 'assets/icons/default-avatar.png'}" alt="${user.pseudo}" />
+      </div>
+      <div class="user-info">
+        <p class="user-pseudo">${user.pseudo}</p>
+        <p class="user-email">${user.email}</p>
+        <p class="user-joined">Inscrit le: ${new Date(user.created_at).toLocaleDateString()}</p>
+      </div>
+    `;
+
+    // 👉 Ici, on redirige vers profile.html avec l'ID du user
+  div.querySelector('.user-avatar img').addEventListener('click', () => {
+    window.location.href = `profile.html?id=${user.id}`;
+  });
+    container.appendChild(div);
+  });
+}
+
+// -------------------- OUVRIR PROFIL UTILISATEUR --------------------
+function openUserProfile(userId) {
+  // pour l'instant, juste un console log, plus tard on ouvre le détail
+  console.log('Ouvrir profil user ID:', userId);
+}
 
 
 // -------------------- INIT --------------------
@@ -468,4 +508,5 @@ document.addEventListener('DOMContentLoaded', async () => {
 
   // Charger la liste des IA
   fetchAIs();
+  fetchUsers();
 });

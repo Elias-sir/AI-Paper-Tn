@@ -19,10 +19,28 @@ document.addEventListener('DOMContentLoaded', () => {
       });
 console.log("DEBUG authData:", authData.user);
 
-      if (authError) {
-        loginError.textContent = authError.message;
-        return;
-      }
+   if (authError) {
+
+  if (authError.message.includes("Invalid login credentials")) {
+    loginError.textContent = "Email ou mot de passe incorrect.";
+  } else if (authError.message.includes("Email not confirmed")) {
+    loginError.textContent = "Veuillez confirmer votre email.";
+  } else {
+    loginError.textContent = "Erreur de connexion. Réessayez.";
+  }
+
+  loginError.classList.add("show");
+  return;
+}
+
+
+      // 🔒 Vérification champs vides
+if (!loginEmail.value.trim() || !loginPassword.value.trim()) {
+  loginError.textContent = "Veuillez remplir tous les champs.";
+  loginError.classList.add("show");
+  return;
+}
+
 
       const { data: userData, error: userError } = await supabase
           .from('users')
@@ -30,10 +48,19 @@ console.log("DEBUG authData:", authData.user);
           .eq('id', authData.user.id)
           .single();
       
-        if (userError) {
-          loginError.textContent = userError.message;
-          return;
-        }
+ if (authError) {
+
+  if (authError.message.includes("Invalid login credentials")) {
+    loginError.textContent = "Email ou mot de passe incorrect.";
+  } else if (authError.message.includes("Email not confirmed")) {
+    loginError.textContent = "Veuillez confirmer votre email.";
+  } else {
+    loginError.textContent = "Erreur de connexion. Réessayez.";
+  }
+
+  loginError.classList.add("show");
+  return;
+}
       
         // 3️⃣ Stocker pseudo dans sessionStorage pour usage futur
       sessionStorage.setItem('pseudo', userData.pseudo);
@@ -60,6 +87,18 @@ console.log("DEBUG authData:", authData.user);
       registerError.textContent = '';
       console.log('Register bouton cliqué !');
 
+
+      // 🔒 Vérification champs vides
+if (
+  !registerPseudo.value.trim() ||
+  !registerEmail.value.trim() ||
+  !registerPassword.value.trim()
+) {
+  registerError.textContent = "Veuillez remplir tous les champs.";
+  registerError.classList.add("show");
+  return;
+}
+
       try {
         const { data: authData, error: authError } = await supabase.auth.signUp({
           email: registerEmail.value,
@@ -67,7 +106,21 @@ console.log("DEBUG authData:", authData.user);
           options: { data: { pseudo: registerPseudo.value } }
         });
 
-        if (authError) throw authError;
+        if (authError) {
+
+  if (authError.message.includes("User already registered")) {
+    registerError.textContent = "Cet email est déjà utilisé.";
+  } else if (authError.message.includes("Password should be")) {
+    registerError.textContent = "Mot de passe trop faible (min 6 caractères).";
+  } else if (authError.message.includes("Invalid email")) {
+    registerError.textContent = "Email invalide.";
+  } else {
+    registerError.textContent = "Erreur lors de l'inscription.";
+  }
+
+  registerError.classList.add("show");
+  return;
+}
 
         window.location.href = 'index.html';
 

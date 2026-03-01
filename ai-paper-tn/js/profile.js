@@ -27,6 +27,8 @@ const proposeAiBtn = document.getElementById("proposeAiBtn");
 const settingsBtn = document.getElementById("settingsBtn");
 const logoutBtn = document.getElementById("logoutBtn");
 const notifBtn = document.getElementById("notif-btn");
+
+
 // --- Upload avatar helper ---
 async function uploadAvatar(file, userId) {
   const fileExt = file.name.split('.').pop();
