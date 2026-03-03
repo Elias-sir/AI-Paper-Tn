@@ -1,4 +1,5 @@
 import { supabase } from './supabase.js';
+import * as Notifs from './notifications.js';
 
 // ================= MAPPING ADMIN =================
 // Ce tableau contient les 3 admins avec leurs emails et leurs user_id Supabase
@@ -32,35 +33,12 @@ const chatMessages = document.getElementById('chat-messages');
 const chatForm = document.getElementById('chat-form');
 const chatInput = document.getElementById('chat-input');
 const chatUser = document.getElementById('chat-user');
-const notifBtn = document.getElementById('notif-btn');
-const notifBadge = document.getElementById('notif-badge');
 
 let currentUser = null;
 let currentConversation = null;
 let chatChannel = null;
-let notifChannel = null;
 
-// compteur global
-window.unreadCount = 0;
 
-// ================= GLOBAL NOTIF FUNCTION =================
-window.incrementNotification = function () {
-    window.unreadCount++;
-    if (notifBadge) {
-        notifBadge.textContent = window.unreadCount;
-        notifBadge.classList.remove('hidden');
-        notifBadge.classList.add('pulse');
-    }
-};
-
-window.resetNotification = function () {
-    window.unreadCount = 0;
-    if (notifBadge) {
-        notifBadge.textContent = '';
-        notifBadge.classList.add('hidden');
-        notifBadge.classList.remove('pulse');
-    }
-};
 
 // ================= INIT AUTH =================
 const initAuth = async () => {
@@ -80,7 +58,11 @@ const loadConversations = async () => {
         // ADMIN : afficher les users qui ont écrit
         const { data: conversations, error } = await supabase
     .from('conversations')
-    .select(`*, user:user_id (id, pseudo, avatar)`)
+    .select(`
+  *,
+  user:user_id (id, pseudo, avatar),
+  messages_v2(id, seen, sender_id)
+`)
     .eq('admin_id', currentUser.id)
     .order('last_message_at', { ascending: false });
 
@@ -88,7 +70,7 @@ if (error) return console.error(error);
 
 conversationList.innerHTML = '';
 
-conversations.forEach(conv => {
+for (const conv of conversations) {
     // fallback si user n'existe pas
     const user = conv.user || { pseudo: "Utilisateur", avatar: "assents/icons/default-profile.png" };
 
@@ -101,9 +83,32 @@ conversations.forEach(conv => {
         <span>${user.pseudo}</span>
     `;
 
+    // calcul des non lus
+const unreadMessages = conv.messages_v2?.filter(m =>
+  !m.seen && m.sender_id !== currentUser.id
+).length || 0;
+
+if (unreadMessages > 0) {
+  div.classList.add('has-unread');
+}
+
+    // ✅ Nouvelle partie : vérifier si il y a des notifications non lues
+    const { data: unreadNotifications, error: notifError } = await supabase
+  .from('notifications')
+  .select('id')
+  .eq('conversation_id', conv.id)
+  .eq('seen', false);
+
+if (!notifError && unreadNotifications.length > 0) {
+  div.classList.add('pulse');
+} else {
+  div.classList.remove('pulse');
+}
+
+    
     div.onclick = () => openConversation(conv);
     conversationList.appendChild(div);
-});
+}
 
 
     } else {
@@ -157,6 +162,13 @@ const adminId = admin.id;
 // ================= OPEN CONVERSATION =================
 const openConversation = async (conversation) => {
     currentConversation = conversation;
+
+    // enlever badge visuel
+const activeDiv = document.querySelector(`[data-conv-id="${conversation.id}"]`);
+if (activeDiv) activeDiv.classList.remove('has-unread');
+
+
+window.currentConversation = conversation; // pour notifications.js
     chatMessages.innerHTML = '';
     chatForm.classList.remove('hidden');
 
@@ -171,7 +183,32 @@ const openConversation = async (conversation) => {
         .eq('conversation_id', conversation.id)
         .order('created_at');
 
+
+
+        // marquer messages reçus comme vus
+await supabase
+  .from('messages_v2')
+  .update({ 
+    seen: true, 
+    read_at: new Date().toISOString() 
+  })
+  .eq('conversation_id', conversation.id)
+  .neq('sender_id', currentUser.id)
+  .eq('seen', false);
+
+
     if (!error && messages) messages.forEach(renderMessage);
+
+
+    // ⚡ Marquer notifications de cette conversation comme vues
+await supabase
+    .from('notifications')
+    .update({ seen: true })
+    .eq('user_id', currentUser.id)
+    .eq('conversation_id', conversation.id);
+
+await Notifs.refreshNotifications();
+
 
     // s'abonner au chat realtime
     subscribeChatRealtime();
@@ -186,23 +223,65 @@ chatForm.addEventListener('submit', async e => {
     renderMessage({ content, sender_id: currentUser.id });
     chatInput.value = '';
 
-    await supabase.from('messages_v2').insert({
-        conversation_id: currentConversation.id,
-        sender_id: currentUser.id,
-        sender_role: currentUser.email.includes('super_adminaipaper') ? 'admin' : 'user',
-        content
-    });
+   const { error } = await supabase.from('messages_v2').insert({
+    conversation_id: currentConversation.id,
+    sender_id: currentUser.id,
+    sender_role: currentUser.email.includes('super_adminaipaper') ? 'admin' : 'user',
+    content
+});
+
+if (!error) {
+    // Déterminer le destinataire
+    let receiverId =
+        currentUser.id === currentConversation.user_id
+            ? currentConversation.admin_id
+            : currentConversation.user_id;
+
+    // Créer la notification immédiatement
+    await Notifs.newMessageNotification(
+        receiverId,
+        content,
+        currentConversation.id
+    );
+}
 });
 
 // ================= RENDER MESSAGE =================
 function renderMessage(msg) {
     const div = document.createElement('div');
-    div.textContent = msg.content;
     div.classList.add(msg.sender_id === currentUser.id ? 'user' : 'admin');
+
+    // format date
+    let date = "";
+    if (msg.created_at) {
+        const d = new Date(msg.created_at);
+        date = d.toLocaleString('fr-FR', {
+            day: '2-digit',
+            month: '2-digit',
+            year: '2-digit',
+            hour: '2-digit',
+            minute: '2-digit'
+        });
+    }
+
+  const isMine = msg.sender_id === currentUser.id;
+
+let status = "";
+if (isMine) {
+    status = msg.seen ? "Lu" : "Envoyé";
+}
+
+div.innerHTML = `
+    <div class="msg-content">${msg.content}</div>
+    <div class="msg-time">
+        ${date}
+        ${isMine ? `<span class="msg-status">${status}</span>` : ""}
+    </div>
+`;
+
     chatMessages.appendChild(div);
     chatMessages.scrollTop = chatMessages.scrollHeight;
 }
-
 
 // ================= REALTIME CHAT =================
 const subscribeChatRealtime = () => {
@@ -212,73 +291,30 @@ const subscribeChatRealtime = () => {
     if (chatChannel) supabase.removeChannel(chatChannel);
 
     chatChannel = supabase
-        .channel(`chat-${currentConversation.id}`)
-        .on(
-            'postgres_changes',
-            {
-                event: 'INSERT',
-                schema: 'public',
-                table: 'messages_v2',
-                filter: `conversation_id=eq.${currentConversation.id}`
-            },
-            payload => {
-                const msg = payload.new;
-
-                // Si message déjà affiché côté user, on peut ignorer ou forcer update
-                renderMessage(msg);
-            }
-        )
-        .subscribe(status => {
-            if (status === 'SUBSCRIBED') 
-                console.log('✅ Realtime actif pour conversation', currentConversation.id);
-        });
-};
-
-
-// ================= REALTIME GLOBAL NOTIF =================
-// ================= REALTIME GLOBAL NOTIF =================
-// ================= REALTIME SIGNAL ONLY =================
-notifChannel = supabase
-    .channel('global-messages')
+    .channel(`chat-${currentConversation.id}`)
     .on(
         'postgres_changes',
-        { event: 'INSERT', schema: 'public', table: 'messages_v2' },
-        payload => {
-            const msg = payload.new;
-            if (!currentUser) return; // pas d'user connecté
-            if (msg.sender_id === currentUser.id) return; // pas ton propre message
+        {
+            event: 'INSERT',
+            schema: 'public',
+            table: 'messages_v2',
+            filter: `conversation_id=eq.${currentConversation.id}`
+        },
 
-            console.log("🔔 Nouveau message Realtime reçu:", msg);
 
-            // seulement si la conversation n'est pas ouverte
-            if (msg.conversation_id !== currentConversation?.id) {
-                pulseConversation(msg.conversation_id);
-                window.incrementNotification(); // compteur global
-            }
-        }
+   payload => {
+    const msg = payload.new;
+
+    // ⛔️ Ne pas afficher le message si c’est moi qui l’ai envoyé
+    if (msg.sender_id !== currentUser.id) {
+        renderMessage(msg);
+    }
+}
     )
     .subscribe();
+};
 
-
-function pulseConversation(convId) {
-    const div = document.querySelector(`.conversation[data-conv-id="${convId}"]`);
-    if (!div) return;
-
-    div.classList.add('pulse');
-
-    // retirer la classe après 2 secondes
-    setTimeout(() => div.classList.remove('pulse'), 2000);
-}
-
-// ================= CLICK NOTIF =================
-if (notifBtn) {
-    notifBtn.addEventListener('click', () => {
-        window.resetNotification();
-        window.location.href = 'messagerie.html';
-    });
-}
-
-// Burger menu
+//================= BURGER MENU ==============
 const burgerBtn = document.getElementById('burger-btn');
 const sidebar = document.querySelector('.sidebar');
 
@@ -290,6 +326,21 @@ conversationList.addEventListener('click', () => {
   if (window.innerWidth <= 768) sidebar.classList.remove('open');
 });
 
+
+
+
+
+
 // ================= INIT =================
+// ✅ Après initAuth()
 await initAuth();
+
+// ✅ Charger les conversations
 await loadConversations();
+
+// ✅ Initialiser notifications et realtime
+await Notifs.initNotifications();
+await Notifs.subscribeNotificationsRealtime();
+
+// ✅ Initialiser chat realtime pour chaque conversation ouverte
+if (currentConversation) subscribeChatRealtime();

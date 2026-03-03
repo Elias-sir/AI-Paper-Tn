@@ -6,7 +6,8 @@
   <title>AI Paper Chat</title>
   <link rel="icon" type="image/png" href="assents/fonts/faviloves.png">
   <link rel="stylesheet" href="css/messagerie.css" />
-  <link rel="stylesheet" href="css/notifications.css" />
+  <link rel="stylesheet" href="css/notifications.css">
+  
 </head>
 <body>
 
@@ -16,6 +17,13 @@
   <button id="burger-btn">☰</button>
   <span id="chat-user">Choisissez un admin</span>
 </div>
+
+
+<button class="notif-btn" id="notif-btn">
+  💬 Notifications
+  <span id="notif-badge"></span>
+</button>
+
 
   <!-- SIDEBAR -->
   <aside class="sidebar">
@@ -28,14 +36,15 @@
   <img src="assents/icons/default-profile.png" class="conv-avatar" alt="Avatar Admin 1" />
   <span>Admin 1</span>
 </div>
-<div class="conversation" data-conv-id="2" data-admin-email="super_adminaipaper.visionon.world2@gmail.com">
+
+  <!-- <div class="conversation" data-conv-id="2" data-admin-email="super_adminaipaper.visionon.world2@gmail.com">
   <img src="assents/icons/default-profile.png" class="conv-avatar" alt="Avatar Admin 2" />
   <span>Admin 2</span>
 </div>
 <div class="conversation" data-conv-id="3" data-admin-email="super_adminaipaper.visionon.world3@gmail.com">
   <img src="assents/icons/default-profile.png" class="conv-avatar" alt="Avatar Admin 3" />
   <span>Admin 3</span>
-</div>
+</div>-->
 
 
   </div>
@@ -64,5 +73,6 @@
 </div>
 
 <script type="module" src="js/messagerie.js"></script>
+<script type="module" src="js/notifications.js"></script>
 </body>
 </html>

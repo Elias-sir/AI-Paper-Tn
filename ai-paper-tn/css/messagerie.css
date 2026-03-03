@@ -287,13 +287,13 @@ body {
 }
 
 
-/* POINT VERT PULSE POUR MESSAGERIE
-.conversation::after {
+/* POINT NOTIFICATION 
+.conversation.has-unread::after {
   content: "";
   width: 8px;
   height: 8px;
   border-radius: 50%;
-  background: #25d366;
+  background: #ff1e1e; /* r
   display: inline-block;
   margin-left: 8px;
   animation: pulse 1.5s infinite;
@@ -371,3 +371,19 @@ body {
     height: 28px;
      }
 }
+
+
+.msg-time {
+  font-size: 11px;
+  opacity: 0.6;
+  margin-top: 4px;
+  text-align: right;
+}
+
+.msg-status {
+  margin-left: 6px;
+  font-size: 11px;
+  opacity: 0.8;
+}
+
+

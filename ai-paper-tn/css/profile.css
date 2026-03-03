@@ -296,3 +296,29 @@ button:hover, .profile-btn:hover {
 #viewCreated {
   display: none;
 }
+
+
+
+#notif-badge-2 {
+  position: absolute;
+  top: -5px;
+  right: -5px;
+  background-color: red;
+  color: white;
+  font-size: 12px;
+  font-weight: bold;
+  padding: 2px 6px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 10;
+}
+
+#notif-badge-2.hidden {
+  display: none;
+}
+
+#notif-badge-2.pulse {
+  animation: pulse 1s infinite;
+}

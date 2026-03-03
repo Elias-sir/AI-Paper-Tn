@@ -1,21 +1,152 @@
-document.addEventListener('DOMContentLoaded', () => {
-    const notifBtn = document.getElementById('notif-btn');
-    const notifBadge = document.getElementById('notif-badge');
-    if (!notifBtn || !notifBadge) return;
+import { supabase } from './supabase.js';
 
-    // clic sur la cloche
-    notifBtn.addEventListener('click', () => {
-        // juste animation "pulse" pour le fun
-        notifBadge.classList.add('pulse');
 
-        // enlever l'animation après 0.5s pour pouvoir la relancer
-        setTimeout(() => {
-            notifBadge.classList.remove('pulse');
-        }, 500);
+const badgeEl = document.getElementById('notif-badge');
+let unreadCount = 0;
 
-        // redirection vers la messagerie
-        window.location.href = 'messagerie.html';
-    });
 
-    console.log("✅ Cloche initialisée pour animation et redirection.");
+
+export async function initNotifications() {
+    const { data: { user } } = await supabase.auth.getUser();
+    if (!user) return;
+
+    // Charger les notifs non vues
+    const { data, error } = await supabase
+        .from('notifications')
+        .select('id')
+        .eq('user_id', user.id)
+        .eq('seen', false);
+
+    if (error) {
+        console.error('Erreur chargement notifications:', error);
+        return;
+    }
+
+    unreadCount = data.length;
+    updateBadge();
+}
+
+
+
+// Incrémenter le badge
+export function incrementNotification() {
+    unreadCount++;
+    updateBadge();
+}
+
+// Réinitialiser le badge
+export function resetNotification() {
+    unreadCount = 0;
+    updateBadge();
+}
+
+// Mettre à jour l’affichage
+function updateBadge() {
+    if (unreadCount > 0) {
+        badgeEl.textContent = unreadCount;
+        badgeEl.classList.add('pulse');
+    } else {
+        badgeEl.textContent = '';
+        badgeEl.classList.remove('pulse');
+    }
+}
+
+
+// TEST : Reset au clic sur le bouton
+document.getElementById('notif-btn').addEventListener('click', () => {
+    resetNotification();
 });
+
+
+
+
+
+
+export function newMessageNotification(userId, content, conversationId) {
+    addNotification(userId, 'message', content, conversationId);
+}
+
+export function newAiNotification(userId, content) {
+    addNotification(userId, 'new_ai', content);
+}
+
+export function updateAiNotification(userId, content) {
+    addNotification(userId, 'update_ai', content);
+}
+
+export function partnerPostNotification(userId, content) {
+    addNotification(userId, 'partner_post', content);
+}
+
+export function systemUpdateNotification(userId, content) {
+    addNotification(userId, 'system_update', content);
+}
+
+// fonction centrale qui crée la notif et incrémente le badge
+async function addNotification(userId, type, content, conversationId = null) {
+
+     console.log("🔥 addNotification appelée", userId, type);
+    const { error } = await supabase
+        .from('notifications')
+        .insert({
+            user_id: userId,
+            content: content,
+            type: type,
+            seen: false,
+            conversation_id: conversationId
+        });
+
+    if (error) {
+        console.error('Erreur création notification:', error);
+        return;
+    }
+    
+
+}
+
+
+export async function refreshNotifications() {
+    const { data: { user } } = await supabase.auth.getUser();
+    if (!user) return;
+
+    const { data, error } = await supabase
+        .from('notifications')
+        .select('id')
+        .eq('user_id', user.id)
+        .eq('seen', false);
+
+    if (error) return;
+
+    unreadCount = data.length;
+    updateBadge();
+}
+
+
+// 🔥 Realtime notifications
+export async function subscribeNotificationsRealtime() {
+    const { data: { user } } = await supabase.auth.getUser();
+    if (!user) return;
+
+    // Supprimer ancien channel si nécessaire
+    if (window.notifChannel) supabase.removeChannel(window.notifChannel);
+
+    // Créer channel pour l'utilisateur
+    window.notifChannel = supabase
+        .channel(`notifications-user-${user.id}`)
+        .on(
+            'postgres_changes',
+            {
+                event: 'INSERT',
+                schema: 'public',
+                table: 'notifications',
+                filter: `user_id=eq.${user.id}`
+            },
+            payload => {
+                console.log("🔥 Nouvelle notification reçue :", payload.new);
+                
+                unreadCount++;
+                updateBadge();
+            }
+        )
+        .subscribe();
+}
