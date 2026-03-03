@@ -34,6 +34,8 @@ const chatForm = document.getElementById('chat-form');
 const chatInput = document.getElementById('chat-input');
 const chatUser = document.getElementById('chat-user');
 
+
+
 let currentUser = null;
 let currentConversation = null;
 let chatChannel = null;
@@ -208,6 +210,10 @@ await supabase
     .eq('conversation_id', conversation.id);
 
 await Notifs.refreshNotifications();
+
+// scroll vers le bas quand messages chargés
+
+chatMessages.scrollTop = chatMessages.scrollHeight;
 
 
     // s'abonner au chat realtime
