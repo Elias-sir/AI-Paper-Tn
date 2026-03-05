@@ -39,18 +39,24 @@ document.querySelector(".hero-scroll")?.addEventListener("click", () => {
   });
 });
 
-// notres des utilisateur des ai dans hero 
-const target = 1000000; 
+// nombres des utilisateur des ai dans hero 
+const target = 1000000;
 let current = 0;
 const el = document.getElementById("tn-ai-count");
 
 if (el) {
-  const step = () => {
-    current += Math.ceil((target - current) / 12);
+  const duration = 1500; // temps total animation en ms
+  const start = performance.now();
+
+  const step = (now) => {
+    const progress = Math.min((now - start) / duration, 1); // 0 → 1
+    current = Math.floor(progress * target);
     el.textContent = current.toLocaleString();
-    if (current < target) requestAnimationFrame(step);
+
+    if (progress < 1) requestAnimationFrame(step);
   };
-  step();
+
+  requestAnimationFrame(step);
 }
 
 

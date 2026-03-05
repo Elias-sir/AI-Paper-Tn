@@ -86,29 +86,57 @@ html, body {
 
 /* =======  BULLE AI CORE =======*/
 .ai-core {
-  width: 23px;
-  height: 23px;
+  width: 30px;
+  height: 30px;
   border-radius: 50%;
+
   background: radial-gradient(circle at 30% 30%, #ffffff, #6cf2c2, #2ecc71);
+
   box-shadow:
     0 0 12px rgba(46,204,113,0.8),
     0 0 24px rgba(46,204,113,0.4);
-  
-  animation: corePulse 2.8s infinite ease-in-out, coreMagic 2s infinite linear;
+
+  animation:
+    corePulse 4s infinite ease-in-out,
+    coreRainbow 8s infinite linear;
 }
 
 @keyframes corePulse {
-  0% { transform: scale(1); box-shadow: 0 0 12px rgba(46,204,113,0.6), 0 0 24px rgba(46,204,113,0.3); }
-  50% { transform: scale(1.15); box-shadow: 0 0 20px rgba(46,204,113,1), 0 0 40px rgba(46,204,113,0.6); }
-  100% { transform: scale(1); }
+  0% {
+    transform: scale(1);
+  }
+
+  50% {
+    transform: scale(1.2);
+  }
+
+  100% {
+    transform: scale(1);
+  }
 }
 
-@keyframes coreMagic {
-  0% { background: radial-gradient(circle at 30% 30%, #f15bb5 #6cf2c2, #9b5de5); }
-  25% { background: radial-gradient(circle at 30% 30%, #b00000, #6cf2c2, #b00000); }
-  50% { background: radial-gradient(circle at 30% 30%, #ffffff, #9b5de5, #2ecc71); }
-  75% { background: radial-gradient(circle at 30% 30%, #6cf2c2, #b00000, #b00000); }
-  100% { background: radial-gradient(circle at 30% 30%, #ffffff, #6cf2c2, #f15bb5); }
+@keyframes coreRainbow {
+  0% {
+    filter: hue-rotate(0deg);
+  }
+
+  100% {
+    filter: hue-rotate(360deg);
+  }
+}
+
+
+.ai-core {
+  animation:
+    corePulse 4s infinite ease-in-out,
+    coreRainbow 8s infinite linear,
+    coreGlow 3s infinite ease-in-out;
+}
+
+@keyframes coreGlow {
+  0% { box-shadow: 0 0 10px #2ecc71, 0 0 20px #2ecc71; }
+  50% { box-shadow: 0 0 25px #2ecc71, 0 0 50px #2ecc71; }
+  100% { box-shadow: 0 0 10px #2ecc71, 0 0 20px #2ecc71; }
 }
 
 /* ============================================================ */
@@ -149,7 +177,7 @@ html, body {
 /* Titre nav */
 .ai-label {
   font-weight: 600;
-  font-size: 0.95rem;
+  font-size: 1.2rem;
   background: linear-gradient(90deg, #6cf2c2, #4cc9f0, #9b5de5, #f15bb5);
   background-size: 200% auto;
   -webkit-background-clip: text;
@@ -280,7 +308,7 @@ html, body {
   background: none;
   border: none;
   color: white;
-  font-size: 1.4rem;
+  font-size: 1.6rem;
   cursor: pointer;
   
 }
@@ -484,7 +512,7 @@ html, body {
   /* Décale AI core vers le burger sur mobile */
   .ai-core {
     position: relative;       /* le sort du flux normal */
-    left: 100px;               /* proche du burger / bord gauche */
+    left: 9px;               /* +px vers burger  // -px vers compte */
     top: 50%;                 /* centre verticalement dans la nav */
     transform: translateY(-50%); /* ajuste le centrage vertical */
     margin: 0;                /* supprime tout margin */

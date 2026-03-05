@@ -488,6 +488,23 @@ async function fetchUsers() {
   });
 }
 
+
+async function fetchUsersCount() {
+  const countEl = document.getElementById('users-count');
+
+  const { count, error } = await supabase
+    .from('users')
+    .select('*', { count: 'exact', head: true });
+
+  if (error) {
+    console.error('Erreur count users:', error);
+    return;
+  }
+
+  countEl.textContent = count;
+}
+
+
 // -------------------- OUVRIR PROFIL UTILISATEUR --------------------
 function openUserProfile(userId) {
   // pour l'instant, juste un console log, plus tard on ouvre le détail
@@ -509,4 +526,5 @@ document.addEventListener('DOMContentLoaded', async () => {
   // Charger la liste des IA
   fetchAIs();
   fetchUsers();
+  fetchUsersCount(); 
 });

@@ -235,3 +235,17 @@
     justify-content: center;            /* vertical centré */
   }
 }
+
+
+.hero::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+
+  background-image:
+    radial-gradient(rgba(255,255,255,0.04) 1px, transparent 1px);
+
+  background-size: 3px 3px;
+  opacity: 0.15;
+  pointer-events: none;
+}
