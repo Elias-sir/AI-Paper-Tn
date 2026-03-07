@@ -1,4 +1,5 @@
 import { supabase } from "./supabase.js";
+import * as Notifs from "./notifications.js";
 console.log("PROFILE JS CHARGÉ");
 
 // --- DOM elements ---
@@ -264,3 +265,8 @@ function updateViewUI({ pseudo, bio, email, avatar }) {
 
 // --- Init ---
 loadProfile();
+// Init badge notifications pour la page profil
+Notifs.bindBadgeToElement("notif-badge-chat");
+Notifs.bindBadgeToElement("notif-badge-mini"); // les deux badges sont maintenant synchronisés
+await Notifs.initNotifications();
+await Notifs.subscribeNotificationsRealtime();

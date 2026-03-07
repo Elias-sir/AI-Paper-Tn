@@ -1,4 +1,5 @@
 import { supabase } from "./js/supabase.js";
+import * as Notifs from "./js/notifications.js";
 
 console.log("Supabase prêt", supabase);
 
@@ -14,10 +15,10 @@ async function updateNav() {
         <i class="ph ph-magnifying-glass"></i>
       </button>
 
-       <!--  <button class="nav-btn notif-btn" id="notif-btn">
+      <button class="nav-btn notif-btn" id="notif-btn">
         <i class="ph ph-chat-text"></i>
-        <span>Chat</span>
-      </button>-->
+        <span id="notif-badge"></span>
+      </button>
 
 
        <!--  <a href="apropos-de-nous.html" class="nav-btn about-btn">
@@ -26,6 +27,12 @@ async function updateNav() {
 
       <a href="login.html" class="nav-btn" id="login-btn">Connexion</a>
     `;
+
+      // 🔹 Binder badge et refresh
+    Notifs.bindBadgeToElement('notif-badge');
+    await Notifs.refreshNotifications();
+
+
     return;
   }
 
@@ -51,10 +58,11 @@ async function updateNav() {
     </button>  
 
 
-     <!--  <button class="nav-btn notif-btn" id="notif-btn">
+    <button class="nav-btn notif-btn" id="notif-btn">
       <i class="ph ph-chat-text"></i>
-      <span>Chat</span>
-    </button> -->
+      
+      <span id="notif-badge"></span>
+    </button>
 
 
     <!-- <a href="apropos-de-nous.html" class="nav-btn about-btn">
@@ -69,6 +77,10 @@ async function updateNav() {
     </button>
   `;
  
+Notifs.bindBadgeToElement('notif-badge');
+await Notifs.refreshNotifications();
+
+
   // 4️⃣ ajouter events
   const profileBtn = document.getElementById('profile-btn');
   if (profileBtn) profileBtn.addEventListener('click', () => window.location.href = 'profile.html');
@@ -82,7 +94,13 @@ async function updateNav() {
 }
 
 // --- Init ---
-updateNav();
+// --- Init ---
+await updateNav();
+
+// 🔹 Init notifications realtime
+await Notifs.initNotifications();
+await Notifs.subscribeNotificationsRealtime();
+
 
 document.addEventListener("click", (e) => {
 

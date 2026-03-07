@@ -1,10 +1,14 @@
 import { supabase } from './supabase.js';
 
 
-const badgeEl = document.getElementById('notif-badge');
+let badgeEl = document.getElementById('notif-badge');
 let unreadCount = 0;
 
 
+export function bindBadgeToElement(newBadgeId) {
+    badgeEl = document.getElementById(newBadgeId);
+    updateBadge(); // met à jour le badge tout de suite
+}
 
 export async function initNotifications() {
     const { data: { user } } = await supabase.auth.getUser();
@@ -50,6 +54,7 @@ function updateBadge() {
         badgeEl.classList.remove('pulse');
     }
 }
+
 
 
 document.getElementById('notif-btn').addEventListener('click', async () => {
