@@ -52,9 +52,23 @@ function updateBadge() {
 }
 
 
-// TEST : Reset au clic sur le bouton
-document.getElementById('notif-btn').addEventListener('click', () => {
+document.getElementById('notif-btn').addEventListener('click', async () => {
+    // 1️⃣ Reset le badge
     resetNotification();
+
+    // 2️⃣ Ouvrir le sidebar si tu en as un
+    const sidebar = document.querySelector('.sidebar');
+    if (sidebar && !sidebar.classList.contains('open')) {
+        sidebar.classList.add('open');
+    }
+
+    // 3️⃣ Charger la première conversation ou ouvrir la messagerie
+    const firstConv = document.querySelector('.conversation');
+    if (firstConv) firstConv.click(); // simule un clic sur la première conversation
+
+    // 4️⃣ Scroll vers le chat
+    const chatArea = document.querySelector('.chat-area');
+    if (chatArea) chatArea.scrollIntoView({ behavior: 'smooth' });
 });
 
 
