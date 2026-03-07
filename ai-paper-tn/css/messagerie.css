@@ -157,13 +157,14 @@ body {
     left: 10px;
     right: 10px;
     padding: 10px;
-    background: rgba(27,27,27,0.95); /* semi-transparent pour voir un peu le chat derrière */
+    background: none; /* semi-transparent pour voir un peu le chat derrière */
     border-radius: 20px;
     display: flex;
     align-items: center;
     gap: 8px;
     z-index: 20;
-    box-shadow: 0 4px 15px rgba(0,0,0,0.5);
+    box-shadow: none;
+    border: none;
   }
 
   .chat-form input {
