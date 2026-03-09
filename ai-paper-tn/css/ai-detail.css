@@ -477,18 +477,18 @@ html, body {
 
 .ai-category.attention i {
   font-size: 1.2rem;
-  color: #4cc9f0;
+  color: #f04c5a;
   animation: brainBounce 2s ease-in-out infinite;
 }
 
-/* Animation icône cerveau */
+/* Animation icône cerveau 
 @keyframes brainBounce {
   0%, 100% { transform: translateY(0); }
   25%      { transform: translateY(-2px) rotate(-2deg); }
   50%      { transform: translateY(-4px) rotate(2deg); }
   75%      { transform: translateY(-2px) rotate(-1deg); }
 }
-
+*/
 /* ===============================
    PAYS (style similaire catégorie)
    =============================== */
@@ -504,7 +504,7 @@ html, body {
   padding: 6px 12px;
   border-radius: 12px;
 
-  /*border-left: 4px solid #4cc9f0;*/
+  border-left: 4px solid #304df0;
 
  
   transition: transform 0.3s ease;
@@ -541,7 +541,7 @@ html, body {
   padding: 6px 12px;
   border-radius: 12px;
 
- /* border-left: 4px solid #6cf2c2;*/
+ border-left: 4px solid #6cf2c2;
 
 
   transition: transform 0.3s ease;

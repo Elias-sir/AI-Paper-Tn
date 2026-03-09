@@ -315,7 +315,7 @@ button:hover, .profile-btn:hover {
   transform:translateY(-1px);
 }
 
-/* badge notification */
+/* badge notification 
 #notif-badge{
   position:absolute;
   top:-6px;
@@ -340,14 +340,14 @@ button:hover, .profile-btn:hover {
   animation:notifPulse 1s infinite;
 }
 
-/* animation douce */
+/* animation douce 
 @keyframes notifPulse {
   0%   { transform: scale(0.9); box-shadow: 0 0 6px #ff0000aa; }
   50%  { transform: scale(1.2); box-shadow: 0 0 14px #ff0000ff; }
   100% { transform: scale(0.9); box-shadow: 0 0 6px #ff0000aa; }
 }
 
-
+*/
 /* Loader petit cercle pour bouton avatar */
 
 #changeAvatarBtn .loader {
