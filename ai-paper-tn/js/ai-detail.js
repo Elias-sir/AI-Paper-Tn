@@ -178,11 +178,30 @@ console.log("Footer Videos:", footerVideos);
     <div class="ai-logo"><img src="${logoUrl}" alt="${name}"></div>
     <div class="ai-info">
       <h1>${name}</h1>
-      <p class="ai-category"><strong>Catégorie:</strong> ${category}</p>
-      <p class="ai-author"><strong>Page rédigé par:</strong> ${author}</p>
-      <p><strong>Pays :</strong> ${ai.country || "Non spécifié"}</p>
-     <p class="ai-users"><strong>Utilisateurs dans le monde :</strong> ${formatUsers(usersCount)}</p>
-      ${websiteUrl ? `<p><strong>Site:</strong> <a href="${websiteUrl}" target="_blank">${websiteUrl}</a></p>` : ""}
+ <p class="ai-category attention">
+  <i class="ph ph-brain"></i>
+  <strong>Catégorie:</strong> ${category}
+</p>
+
+<p class="ai-country">
+  <i class="ph ph-globe"></i>
+  <strong>Pays:</strong> ${ai.country || "Non spécifié"}
+</p>
+
+
+<p class="ai-users">
+  <i class="ph ph-users"></i>
+  <strong>Utilisateurs:</strong> ${formatUsers(usersCount)}
+</p>
+
+
+${websiteUrl ? `
+<p class="ai-website">
+  <i class="ph ph-link"></i>
+  <strong>Site:</strong>
+  <a href="${websiteUrl}" target="_blank">${websiteUrl}</a>
+</p>
+` : ""}
     </div>
   </div>
 
@@ -211,19 +230,21 @@ console.log("Footer Videos:", footerVideos);
   <!-- Vidéo liens youtubes -->
  ${ytHTML ? `
 <section class="ai-youtube">
-  <h2>Vidéos YouTube Explicatif</h2>
+   <!--   <h2>Vidéos YouTube Explicatif</h2>-->
   <div class="yt-grid">
     ${ytHTML}
   </div>
 </section>
 ` : ""}
+
+
 <!-- Ligne séparatrice -->
 <div class="divider"></div>
 
 
 ${footerVideos.length ? `
 <section class="ai-footer-video">
-  <h2>Sponsoring</h2>
+   <!-- <h2>Sponsoring</h2>-->
   <div class="shorts-grid">
     ${footerVideos.map(url => `
       <video 

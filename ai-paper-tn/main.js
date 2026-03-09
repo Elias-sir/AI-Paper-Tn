@@ -1,6 +1,7 @@
 import { supabase } from "./js/supabase.js";
 import * as Notifs from "./js/notifications.js";
 
+
 console.log("Supabase prêt", supabase);
 
 const navRight = document.getElementById('nav-right');

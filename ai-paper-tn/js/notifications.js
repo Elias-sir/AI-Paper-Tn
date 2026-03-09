@@ -46,6 +46,8 @@ export function resetNotification() {
 
 // Mettre à jour l’affichage
 function updateBadge() {
+    if (!badgeEl) return; // ⚠️ ajout de la sécurité
+
     if (unreadCount > 0) {
         badgeEl.textContent = unreadCount;
         badgeEl.classList.add('pulse');

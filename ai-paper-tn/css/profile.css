@@ -337,22 +337,37 @@ button:hover, .profile-btn:hover {
   border-radius:50px;
   box-shadow:0 0 0 2px #0f172a;
 
-  animation:notifPulse 2s infinite;
+  animation:notifPulse 1s infinite;
 }
 
 /* animation douce */
-@keyframes notifPulse{
+@keyframes notifPulse {
+  0%   { transform: scale(0.9); box-shadow: 0 0 6px #ff0000aa; }
+  50%  { transform: scale(1.2); box-shadow: 0 0 14px #ff0000ff; }
+  100% { transform: scale(0.9); box-shadow: 0 0 6px #ff0000aa; }
+}
 
-  0%{
-    box-shadow:0 0 0 0 rgba(255,0,0,0.6);
-  }
 
-  70%{
-    box-shadow:0 0 0 6px rgba(255,0,0,0);
-  }
+/* Loader petit cercle pour bouton avatar */
 
-  100%{
-    box-shadow:0 0 0 0 rgba(255,0,0,0);
-  }
+#changeAvatarBtn .loader {
+  position: absolute;
+  width: 24px;
+  height: 24px;
+  border: 3px solid #fff;
+  border-top: 3px solid #25d366; /* vert pulse */
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
 
+#changeAvatarBtn .loader.hidden {
+  display: none;
+}
+
+@keyframes spin {
+  0% { transform: translate(-50%, -50%) rotate(0deg); }
+  100% { transform: translate(-50%, -50%) rotate(360deg); }
 }

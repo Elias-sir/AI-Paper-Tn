@@ -72,7 +72,7 @@
   line-height: 1.1;
   max-width: 680px;
   text-align: center;
-  white-space: nowrap; /* ligne droite desktop */
+  white-space: normal; 
   background: linear-gradient(90deg, #ffffff, #6cf2c2, #f39c12);
   -webkit-background-clip: text;
   background-clip: text;

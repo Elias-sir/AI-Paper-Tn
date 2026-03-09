@@ -132,31 +132,47 @@ cancelBtn.addEventListener("click", () => {
 
 // --- Change avatar preview ---
 changeAvatarBtn.addEventListener("click", () => {
-  avatarInput.value = ""; // 🔥 reset important
+  // Reset l'input
+  avatarInput.value = "";
+
+  // Affiche le loader
+  const loader = changeAvatarBtn.querySelector(".loader");
+  loader.classList.remove("hidden");
+
+  // Clique sur l'input
   avatarInput.click();
 });
+
 avatarInput.addEventListener("change", async () => {
   const file = avatarInput.files[0];
   if (!file) return;
+
+  const loader = changeAvatarBtn.querySelector(".loader");
+  loader.classList.remove("hidden"); // montrer loader
+  changeAvatarBtn.querySelector("i").style.opacity = "0.3"; // icon un peu transparent
 
   // preview immédiat
   const reader = new FileReader();
   reader.onload = () => avatarImg.src = reader.result;
   reader.readAsDataURL(file);
 
-  // récupérer user
   const { data: { user } } = await supabase.auth.getUser();
   if (!user) return;
 
-  // upload direct
   const uploadedUrl = await uploadAvatar(file, user.id);
-  if (!uploadedUrl) return;
+  if (!uploadedUrl) {
+    loader.classList.add("hidden");
+    changeAvatarBtn.querySelector("i").style.opacity = "1";
+    return;
+  }
 
-  // update base
   const { error } = await supabase
     .from("users")
     .update({ avatar: uploadedUrl })
     .eq("id", user.id);
+
+  loader.classList.add("hidden"); // cacher loader
+  changeAvatarBtn.querySelector("i").style.opacity = "1";
 
   if (error) {
     console.error(error);
@@ -167,6 +183,7 @@ avatarInput.addEventListener("change", async () => {
   avatarImg.src = uploadedUrl;
   alert("Avatar mis à jour ✅");
 });
+
 
 // --- Sauvegarder profil ---
 editMode.addEventListener("submit", async (e) => {

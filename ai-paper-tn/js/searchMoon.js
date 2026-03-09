@@ -1,5 +1,5 @@
 import { supabase } from './supabase.js';
-
+let currentUser = null;
 
 function formatUsers(count) {
   if (!count) return "0";
@@ -39,12 +39,12 @@ const mobileMenu = document.getElementById("mobile-menu");
     setTimeout(() => searchInput.focus(), 100);
   };
   const closeSearch = () => {
-    searchMoon.classList.remove("active");
-    searchMoon.setAttribute("aria-hidden", "true");
-    searchInput.value = "";
-    resultsContainer.innerHTML = "";
-  };
-
+  document.activeElement.blur(); 
+  searchMoon.classList.remove("active");
+  searchMoon.setAttribute("aria-hidden", "true");
+  searchInput.value = "";
+  resultsContainer.innerHTML = "";
+};
   searchOpen?.addEventListener("click", openSearch);
   mobileSearchOpen?.addEventListener("click", openSearch);
   searchClose?.addEventListener("click", closeSearch);
@@ -80,14 +80,63 @@ if (mobileSearchOpen && mobileMenu) {
   // --- fetch IA depuis Supabase ---
   let allAIs = [];
   const fetchAIs = async () => {
-    const { data, error } = await supabase
-      .from('ai_tools')
-      .select('*')
-      .order('created_at', { ascending: false }); // plus récentes en premier
+  
+  const { data, error } = await supabase
+    .from('ai_tools')
+    .select(`
+id,
+name,
+description,
+category,
+signals,
+use_cases,
+story,
+utility,
+target,
+payment,
+advantages,
+disadvantages,
+logo_url,
+media_url,
+likes,
+users,
+clicks_count,
+created_at
+`)
+    .order('created_at', { ascending: false });
 
-    if (error) return console.error('Erreur fetch AIs:', error);
-    allAIs = data || [];
-  };
+  if (error) {
+    console.error('Erreur fetch AIs:', error);
+    return;
+  }
+
+  allAIs = data || [];
+
+  // 🔐 vérifier si user connecté
+  if (!currentUser) {
+  const { data } = await supabase.auth.getUser();
+  currentUser = data.user;
+}
+
+const user = currentUser;
+
+  if (!user) return;
+
+  // récupérer les likes du user
+  const { data: likes } = await supabase
+    .from("ai_likes")
+    .select("ai_id")
+    .eq("user_id", user.id);
+
+  const likedIds = new Set(likes?.map(l => l.ai_id));
+
+  // marquer les AI déjà likées
+  allAIs = allAIs.map(ai => ({
+    ...ai,
+    userHasLiked: likedIds.has(ai.id)
+  }));
+
+};
   fetchAIs();
 
   // --- filtrage + tri ---
@@ -169,7 +218,7 @@ if (mobileSearchOpen && mobileMenu) {
   </div>
 
 
-  <div class="ai-btn like-btn">
+  <div class="ai-btn like-btn ${ai.userHasLiked ? "liked" : ""}">
     <svg xmlns="http://www.w3.org/2000/svg" fill="none"
       viewBox="0 0 24 24" stroke="currentColor"
       stroke-width="1.5" class="icon-heart">
@@ -197,7 +246,65 @@ if (mobileSearchOpen && mobileMenu) {
  // après avoir rendu les cards
 document.querySelectorAll('.search-moon-card').forEach(card => {
 
-  
+  // ❤️ LIKE SEARCH MOON
+const likeBtn = card.querySelector(".like-btn");
+const likeCount = card.querySelector(".like-count");
+
+if (likeBtn && likeCount) {
+  likeBtn.addEventListener("click", async (e) => {
+    e.preventDefault();
+    e.stopPropagation();
+
+    const aiId = card.dataset.id;
+
+    const user = currentUser;
+
+if (!user) {
+      window.location.href = "login.html";
+      return;
+    }
+
+    likeBtn.style.pointerEvents = "none";
+
+    const currentLikes = parseInt(likeCount.textContent) || 0;
+    const isLiked = likeBtn.classList.contains("liked");
+    let userHasLiked = isLiked;
+
+    if (!userHasLiked) {
+
+      const { error } = await supabase
+        .from("ai_likes")
+        .insert({ user_id: user.id, ai_id: aiId });
+
+      if (!error) {
+        likeBtn.classList.add("liked");
+        likeCount.textContent = currentLikes + 1;
+
+        userHasLiked = true; 
+      }
+
+    } else if (userHasLiked) {
+
+      const { error } = await supabase
+        .from("ai_likes")
+        .delete()
+        .eq("user_id", user.id)
+        .eq("ai_id", aiId);
+
+      if (!error) {
+        likeBtn.classList.remove("liked");
+        likeCount.textContent = Math.max(0, currentLikes - 1);
+
+        userHasLiked = false; 
+      }
+
+    }
+
+    likeBtn.style.pointerEvents = "auto";
+  });
+}
+
+
   card.addEventListener('click', async (e) => {
     // ignorer le clic sur like
     if (e.target.closest(".like-btn")) return;
@@ -209,7 +316,7 @@ document.querySelectorAll('.search-moon-card').forEach(card => {
     const clicksEl = card.querySelector(".ai-views span");
 
     try {
-      const { data: { user } } = await supabase.auth.getUser();
+      const user = currentUser;
 
       if (user) {
         await supabase.rpc('increment_ai_clicks', { ai_id: aiId, user_id: user.id });
