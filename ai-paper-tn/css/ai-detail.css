@@ -78,11 +78,11 @@ html, body {
   color: #ddd;
 }
 
-/* Hover effet léger */
+/* Hover effet léger 
 .ai-detail-card:hover {
   transform: scale(1.01);
   box-shadow: 0 40px 80px rgba(0,0,0,0.6);
-}
+}*/
 
 .ai-detail-card::-webkit-scrollbar {
   width: 6px;
@@ -113,10 +113,10 @@ html, body {
   transition: transform 0.4s ease, box-shadow 0.4s ease;
 }
 
-.ai-detail-card .ai-top:hover {
+/*.ai-detail-card .ai-top:hover {
   transform: translateY(-2px) scale(1.005);
   box-shadow: 0 20px 48px rgba(0,0,0,0.55);
-}
+}*/
 
 /* ===== LOGO ===== */
 .ai-detail-card .ai-logo {
@@ -337,6 +337,7 @@ html, body {
   object-fit: cover;
 }
 
+
 .yt-thumb .yt-play {
   position: absolute;
   inset: 0;
@@ -359,7 +360,7 @@ html, body {
   opacity: 1;
 }
 
-/* ======== SHORTS GRID ======== */
+/* ======== SHORTS GRID VIDEO NORMAL  ======== */
 .ai-detail-card .shorts-grid,
 .shorts-grid {
   display: grid;
@@ -373,7 +374,7 @@ html, body {
   width: 100%;
   border-radius: 16px;
   background: #000;
-  object-fit: cover;          /* garde le premier frame visible */
+  object-fit: cover;          /* garde le premier frame visible ou si voulais remplis on fait contain */
   transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
@@ -609,4 +610,84 @@ html, body {
 
 .ai-website a:hover{
   text-decoration:underline;
+}
+
+
+/* =========================
+   MOBILE : LOGO AU CENTRE
+========================= */
+@media (max-width: 768px){
+
+  .ai-detail-card .ai-top{
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+
+  .ai-detail-card .ai-logo{
+    margin: 0 auto;
+  }
+
+}
+
+
+
+
+
+/* =========================
+   PC : ENTETE CENTRÉ
+========================= */
+/* =========================
+   PC : HEADER CENTRÉ
+========================= */
+@media (min-width: 769px){
+
+  .ai-detail-card .ai-top{
+    justify-content: center;
+  }
+
+  .ai-detail-card .ai-info{
+    flex: 0; 
+  }
+
+}
+
+/* =========================
+   PC LAYOUT HEADER
+========================= */
+@media (min-width: 900px){
+
+  .ai-detail-card .ai-info{
+    display:grid;
+    grid-template-columns: 1fr 1fr;
+    gap:12px 32px;
+    align-items:center;
+  }
+
+  .ai-detail-card .ai-info h1{
+    grid-column:1 / -1;
+    text-align:center;
+    margin-bottom:6px;
+  }
+
+}
+
+@media (min-width:900px){
+
+  /* chaque ligne : icône + label + valeur */
+  .ai-info p{
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    white-space: nowrap; /* pas de retour à la ligne */
+  }
+
+  .ai-info p i{
+    flex-shrink: 0; /* icône ne se rétrécit pas */
+  }
+
+  .ai-info p strong{
+    flex-shrink: 0; /* label ne se rétrécit pas */
+  }
+
 }

@@ -261,6 +261,11 @@ ${footerVideos.length ? `
 </section>
 ` : ""}
 
+
+<!-- Ligne séparatrice -->
+<div class="divider"></div>
+
+
 `;
 
 }
