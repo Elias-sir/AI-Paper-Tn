@@ -651,6 +651,23 @@ html, body {
 }
 
 
+/* =========================
+   MOBILE : LIEN SITE PLUS PETIT + RETOUR LIGNE
+========================= */
+@media (max-width:768px){
+
+  .ai-website a{
+    font-size:0.85rem;      /* texte plus petit */
+    white-space:normal;     /* autorise retour ligne */
+    word-break:break-word;  /* coupe les longs liens */
+  }
+
+  .ai-website strong{
+    white-space:nowrap;     /* garde "Site:" sur la même ligne */
+  }
+
+}
+
 
 /* =========================
    PC : ENTETE CENTRÉ
