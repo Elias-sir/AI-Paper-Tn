@@ -1,6 +1,11 @@
 /* ==========================================================
    CONTENEUR PRINCIPAL
    ========================================================== */
+   /* empêcher tout scroll horizontal fantôme */
+html, body {
+  overflow-x: hidden;
+}
+
 html, body {
   height: 100%;
   margin: 0;
@@ -34,7 +39,7 @@ html, body {
   max-height: calc(100vh - var(--nav-h, 60px));
   overflow-y: auto;
   scroll-behavior: smooth;
-  scroll-snap-type: y mandatory; /* effet magic */
+  scroll-snap-type: y proximity;
 }
 
 #ai-detail-container::-webkit-scrollbar {
@@ -65,11 +70,10 @@ html, body {
   gap: 32px;
   color: #fff;
   width: 100%;
-  max-width: 960px;
+  max-width: 100%;
   scroll-snap-align: start;
   transition: transform 0.3s ease, box-shadow 0.3s ease;
   position: relative;
-  max-width: 100%;
   word-wrap: break-word;
   white-space: pre-wrap;
   overflow-wrap: break-word;
@@ -630,7 +634,21 @@ html, body {
 
 }
 
+/* =========================
+   MOBILE : HEADER TEXT DROIT
+========================= */
+@media (max-width:768px){
 
+  .ai-info p{
+    white-space: nowrap;
+    justify-content: center;
+  }
+
+  .ai-info p strong{
+    white-space: nowrap;
+  }
+
+}
 
 
 
