@@ -139,9 +139,9 @@ html, body {
   100% { box-shadow: 0 0 10px #2ecc71, 0 0 20px #2ecc71; }
 }
 
-/* ============================================================ */
+
 /* ===================== ICONES & COMPTE ===================== */
-/* ============================================================ */
+
 
 /* Icone Globe */
 .icon-globe {
@@ -156,24 +156,6 @@ html, body {
   100% { transform: rotate(360deg); }
 }
 
-/* Fleche tendance 
-.icon-trend {
-  display: inline-block;
-  font-size: 18px;
-  color: #b00000;
-  animation: trendUp 1.2s ease-in-out infinite alternate;
-  transform-origin: 50% 50%;
-  text-shadow: 0 0 4px #ff1a1a, 0 0 10px #b00000;
-}
-
-@keyframes trendUp {
-  0% { transform: translateY(0) scale(1); opacity: 0.8; }
-  50% { transform: translateY(-6px) scale(1.05); opacity: 1; }
-  100% { transform: translateY(0) scale(1); opacity: 0.8; }
-}
-*/
-
-
 /* Titre nav */
 .ai-label {
   font-weight: 600;
@@ -185,71 +167,33 @@ html, body {
   -webkit-text-fill-color: transparent;
 }
 
-/* ===== Compteur AI */
-.ai-count {
-  position: relative;
-  color: #f5f5f5;
-}
-.nav-left .ai-count {
-  font-weight: 700;
+/* ===== Texte après le titre nav ===== */
+.ai-after-title {
+  font-weight: 600;
+  font-size: 1rem;
+  margin-left: 2px;
   color: #6cf2c2;
-  font-size: 1.05rem;
-  margin: 0 4px;
-  animation: wowCount 2s infinite alternate;
-  transition: color 0.25s ease, text-shadow 0.25s ease;
+  background: linear-gradient(90deg, #6cf2c2, #4cc9f0, #9b5de5, #f15bb5);
+  background-size: 200% auto;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  transition: color 0.25s ease, transform 0.25s ease;
+  display: inline-block;
+  vertical-align: middle;
 }
 
-.nav-left .ai-trend {
-  color: #2ecc71;
-  margin-left: 4px;
-  animation: bounceArrow 1.5s infinite alternate;
+/* Ajouter le tiret automatiquement avant le texte */
+.ai-after-title::before {
+  content: " - ";
+  color: #6cf2c2; /* couleur du séparateur */
 }
 
-.ai-count.fast {
-  color: #ff1f1f;
-  text-shadow: 0 0 10px rgba(255,43,43,0.8);
-  transform: scale(1.06);
-  position: relative;
+.ai-after-title:hover {
+  transform: scale(1.05);
 }
-
-.ai-count::after {
-  content: '';
-  position: absolute;
-  inset: -4px -6px;
-  background: rgba(255,40,40,0.12);
-  filter: blur(10px);
-  z-index: -1;
-  border-radius: 10px;
-  opacity: 0.4;
-  transition: opacity 0.25s ease, filter 0.25s ease;
-}
-
-.ai-count.fast::after {
-  opacity: 0.9;
-  filter: blur(16px);
-}
-
-@keyframes bounceArrow {
-  0% { transform: translateY(0); }
-  50% { transform: translateY(-3px) scale(1.05); }
-  100% { transform: translateY(0); }
-}
-
-@keyframes wowCount {
-  0% { transform: scale(1); color: #6cf2c2; }
-  50% { transform: scale(1.1); color: #ffffff; }
-  100% { transform: scale(1); color: #6cf2c2; }
-}
-
-@keyframes pulseUp {
-  0% { opacity: 0.4; transform: translateY(0); }
-  50% { opacity: 1; transform: translateY(-2px); }
-  100% { opacity: 0.4; transform: translateY(0); }
-}
-
-/* ============================================================ */
 /* ======================= BOUTONS NAV ======================== */
-/* ============================================================ */
+
 
 /* Desktop (horizontal) */
 #nav-right {
@@ -299,10 +243,8 @@ html, body {
   }
 }
 
-
-/* ============================================================ */
 /* ======================= BURGER ============================ */
-/* ============================================================ */
+
 .nav-burger {
   display: none;
   background: none;
@@ -313,12 +255,7 @@ html, body {
   
 }
 
-/* ============================================================ */
 /* ===================== BOUTON PROFIL ======================== */
-/* ============================================================ */
-/* ============================================================ */
-/* ======================= BOUTON PROFIL ====================== */
-/* ============================================================ */
 
 /* Bouton global (like nav-btn) */
 .nav-profile {
@@ -373,10 +310,7 @@ html, body {
   box-shadow: 0 3px 10px rgba(0,0,0,0.25);
 }
 
-/* ============================================================ */
 /* ================= ANIMATION CONTOR AVATAR ================= */
-/* ============================================================ */
-
 @keyframes avatarCorePulse {
   0% { transform: scale(1); box-shadow: 0 0 12px rgba(46,204,113,0.6); }
   50% { transform: scale(1.1); box-shadow: 0 0 20px rgba(46,204,113,1); }
@@ -419,9 +353,7 @@ html, body {
   animation: none;         /* supprime animation si tu avais avatarCorePulse ou Magic */
 }
 
-/* ============================================================ */
 /* ===================== RESPONSIVE NAV ======================= */
-/* ============================================================ */
 @media (max-width: 768px) {
 
   .nav-left {
@@ -454,10 +386,7 @@ html, body {
   }
 }
 
-
-/* ============================================================ */
 /* ======================= ICONES NAV ======================== */
-/* ============================================================ */
 
 /* Base commune */
 .nav-btn {
@@ -616,84 +545,4 @@ html, body {
 
 .notif-btn {
   position: relative; /* ajoute ça */
-}
-
-
-
-
-
-/* ===============================
-   BOUTON "BIENVENUE" HERO
-================================ */
-.welcome-btn {
-  display: inline-flex;
-  align-items: center;
-  gap: 12px;
-  padding: 0 20px;
-  height: 50px;
-  border-radius: 24px;
-  font-weight: 700;
-  font-size: 0.95rem;
-  cursor: pointer;
-  background: linear-gradient(45deg, #6cf2c2, #2ecc71);
-  color: #0f0f12;
-  box-shadow: 0 12px 30px rgba(46,204,113,0.5);
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
-  position: relative;
-  overflow: hidden;
-}
-
-.welcome-btn:hover {
-  transform: scale(1.05);
-  box-shadow: 0 16px 36px rgba(46,204,113,0.6);
-}
-
-/* Avatar dans le bouton */
-.welcome-btn .hero-avatar {
-  width: 32px;
-  height: 32px;
-  border-radius: 50%;
-  object-fit: cover;
-  border: 2px solid #fff;
-  position: relative;
-  z-index: 1;
-  animation: pulseNeon 2.5s infinite alternate;
-}
-
-/* Cercle néon animé autour de l’avatar */
-.welcome-btn .hero-avatar::before {
-  content: "";
-  position: absolute;
-  inset: -6px; /* cercle légèrement plus grand que l'avatar */
-  border-radius: 50%;
-  background: rgba(108,242,194,0.5);
-  filter: blur(8px);
-  z-index: -1;
-  animation: pulseGlow 2.5s infinite alternate;
-}
-
-/* Animation glow */
-@keyframes pulseGlow {
-  0% { transform: scale(0.9); opacity: 0.6; }
-  50% { transform: scale(1.1); opacity: 0.9; }
-  100% { transform: scale(0.9); opacity: 0.6; }
-}
-
-/* Animation légère de pulse sur l’avatar */
-@keyframes pulseNeon {
-  0% { transform: scale(1); }
-  50% { transform: scale(1.05); }
-  100% { transform: scale(1); }
-}
-
-/* Responsive mobile */
-@media (max-width: 640px) {
-  .welcome-btn {
-    width: 100%;
-    justify-content: center;
-  }
-  .welcome-btn .hero-avatar {
-    width: 28px;
-    height: 28px;
-  }
 }
