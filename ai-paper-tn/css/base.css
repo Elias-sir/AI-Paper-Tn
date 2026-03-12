@@ -192,6 +192,12 @@ html, body {
 .ai-after-title:hover {
   transform: scale(1.05);
 }
+
+@media (max-width: 640px) {
+  .ai-after-title{
+    display: none;
+  }
+}
 /* ======================= BOUTONS NAV ======================== */
 
 

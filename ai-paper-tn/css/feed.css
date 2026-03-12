@@ -83,6 +83,18 @@
   .mobile-break{
     display: block;
   }
+
+   .badge-star{
+    opacity: 0.6;
+    margin: 0 5px;
+  }
+}
+.badge-star{
+  font-size: 11px;
+  margin: 0 6px;
+  opacity: 0.75;
+  position: relative;
+  top: 1px;
 }
 
 /* ===============================
