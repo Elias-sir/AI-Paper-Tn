@@ -26,39 +26,39 @@
   <section id="add-ai">
     <h2>Ajouter une IA</h2>
     <input type="text" id="ai-name" placeholder="Nom de l'IA" />
-    <input type="text" id="ai-description" placeholder="Description" />
-    <input type="text" id="ai-logo" placeholder="URL du logo" />
-    <input type="text" id="ai-category" placeholder="Catégorie (-18/+18/adulte)" />
+    <input type="text" id="ai-description" placeholder="Description pour la carte feed" />
+    <input type="text" id="ai-logo" placeholder="lien logo" />
+    <input type="text" id="ai-category" placeholder="Catégorie (-18/safe/only girl/ only boys)" />
     
     <input
   type="text"
   id="ai-use-cases"
-  placeholder="Use cases (video, travail, trading…)"
+  placeholder="Utilité principal (video, travail, trading…)"
 />
 
  <label for="ai-media">Image principale (Card)</label>
 <input 
   type="text" 
   id="ai-media" 
-  placeholder="URL de l'image principale"
+  placeholder="lien de l'image"
 />
 
 <input 
   type="text" 
   id="ai-punchline" 
-  placeholder="Punchline (ex: Gagne de l'argent avec l'IA depuis la Tunisie)" 
+  placeholder="Punchline (phrase d'accroche)" 
 />
 
 
 <input 
   type="text" 
   id="ai-signals" 
-  placeholder="Badges éditoriaux (HOT, Money Maker, Très utilisé en Tunisie)" 
+  placeholder="Badges d'accroche (HOT, Money Maker, Très utilisé en Tunisie)" 
 />
 
 
-    <input type="text" id="ai-badges" placeholder="autre badges " />
-    <input type="text" id="ai-website" placeholder="URL site , le site officiel du IA" />
+    <input type="text" id="ai-badges" placeholder="autre badges d'accroche" />
+    <input type="text" id="ai-website" placeholder="lien site officiel du IA" />
     <!-- Nouveaux champs pour AI Detail enrichi -->
 
   <textarea id="ai-story" placeholder="Récit ou explications sur l'IA"></textarea>
@@ -82,7 +82,7 @@
 
 <!-- Modes de paiement depuis la Tunisie -->
 <textarea id="ai-payment" 
-          placeholder="Modes de paiement depuis la Tunisie (ex: cartes, e-wallets…)" 
+          placeholder="Formules & Modes de paiement " 
           rows="2"></textarea>
 
 <!-- Avantages -->
@@ -144,26 +144,26 @@
   <form id="sponsor-card-form" class="admin-sponsor-form">
 
     <label for="sponsor-title">Titre</label>
-    <input type="text" id="sponsor-title" name="title" placeholder="Titre de la carte" />
+    <input type="text" id="sponsor-title" name="title" placeholder="Nom de la Marque" />
 
     <label for="sponsor-description">Description</label>
-<textarea id="sponsor-description" name="description" placeholder="Description de la carte" rows="3"></textarea>
+<textarea id="sponsor-description" name="description" placeholder="Titre" rows="3"></textarea>
 
 
     <label for="sponsor-logo">Logo (optionnel)</label>
-    <input type="text" id="sponsor-logo" name="logo_url" placeholder="URL du logo" />
+    <input type="text" id="sponsor-logo" name="logo_url" placeholder="lien du logo" />
 
     <label for="sponsor-media">Image URL</label>
-    <input type="text" id="sponsor-media" name="media_url" placeholder="URL de l'image" />
+    <input type="text" id="sponsor-media" name="media_url" placeholder="lien de l'image" />
 
     <label for="sponsor-link">Lien annonceur</label>
     <input type="url" id="sponsor-link" name="link" placeholder="Lien de redirection" />
 
     <label for="sponsor-signals">Badges</label>
-    <input type="text" id="sponsor-signals" name="signals" placeholder="Badges séparés par ," />
+    <input type="text" id="sponsor-signals" name="signals" placeholder="secteur activité" />
 
     <label for="sponsor-priority">Priorité</label>
-    <input type="number" id="sponsor-priority" name="priority" placeholder="Priorité (optionnel)" />
+    <input type="number" id="sponsor-priority" name="priority" placeholder="Priorité de 1 -10" />
 
     <label for="sponsor-start">Date début</label>
     <input type="datetime-local" id="sponsor-start" name="start_date" />

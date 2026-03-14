@@ -243,7 +243,7 @@ hr {
   border-radius: 12px;
   font-size: 0.85rem;
   font-weight: 600;
-  animation: float 3s ease-in-out infinite alternate;
+  
 }
 
 /* Histoire / récit */
@@ -276,13 +276,6 @@ hr {
   width: 100%;
   border-radius: 16px;
   box-shadow: 0 6px 20px rgba(0,0,0,0.4);
-}
-
-/* Animation badges */
-@keyframes float {
-  0% { transform: translateY(0); }
-  50% { transform: translateY(-4px); }
-  100% { transform: translateY(0); }
 }
 
 
@@ -507,9 +500,6 @@ hr {
   color: #ddd;
   margin: 0;
 }
-
-
-
 
 
 .users-grid {

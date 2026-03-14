@@ -376,9 +376,13 @@ html, body {
 .ai-detail-card .shorts-grid video,
 .shorts-grid video {
   width: 100%;
+  aspect-ratio: 9 / 16;   /* 👈 force un format vertical uniforme */
+  height: auto;
+
   border-radius: 16px;
   background: #000;
-  object-fit: cover;          /* garde le premier frame visible ou si voulais remplis on fait contain */
+
+  object-fit: cover;      /* remplissage propre */
   transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
@@ -386,6 +390,18 @@ html, body {
   transform: scale(1.03);
   box-shadow: 0 12px 28px rgba(0,0,0,0.6);
 }
+.ai-detail-card .shorts-grid,
+.shorts-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+  gap: 16px;
+}
+
+.ai-detail-card .shorts-grid video{
+  cursor: pointer;
+}
+
+
 
 /* ======== TITRES YOUTUBE & SHORTS ======== */
 .ai-youtube h2,
