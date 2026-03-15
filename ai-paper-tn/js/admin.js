@@ -313,12 +313,6 @@ function updatePreview() {
           : `<div class="ai-placeholder">Image IA</div>`
       }
     </div>
-
- 
-      <div class="ai-badges">
-        ${badgesArray.map(b => `<div class="ai-badge">${b}</div>`).join('')}
-      </div>
-    </div>
   `;
 }
 

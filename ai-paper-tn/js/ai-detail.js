@@ -215,7 +215,7 @@ ${websiteUrl ? `
   </div>
 
   <!-- Story / récit -->
-  ${story ? `<div class="ai-story"><h2>Histoire & Explications</h2><p>${story}</p></div>` : ""}
+  ${story ? `<div class="ai-story"><h2> Story </h2><p>${story}</p></div>` : ""}
 
 
     <!-- Ligne séparatrice -->
