@@ -279,7 +279,7 @@ document.querySelectorAll(".footer-video-input").forEach((input, i) => {
 
   document.getElementById('add-ai-btn').textContent = 'Modifier IA';
 }
-//////////////////////   Voir en live   ////////////////////////////
+//////////////////////   Voir en live CARTE   ////////////////////////////
 const previewCard = document.getElementById("preview-card");
 
 function updatePreview() {
@@ -330,7 +330,7 @@ function updatePreview() {
 // initialiser la preview au chargement
 updatePreview();
 
-///////////////////////   preview ai detail   ////////////////
+///////////////////////   preview AI DETAILS   ////////////////
 
 function formatUsers(count) {
   if (count >= 1_000_000) return (count / 1_000_000).toFixed(0) + " millions";
@@ -411,13 +411,8 @@ const ytHTML = ytVideos.map(url => {
   ${disadvantages ? `<p><strong>Désavantages :</strong> ${disadvantages}</p>` : ""}
 </div>
 ` : ""}
-
-
-${ytHTML ? `
-<div class="ai-youtube">
-  <h2>Vidéos YouTube</h2>
-  <div class="yt-grid">${ytHTML}</div>
-</div>` : ""}
+<!-- Ligne séparatrice -->
+<div class="divider"></div>
 
 ${footerVideos.length ? `
 <div class="ai-footer-video">
@@ -431,6 +426,18 @@ ${footerVideos.length ? `
     ></video>
   `).join("")}
 </div>` : ""}
+
+<!-- Ligne séparatrice -->
+<div class="divider"></div>
+
+${ytHTML ? `
+<div class="ai-youtube">
+  <h2>Vidéos YouTube</h2>
+  <div class="yt-grid">${ytHTML}</div>
+</div>` : ""}
+
+<!-- Ligne séparatrice -->
+<div class="divider"></div>
 
     </div>
   `;

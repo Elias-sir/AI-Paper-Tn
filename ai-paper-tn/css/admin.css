@@ -131,154 +131,6 @@ hr {
 }
 
 
-
-
-/* =========================
-   AI Detail Preview Admin
-========================= */
-#ai-story {
-  width: 100%;
-  height: 120px; /* tu peux ajuster */
-  padding: 12px;
-  border-radius: 12px;
-  background: rgba(255,255,255,0.1);
-  color: #fff;
-  font-size: 1rem;
-  resize: vertical; /* l’utilisateur peut ajuster la hauteur */
-  overflow-y: auto;
-  
-}
-.ai-story {
-  max-height: 250px;
-  overflow-y: auto;
-}
-
-
-
-#ai-detail-preview {
-  margin: 32px 24px;
-}
-
-#detail-preview-card .ai-detail-card {
-  max-width: 600px;           /* largeur fixe pour la preview */
-  display: flex;
-  flex-direction: column;
-  gap: 16px;
-  padding: 24px;
-  background: var(--apt-card);
-  border-radius: 24px 48px 48px 24px;
-  box-shadow: 0 12px 28px rgba(0,0,0,0.35);
-  position: relative;
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
-}
-
-#detail-preview-card .ai-detail-card:hover {
-  transform: scale(1.02);
-  box-shadow: 0 20px 40px rgba(0,0,0,0.5);
-}
-
-/* Top section : logo + infos */
-#detail-preview-card .ai-top {
-  display: flex;
-  gap: 16px;
-  align-items: center;
-}
-
-#detail-preview-card .ai-logo {
-  width: 96px;
-  height: 96px;
-  border-radius: 24px;
-  background: #222;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  overflow: hidden;
-  border: 2px solid rgba(255,255,255,0.1);
-  flex-shrink: 0;
-}
-
-#detail-preview-card .ai-logo img {
-  width: 80%;
-  height: 80%;
-  object-fit: contain;
-  transition: transform 0.2s ease;
-}
-
-#detail-preview-card .ai-logo img:hover {
-  transform: scale(1.1);
-}
-
-/* Infos texte */
-#detail-preview-card .ai-info h1 {
-  font-size: 1.8rem;
-  margin-bottom: 6px;
-  color: #fff;
-}
-
-#detail-preview-card .ai-punchline {
-  font-size: 1.3rem;
-  font-weight: 700;
-  color: #fff;
-  text-shadow: 0 4px 16px rgba(0,0,0,0.5);
-  margin-bottom: 8px;
-}
-
-#detail-preview-card .ai-info p {
-  font-size: 0.95rem;
-  margin-bottom: 4px;
-  line-height: 1.4;
-}
-
-/* Badges */
-#detail-preview-card .ai-badges {
-  display: flex;
-  gap: 8px;
-  flex-wrap: wrap;
-  margin-top: 6px;
-}
-
-#detail-preview-card .ai-badge {
-  background: #222;
-  padding: 4px 10px;
-  border-radius: 12px;
-  font-size: 0.85rem;
-  font-weight: 600;
-  
-}
-
-/* Histoire / récit */
-#detail-preview-card .ai-story {
-  background: rgba(30,30,50,0.8);
-  padding: 16px;
-  border-radius: 16px;
-  line-height: 1.5;
-  font-size: 0.95rem;
-}
-
-#detail-preview-card .ai-story h2 {
-  font-size: 1.2rem;
-  margin-bottom: 8px;
-  color: var(--apt-amber);
-}
-
-/* Footer vidéo */
-#detail-preview-card .ai-footer-video {
-  margin-top: 16px;
-}
-
-#detail-preview-card .ai-footer-video h2 {
-  font-size: 1.2rem;
-  margin-bottom: 8px;
-  color: var(--apt-amber);
-}
-
-#detail-preview-card .ai-footer-video video {
-  width: 100%;
-  border-radius: 16px;
-  box-shadow: 0 6px 20px rgba(0,0,0,0.4);
-}
-
-
 /* bouton index */ 
 
 .top-btn {
@@ -352,6 +204,277 @@ hr {
 }
 
 
+/* ============= AI Detail Preview Admin ============== */
+
+
+#detail-preview-card .ai-detail-card{
+  max-width: 520px;
+  padding: 20px;
+  border-radius: 28px;
+
+  background: rgba(20,20,28,0.85);
+  -webkit-backdrop-filter : blur(10px);
+  backdrop-filter: blur(10px);
+
+  display:flex;
+  flex-direction:column;
+  gap:20px;
+
+  box-shadow:0 20px 40px rgba(0,0,0,0.45);
+}
+
+#ai-story {
+  width: 100%;
+  height: 120px; /* tu peux ajuster */
+  padding: 12px;
+  border-radius: 12px;
+  background: rgba(255,255,255,0.1);
+  color: #fff;
+  font-size: 1rem;
+  resize: vertical; /* l’utilisateur peut ajuster la hauteur */
+  overflow-y: auto;
+  
+}
+.ai-story {
+  max-height: 250px;
+  overflow-y: auto;
+}
+
+
+
+#ai-detail-preview {
+  margin: 32px 24px;
+}
+
+
+
+
+/* Top section : logo + infos */
+#detail-preview-card .ai-top{
+  display:flex;
+  gap:20px;
+  align-items:center;
+
+  padding:14px;
+  border-radius:20px;
+
+  background:rgba(20,20,28,0.6);
+}
+
+
+#detail-preview-card .ai-logo{
+ 
+  border-radius:50%;
+
+  display:flex;
+  align-items:center;
+  justify-content:center;
+
+  overflow:hidden;
+
+  border:2px solid rgba(108,242,194,0.3);
+  box-shadow:0 0 18px rgba(108,242,194,0.2);
+}
+
+#detail-preview-card .ai-logo img{
+  width:100%;
+  height:100%;
+  object-fit:cover;
+}
+
+
+#detail-preview-card .ai-logo img {
+  width: 80%;
+  height: 80%;
+  object-fit: contain;
+  transition: transform 0.2s ease;
+}
+
+#detail-preview-card .ai-logo img:hover {
+  transform: scale(1.1);
+}
+
+/* Infos texte */
+#detail-preview-card .ai-info h1{
+  font-size:1.6rem;
+  font-weight:800;
+
+  background:linear-gradient(120deg,#6cf2c2,#4cc9f0,#9b5de5);
+  -webkit-background-clip:text;
+  background-clip:text;
+  -webkit-text-fill-color:transparent;
+
+  margin-bottom:4px;
+}
+
+
+#detail-preview-card .ai-punchline{
+  font-size:1.1rem;
+  font-style:italic;
+  color:#a0ffea;
+}
+
+
+#detail-preview-card .ai-info p {
+  font-size: 0.95rem;
+  margin-bottom: 4px;
+  line-height: 1.4;
+}
+
+/* Badges */
+#detail-preview-card .ai-badges{
+  display:flex;
+  gap:6px;
+  flex-wrap:wrap;
+}
+
+#detail-preview-card .ai-badge{
+  font-size:0.8rem;
+  padding:4px 8px;
+
+  border-radius:8px;
+
+  color:#c0c0c0;
+  background:rgba(255,255,255,0.05);
+}
+
+
+/* Histoire / récit */
+#detail-preview-card .ai-story{
+  background:rgba(30,30,50,0.7);
+  padding:14px;
+  border-radius:14px;
+}
+
+#detail-preview-card .ai-story h2{
+  font-size:1.1rem;
+  text-align:center;
+
+  background:linear-gradient(120deg,#6cf2c2,#4cc9f0,#9b5de5);
+  -webkit-background-clip:text;
+  background-clip:text;
+  -webkit-text-fill-color:transparent;
+
+  margin-bottom:6px;
+}
+
+
+/* Footer vidéo */
+#detail-preview-card .yt-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fill,minmax(120px,1fr));
+  gap:10px;
+}
+
+#detail-preview-card .yt-thumb{
+  border-radius:12px;
+  overflow:hidden;
+}
+
+#detail-preview-card .yt-thumb img{
+  width:100%;
+}
+
+/* ======== LIGNE SÉPARATRICE ======== */
+.divider {
+  width: 80%;                    /* largeur de la ligne */
+  height: 1px;                   /* épaisseur */
+  margin: 10px auto;             /* espace et centré */
+  background: linear-gradient(to right, rgba(108,242,194,0), rgba(108,242,194,0.6), rgba(108,242,194,0));
+  border: none;
+  border-radius: 1px;
+}
+
+/* =============================
+   FONCTIONNALITÉS & INFOS CLÉS
+============================= */
+#ai-utility,
+#ai-target,
+#ai-payment,
+#ai-advantages,
+#ai-disadvantages {
+  width: 100%;
+  padding: 12px;
+  border-radius: 12px;
+  background: rgba(255,255,255,0.1);
+  color: #fff;
+  font-size: 1rem;
+  line-height: 1.4;
+  resize: vertical;
+  overflow-y: auto;
+  margin-bottom: 1rem;
+  border: none;
+  outline: none;
+  transition: background 0.3s ease, transform 0.2s ease;
+}
+
+#ai-utility:focus,
+#ai-target:focus,
+#ai-payment:focus,
+#ai-advantages:focus,
+#ai-disadvantages:focus {
+  background: rgba(255,255,255,0.2);
+  transform: scale(1.02);
+}
+
+/* Titre de section */
+#add-ai h3 {
+  font-size: 1.4rem;
+  margin-bottom: 0.8rem;
+  color: #a0e7ff;
+  text-shadow: 0 2px 6px rgba(0,0,0,0.6);
+  font-weight: 600;
+}
+
+/* Preview live */
+#detail-preview-card .ai-features{
+  background:rgba(30,30,50,0.7);
+  padding:14px;
+  border-radius:16px;
+
+  display:flex;
+  flex-direction:column;
+  gap:8px;
+}
+
+#detail-preview-card .ai-features h2{
+  font-size:1.2rem;
+  text-align:center;
+
+  background:linear-gradient(120deg,#6cf2c2,#4cc9f0,#9b5de5);
+  -webkit-background-clip:text;
+  background-clip:text;
+  -webkit-text-fill-color:transparent;
+}
+
+#detail-preview-card .ai-features p{
+  font-size:0.9rem;
+
+  padding:6px 10px;
+  border-radius:10px;
+
+  background:rgba(20,20,28,0.6);
+  border-left:3px solid #6cf2c2;
+}
+/* Footer vidéos */
+.ai-footer-video {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+  gap: 10px;
+}
+
+.ai-footer-video video {
+  width: 100%;
+  max-height: 160px;
+  border-radius: 12px;
+  object-fit: cover;
+}
+
+/* ============= AI Detail Preview Admin fin ============== */
+
+
+
+/* ============= AI CARTE debut ============== */
 #ai-preview {
   background: radial-gradient(
     circle at top,
@@ -404,103 +527,11 @@ hr {
   flex-shrink: 0;
 }
 
-
-/* mini-écrans YouTube (léger + clean)  */
-
-.yt-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
-  gap: 12px;
-}
-
-.yt-thumb {
-  position: relative;
-  border-radius: 14px;
-  overflow: hidden;
-}
-
-.yt-thumb img {
-  width: 100%;
-  display: block;
-}
-
-.yt-thumb span {
-  position: absolute;
-  inset: 0;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 2rem;
-  color: white;
-  background: rgba(0,0,0,0.4);
-}
+/* ============= AI CARTE fin ============== */
 
 
-/* =============================
-   FONCTIONNALITÉS & INFOS CLÉS
-============================= */
-#ai-utility,
-#ai-target,
-#ai-payment,
-#ai-advantages,
-#ai-disadvantages {
-  width: 100%;
-  padding: 12px;
-  border-radius: 12px;
-  background: rgba(255,255,255,0.1);
-  color: #fff;
-  font-size: 1rem;
-  line-height: 1.4;
-  resize: vertical;
-  overflow-y: auto;
-  margin-bottom: 1rem;
-  border: none;
-  outline: none;
-  transition: background 0.3s ease, transform 0.2s ease;
-}
 
-#ai-utility:focus,
-#ai-target:focus,
-#ai-payment:focus,
-#ai-advantages:focus,
-#ai-disadvantages:focus {
-  background: rgba(255,255,255,0.2);
-  transform: scale(1.02);
-}
-
-/* Titre de section */
-#add-ai h3 {
-  font-size: 1.4rem;
-  margin-bottom: 0.8rem;
-  color: #a0e7ff;
-  text-shadow: 0 2px 6px rgba(0,0,0,0.6);
-  font-weight: 600;
-}
-
-/* Preview live */
-#detail-preview-card .ai-features {
-  background: rgba(30,30,50,0.8);
-  padding: 16px;
-  border-radius: 16px;
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-}
-
-#detail-preview-card .ai-features h2 {
-  font-size: 1.2rem;
-  color: #a0e7ff;
-  text-align: center;
-  margin-bottom: 8px;
-}
-
-#detail-preview-card .ai-features p {
-  font-size: 0.95rem;
-  line-height: 1.4;
-  color: #ddd;
-  margin: 0;
-}
-
+/*=============== PARTIE USERS  ===================== */
 
 .users-grid {
   display: grid;

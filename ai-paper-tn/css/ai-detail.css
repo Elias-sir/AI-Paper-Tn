@@ -218,16 +218,19 @@ html, body {
    PUNCHLINE
    ========================================================== */
 .ai-punchline {
-  font-size: 1.6rem;
+  font-size: clamp(1.2rem, 2.2vw, 1.6rem); /* responsive, grand sur PC, plus petit sur mobile */
   font-weight: 600;
-  max-width: 560px;
-  margin-top: 8px;
-  color: #a0ffea; /* couleur douce futuriste mais pas flashy */
-  line-height: 1.4;
-  text-shadow: 0 2px 8px rgba(0,0,0,0.4);
-  font-style: italic; /* style “citation” ou slogan */
+  color: #a0ffea;
+  font-style: italic;
+  line-height: 1.6;
+  text-align: center;        /* centré horizontalement */
+  margin: 16px auto;         /* espace + centré */
+  max-width: 600px;          /* limite la largeur pour retour à la ligne élégant */
+  word-wrap: break-word;     
+  overflow-wrap: break-word; 
+  white-space: normal;       /* autorise le retour à la ligne naturel */
   letter-spacing: 0.5px;
-  transition: none; /* on enlève toute animation */
+  text-shadow: 0 2px 8px rgba(0,0,0,0.4);
 }
 
 /* ==========================================================

@@ -73,12 +73,6 @@ if (ai.signals) {
       </div>
     </div>
 
-    <div class="ai-users-wrapper" title="Utilisateurs dans le monde" >
-  <i class="ph ph-users"></i>
-  <span class="ai-users-count">${formatUsers(usersCount)}</span>
-</div>
-
-
      <div class="ai-center">
       ${
         media
@@ -102,6 +96,13 @@ if (ai.signals) {
             </svg>
         <span class="like-count">${likes}</span>
       </div>
+
+      
+    <div class="ai-users-wrapper" title="Utilisateurs dans le monde" >
+  <i class="ph ph-users"></i>
+  <span class="ai-users-count">${formatUsers(usersCount)}</span>
+</div>
+
 
         <!-- COMPTEUR CLICS -->
     <div class="clicks-display" title="Visiteurs">

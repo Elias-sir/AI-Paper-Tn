@@ -227,21 +227,6 @@ ${websiteUrl ? `
   <!-- Ligne séparatrice -->
 <div class="divider"></div>
 
-  <!-- Vidéo liens youtubes -->
- ${ytHTML ? `
-<section class="ai-youtube">
-   <!--   <h2>Vidéos YouTube Explicatif</h2>-->
-  <div class="yt-grid">
-    ${ytHTML}
-  </div>
-</section>
-` : ""}
-
-
-<!-- Ligne séparatrice -->
-<div class="divider"></div>
-
-
 ${footerVideos.length ? `
 <section class="ai-footer-video">
    <!-- <h2>Sponsoring</h2>-->
@@ -261,6 +246,21 @@ ${footerVideos.length ? `
 </section>
 ` : ""}
 
+
+<!-- Ligne séparatrice -->
+<div class="divider"></div>
+
+
+
+  <!-- Vidéo liens youtubes -->
+ ${ytHTML ? `
+<section class="ai-youtube">
+   <!--   <h2>Vidéos YouTube Explicatif</h2>-->
+  <div class="yt-grid">
+    ${ytHTML}
+  </div>
+</section>
+` : ""}
 
 <!-- Ligne séparatrice -->
 <div class="divider"></div>
