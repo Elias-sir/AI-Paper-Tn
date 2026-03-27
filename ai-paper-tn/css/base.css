@@ -212,20 +212,23 @@ html, body {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  background: linear-gradient(135deg, #6cf2c2, #4cc9f0);
-  color: #0f0f12;
-  padding: 8px 14px;
-  border-radius: 12px;
-  font-weight: 600;
+
+  background: none;        /* ❌ supprime fond */
+  color: #fff;             /* texte blanc clean */
+
+  padding: 6px 8px;        /* plus léger */
+  border-radius: 8px;
+
+  font-weight: 500;
   text-decoration: none;
-  transition: all 0.3s ease;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+
+  transition: all 0.2s ease;
+  box-shadow: none;        /* ❌ supprime ombre */
 }
 
 #nav-right .nav-btn:hover {
-  background: linear-gradient(135deg, #4cc9f0, #6cf2c2);
-  transform: translateY(-2px) scale(1.03);
-  box-shadow: 0 6px 18px rgba(0,0,0,0.35);
+  background: rgba(255,255,255,0.06); /* léger voile */
+  transform: translateY(-1px);
 }
 
 #nav-right .nav-btn:active {
@@ -504,6 +507,7 @@ html, body {
   transition: all 0.2s ease;
 }
 
+
 .notif-btn:hover {
   background: #25d366;
   color: #000;
@@ -551,4 +555,28 @@ html, body {
 
 .notif-btn {
   position: relative; /* ajoute ça */
+}
+
+
+
+/* RESET TOTAL boutons nav (sauf profil) */
+#nav-right .nav-btn:not(.nav-profile) {
+  background: transparent !important;
+  box-shadow: none !important;
+  border: none !important;
+
+  padding: 4px;              /* réduit zone → plus de carré visible */
+  border-radius: 6px;        /* mini arrondi discret */
+}
+
+/* supprime tout style spécifique parasite */
+.notif-btn,
+.search-btn {
+  background: transparent !important;
+  box-shadow: none !important;
+}
+
+/* hover ULTRA léger (presque invisible) */
+#nav-right .nav-btn:not(.nav-profile):hover {
+  background: rgba(255,255,255,0.04); /* quasi invisible */
 }

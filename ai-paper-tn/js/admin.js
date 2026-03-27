@@ -95,11 +95,38 @@ async function fetchAIs() {
     const editBtn = document.createElement('button');
     editBtn.textContent = 'Modifier';
     editBtn.style.marginRight = '8px';
-    editBtn.addEventListener('click', () => editAI(ai));
+    editBtn.addEventListener('click', () => {
+  // 1️⃣ changement de texte pour montrer qu'on clique
+  editBtn.textContent = "✏️ Editing...";
+  editBtn.disabled = true;
+
+  // 2️⃣ appel normal de ton édition
+  editAI(ai);
+
+  // 3️⃣ revenir à l’état normal après 1,2s
+  setTimeout(() => {
+    editBtn.textContent = "Modifier";
+    editBtn.disabled = false;
+  }, 1200);
+});('click', () => editAI(ai));
 
     const deleteBtn = document.createElement('button');
     deleteBtn.textContent = 'Supprimer';
-    deleteBtn.addEventListener('click', () => deleteAI(ai.id));
+    deleteBtn.addEventListener('click', async () => {
+  const confirmed = confirm(`⚠️ Voulez-vous vraiment supprimer "${ai.name}" ?`);
+  if (!confirmed) return;
+
+  deleteBtn.textContent = "🗑️ Suppression...";
+  deleteBtn.disabled = true;
+
+  await deleteAI(ai.id);
+
+  // effet visuel pour disparition
+  const li = deleteBtn.closest('li');
+  li.style.transition = 'opacity 0.5s';
+  li.style.opacity = 0;
+  setTimeout(() => li.remove(), 500);
+});('click', () => deleteAI(ai.id));
 
     li.appendChild(editBtn);
     li.appendChild(deleteBtn);
@@ -124,6 +151,16 @@ async function deleteAI(id) {
 // -------------------- AJOUT / MODIF IA --------------------
 async function handleAddOrEdit() {
   const addBtn = document.getElementById('add-ai-btn');
+  addBtn.textContent = "⏳ En cours...";
+  addBtn.disabled = true;
+  addBtn.textContent = "✅ Terminé !";
+
+setTimeout(() => {
+  addBtn.textContent = "Ajouter l'IA";
+  addBtn.disabled = false;
+}, 1500);
+
+
   const name = document.getElementById('ai-name').value;
   const description = document.getElementById('ai-description').value;
   const logo_url = document.getElementById('ai-logo').value;
@@ -144,14 +181,8 @@ const advantages = document.getElementById("ai-advantages")?.value.trim() || "";
 const disadvantages = document.getElementById("ai-disadvantages")?.value.trim() || "";
 const media_url = document.getElementById("ai-media")?.value.trim() || "";
 
-
-
-const use_cases = document
-  .getElementById("ai-use-cases")
-  .value
-  .split(",")
-  .map(u => u.trim())
-  .filter(Boolean);
+const use_cases = document.getElementById("ai-use-cases").value.split(",").map(u => u.trim())
+.filter(Boolean);
 
 const youtube_videos = [...document.querySelectorAll(".yt-input")]
   .map(i => i.value.trim())
@@ -232,6 +263,22 @@ document.getElementById('ai-name').value = '';
 
 
   fetchAIs();
+  fetchAIsCount();
+}
+
+async function fetchAIsCount() {
+  const countEl = document.getElementById('ai-count');
+
+  const { count, error } = await supabase
+    .from('ai_tools')
+    .select('*', { count: 'exact', head: true });
+
+  if (error) {
+    console.error('Erreur count IA:', error);
+    return;
+  }
+
+  if (countEl) countEl.textContent = count;
 }
 
 // -------------------- EDIT IA --------------------
@@ -528,4 +575,5 @@ document.addEventListener('DOMContentLoaded', async () => {
   fetchAIs();
   fetchUsers();
   fetchUsersCount(); 
+  fetchAIsCount();
 });

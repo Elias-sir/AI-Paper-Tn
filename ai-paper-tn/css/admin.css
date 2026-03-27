@@ -191,11 +191,13 @@ hr {
 
 
 .admin-workspace {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
+  display: flex;
+  flex-direction: column;
   gap: 2rem;
-  align-items: stretch;
+  align-items: center;
 }
+
+
 
 @media (max-width: 900px) {
   .admin-workspace {
@@ -571,4 +573,63 @@ hr {
 
 .user-pseudo {
   font-weight: 600;
+}
+
+
+
+
+#add-ai {
+  width: 100%;
+  min-height: 100vh; /* 👈 prend toute la hauteur écran */
+  padding: 2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+
+  justify-content: center; /* centre verticalement */
+  align-items: center;     /* centre horizontalement */
+}
+
+#add-ai {
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
+
+#add-ai {
+  background: radial-gradient(circle at top, rgba(108,242,194,0.12), transparent 60%);
+}
+
+
+
+
+.admin-workspace {
+  display: flex;
+  flex-direction: column;
+  gap: 3rem;
+}
+
+
+.preview-row {
+  width: 100%;
+  max-width: 1200px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2rem;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+@media (max-width: 900px) {
+  .preview-row {
+    grid-template-columns: 1fr;
+  }
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+section {
+  border-top: 1px solid rgba(255,255,255,0.08);
 }

@@ -101,7 +101,7 @@
    TEXTE HERO
 ================================ */
 .hero-line {
-  font-size: 1.12rem;
+  font-size: 0.95rem;
   font-weight: 600;
   max-width: 680px;
   text-align: center;
@@ -345,3 +345,4 @@
     height: 28px;
   }
 }
+

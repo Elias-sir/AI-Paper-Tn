@@ -1,153 +1,139 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
+  <!-- META -->
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
+  <!-- TITLE -->
   <title>The AI's Admin</title>
+
+  <!-- STYLES -->
   <link rel="stylesheet" href="css/admin.css" />
   <link rel="stylesheet" href="css/admin_sponsor.css" />
   <link rel="stylesheet" href="css/card.css" />
- <link rel="icon" type="image/png" href="assents/fonts/theais.png">
+
+  <!-- ICON -->
+  <link rel="icon" type="image/png" href="assents/fonts/theais.png">
 </head>
+
 <body>
- <nav class="admin-nav">
+
+<!-- ================= NAVBAR ================= -->
+<nav class="admin-nav">
   <a href="index.html" class="admin-back">⬅ Feed</a>
-
   <h1 class="admin-title">The AI's · Dashbord</h1>
-
-  <div class="admin-status">
-    🟢 Live
-  </div>
+  <div class="admin-status">🟢 Live</div>
 </nav>
 
+
+<!-- ================= WORKSPACE ================= -->
 <div class="admin-workspace">
-  <!-- Section pour ajouter une IA -->
+
+  <!-- ========================================================= -->
+  <!-- 🧾 SECTION 1 : AJOUT IA -->
+  <!-- ========================================================= -->
   <section id="add-ai">
     <h2>Ajouter une IA</h2>
+
+    <!-- Champs principaux -->
     <input type="text" id="ai-name" placeholder="Nom de l'IA" />
-    <input type="text" id="ai-description" placeholder="Description pour la carte feed" />
+    <input type="text" id="ai-description" placeholder="Description AI" />
     <input type="text" id="ai-logo" placeholder="lien logo" />
-    <input type="text" id="ai-category" placeholder="Catégorie (-18/safe/only girl/ only boys)" />
-    
+    <input type="text" id="ai-category" placeholder="Catégorie (-18/safe/mixte/pro)" />
 
-    <!-- sert a rien-->
-    <input
-  type="text"
-  id="ai-use-cases"
-  placeholder="Pas Important ! laissez vide"
-/>
+    <!-- inutile -->
+    <input type="text" id="ai-use-cases" placeholder="Pas Important ! laissez vide"/>
 
- <label for="ai-media">Image principale (Card)</label>
-<input 
-  type="text" 
-  id="ai-media" 
-  placeholder="lien de l'image"
-/>
+    <!-- Media -->
+    <label for="ai-media">Image principale (Card)</label>
+    <input type="text" id="ai-media" placeholder="lien de l'image"/>
 
-<input 
-  type="text" 
-  id="ai-punchline" 
-  placeholder="Punchline (phrase d'accroche)" 
-/>
+    <!-- Branding -->
+    <input type="text" id="ai-punchline" placeholder="Punchline (phrase d'accroche)" />
+    <input type="text" id="ai-signals" placeholder="Badge Principal" />
+    <input type="text" id="ai-badges" placeholder="autre badges optionnel" />
 
-
-<input 
-  type="text" 
-  id="ai-signals" 
-  placeholder="Badges d'accroche (HOT, Money Maker, Très utilisé en Tunisie)" 
-/>
-
-
-    <input type="text" id="ai-badges" placeholder="autre badges d'accroche" />
+    <!-- Lien -->
     <input type="text" id="ai-website" placeholder="lien site officiel du IA" />
-    <!-- Nouveaux champs pour AI Detail enrichi -->
 
-  <textarea id="ai-story" placeholder="Récit ou explications sur l'IA"></textarea>
-  <input type="text" id="ai-users" placeholder="Nombre d'utilisateurs (ex: 5000)" />
-  <input type="text" id="ai-author" placeholder="Nom du rédacteur" />
-  <label for="ai-country">Pays :</label>
-<input type="text" id="ai-country" placeholder="Ex: France">
+    <!-- Story -->
+    <textarea id="ai-story" placeholder="Récit ou explications sur l'IA"></textarea>
+    <input type="text" id="ai-users" placeholder="Nombre d'utilisateurs (ex: 5000)" />
+    <input type="text" id="ai-author" placeholder="Nom du rédacteur" />
 
-<!-- FONCTIONNALITÉS & INFOS CLÉS-->
-<h3>💡 Fonctionnalités & Infos Clés</h3>
+    <!-- Pays -->
+    <label for="ai-country">Pays :</label>
+    <input type="text" id="ai-country" placeholder="Ex: France">
 
-<!-- Utilité principale -->
-<textarea id="ai-utility" 
-          placeholder="Utilité principale de l'IA (ex: automatisation, trading…)" 
-          rows="2"></textarea>
+    <!-- ================= INFOS CLÉS ================= -->
+    <h3>💡 Fonctionnalités & Infos Clés</h3>
 
-<!-- Cible / catégories de personnes -->
-<textarea id="ai-target" 
-          placeholder="Cible / catégories de personnes (ex: étudiants, traders…)" 
-          rows="2"></textarea>
+    <textarea id="ai-utility" placeholder="Utilité principale" rows="2"></textarea>
+    <textarea id="ai-target" placeholder="Cible utilisateurs" rows="2"></textarea>
+    <textarea id="ai-payment" placeholder="Modes de paiement" rows="2"></textarea>
+    <textarea id="ai-advantages" placeholder="Avantages" rows="2"></textarea>
+    <textarea id="ai-disadvantages" placeholder="Désavantages" rows="2"></textarea>
 
-<!-- Modes de paiement depuis la Tunisie -->
-<textarea id="ai-payment" 
-          placeholder="Formules & Modes de paiement " 
-          rows="2"></textarea>
-
-<!-- Avantages -->
-<textarea id="ai-advantages" 
-          placeholder="Avantages (ex: gain de temps, productivité…)" 
-          rows="2"></textarea>
-
-<!-- Désavantages -->
-<textarea id="ai-disadvantages" 
-          placeholder="Désavantages (ex: limites, coût…)" 
-          rows="2"></textarea>
-
-  
-
-
-
-<h3>🎞️ Vidéos Shorts</h3>
-<div id="footer-video-inputs">
+    <!-- ================= VIDÉOS ================= -->
+    <h3>🎞️ Vidéos Shorts</h3>
+    <div id="footer-video-inputs">
   <input type="text" class="footer-video-input" placeholder="URL vidéo footer 1" />
   <input type="text" class="footer-video-input" placeholder="URL vidéo footer 2" />
   <input type="text" class="footer-video-input" placeholder="URL vidéo footer 3" />
   <input type="text" class="footer-video-input" placeholder="URL vidéo footer 4" />
   <input type="text" class="footer-video-input" placeholder="URL vidéo footer 5" />
-</div>
+    </div>
 
+    <h3>🎬 Liens Vidéos YouTube</h3>
+    <div id="youtube-inputs">
+      <input type="text" class="yt-input" placeholder="Lien YouTube 1" />
+      <input type="text" class="yt-input" placeholder="Lien YouTube 2" />
+      <input type="text" class="yt-input" placeholder="Lien YouTube 3" />
+      <input type="text" class="yt-input" placeholder="Lien YouTube 4" />
+      <input type="text" class="yt-input" placeholder="Lien YouTube 5" />
+    </div>
 
-  <h3>🎬 Liens Vidéos YouTube</h3>
-<div id="youtube-inputs">
-  <input type="text" class="yt-input" placeholder="Lien YouTube 1" />
-  <input type="text" class="yt-input" placeholder="Lien YouTube 2" />
-  <input type="text" class="yt-input" placeholder="Lien YouTube 3" />
-  <input type="text" class="yt-input" placeholder="Lien YouTube 4" />
-  <input type="text" class="yt-input" placeholder="Lien YouTube 5" />
-</div>
-
+    <!-- ACTION -->
     <button id="add-ai-btn">Ajouter l'IA</button>
   </section>
 
 
-   <section id="ai-preview">
-  <h2>Preview de la card</h2>
-  <div id="preview-card"></div>
-</section>
+  <!-- ========================================================= -->
+  <!-- 👀 SECTION 2 : PREVIEWS -->
+  <!-- ========================================================= -->
+<div class="preview-row">
+
+  <section id="ai-preview">
+    <h2>Preview de la card</h2>
+    <div id="preview-card"></div>
+  </section>
+
+  <section id="ai-detail-preview">
+    <h2>Preview AI Detail</h2>
+    <div id="detail-preview-card"></div>
+  </section>
+
+</div>
 
 
-<section id="ai-detail-preview">
-  <h2>Preview AI Detail</h2>
-  <div id="detail-preview-card"></div>
-</section>
-
-  <!-- Section pour voir toutes les IA -->
+  <!-- ========================================================= -->
+  <!-- 🤖 SECTION 3 : LISTE IA -->
+  <!-- ========================================================= -->
+   
   <section id="ai-list">
-    <h2>Liste des IA</h2>
+    <h2>Liste des IA (<span id="ai-count">0</span>)</h2>
     <ul id="ais"></ul>
   </section>
 
-  
- <!-- ─── Sponsor Cards Admin ─── -->
-<!-- ─── Sponsor Cards Admin ─── -->
-<section id="admin-sponsor-section">
-  <h2>💎 Gestion des Sponsor Cards</h2>
 
-  <form id="sponsor-card-form" class="admin-sponsor-form">
+  <!-- ========================================================= -->
+  <!-- 💎 SECTION 4 : SPONSORS -->
+  <!-- ========================================================= -->
+  <section id="admin-sponsor-section">
+    <h2>💎 Gestion des Sponsor Cards</h2>
+
+    <form id="sponsor-card-form" class="admin-sponsor-form">
 
     <label for="sponsor-title">Titre</label>
     <input type="text" id="sponsor-title" name="title" placeholder="Nom de la Marque" />
@@ -179,51 +165,55 @@
 
     <label for="sponsor-active">
       <input type="checkbox" id="sponsor-active" name="active" checked />
-      Activer cette sponsor
-    </label>
+        Activer cette sponsor
+      </label>
 
-    <button type="submit">Créer / Mettre à jour</button>
+      <button type="submit">Créer / Mettre à jour</button>
+    </form>
 
-  </form>
+    <!-- Preview sponsor -->
+    <section id="sponsor-preview-section">
+      <h3>Preview Live</h3>
+      <div id="sponsor-preview" class="preview-wrapper"></div>
+    </section>
 
-
-  <!-- Preview -->
-  <section id="sponsor-preview-section">
-    <h3>Preview Live</h3>
-    <div id="sponsor-preview" class="preview-wrapper"></div>
+    <!-- Liste sponsor -->
+    <div id="sponsor-cards-list"></div>
   </section>
 
-  <!-- Liste -->
-  <div id="sponsor-cards-list"></div>
 
-</section>
-
-<!-- ─── Statistiques ─── -->
-<section id="sponsor-stats-section">
-  <h2>📊 Statistiques des Sponsor Cards</h2>
-  <table id="sponsor-stats-table">
-    <thead>
-      <tr>
-        <th>Titre</th>
-        <th>Vues</th>
-        <th>Clics</th>
-        <th>CTR</th>
-        <th>Date création</th>
-      </tr>
-    </thead>
-    <tbody></tbody>
-  </table>
-</section>
+  <!-- ========================================================= -->
+  <!-- 📊 SECTION 5 : STATS -->
+  <!-- ========================================================= -->
+  <section id="sponsor-stats-section">
+    <h2>📊 Statistiques des Sponsor Cards</h2>
+    <table id="sponsor-stats-table">
+      <thead>
+        <tr>
+          <th>Titre</th>
+          <th>Vues</th>
+          <th>Clics</th>
+          <th>CTR</th>
+          <th>Date création</th>
+        </tr>
+      </thead>
+      <tbody></tbody>
+    </table>
+  </section>
 
 
+  <!-- ========================================================= -->
+  <!-- 👥 SECTION 6 : USERS -->
+  <!-- ========================================================= -->
+  <section id="admin-users">
+    <h2>👥 Liste des Users (<span id="users-count">0</span>)</h2>
+    <div id="users-list" class="users-grid"></div>
+  </section>
 
-<section id="admin-users">
-  <h2>👥 Liste des Users (<span id="users-count">0</span>)</h2>
-  <div id="users-list" class="users-grid"></div>
-</section>
+</div>
 
 
-
+<!-- ================= SCRIPTS ================= -->
 <script type="module">
   import { initSponsorAdmin } from "./js/admin_sponsor.js";
 
@@ -237,9 +227,7 @@
   });
 </script>
 
+<script type="module" src="js/admin.js"></script>
 
-  <script type="module" src="js/admin.js"></script>
-  
 </body>
-
 </html>
