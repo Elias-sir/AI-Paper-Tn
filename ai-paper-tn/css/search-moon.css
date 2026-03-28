@@ -247,3 +247,16 @@
 }
 
 }
+
+/*AJOUTTTE */
+.search-moon-card.mini {
+  height: 180px;         /* 🔒 fixe stabilité */
+  overflow: hidden;
+}
+
+
+
+.search-moon-card.mini {
+  min-height: 180px;
+  max-height: 180px;
+}
