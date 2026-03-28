@@ -371,3 +371,16 @@ button:hover, .profile-btn:hover {
   0% { transform: translate(-50%, -50%) rotate(0deg); }
   100% { transform: translate(-50%, -50%) rotate(360deg); }
 }
+
+
+#myAiBtn {
+  background: linear-gradient(
+    90deg,
+    #6cf2c2,
+    #4cc9f0,
+    #9b5de5,
+    #f15bb5
+  );
+  color: black;
+  font-weight: 700;
+}

@@ -264,6 +264,16 @@ logoutBtn.addEventListener("click", async () => {
   window.location.href = "index.html";
 });
 
+
+const myAiBtn = document.getElementById("myAiBtn");
+
+if (myAiBtn) {
+  myAiBtn.addEventListener("click", () => {
+    window.location.href = "my-ai.html";
+  });
+}
+
+
 if (notifBtn) {
   notifBtn.addEventListener("click", () => {
     window.location.href = "messagerie.html";

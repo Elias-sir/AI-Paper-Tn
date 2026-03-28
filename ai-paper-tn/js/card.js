@@ -43,6 +43,7 @@ function formatUsers(count) {
   ───────────────────────────── */
   const card = document.createElement("section");
   card.className = "ai-card";
+  card.dataset.aiId = ai.id;
 
   const logoUrl   = ai.logo || "assets/icons/default.png";
   const name      = ai.name || "IA inconnue";
@@ -155,33 +156,60 @@ if (ai.signals) {
 
     
      if (!userHasLiked) {
-    // ❤️ LIKE
+ // ❤️ LIKE SAFE
     const { error } = await supabase
       .from("ai_likes")
-      .insert({ user_id: user.id, ai_id: ai.id });
+      .upsert({ user_id: user.id, ai_id: ai.id }, { onConflict: ["user_id", "ai_id"] });
 
     if (!error) {
-      ai.likes += 1; // UI locale seulement
+      ai.likes += 1;
       userHasLiked = true;
       likeBtn.classList.add("liked");
       countEl.textContent = ai.likes;
+
+      // 🔥 Ajouter au coffre (local)
+      let myAI = JSON.parse(localStorage.getItem("my_ai")) || [];
+      if (!myAI.find(item => item.id === ai.id)) {
+        myAI.push(ai);
+        localStorage.setItem("my_ai", JSON.stringify(myAI));
+      }
     }
+    
+ } else {
+  // 💔 UNLIKE
+  const { error } = await supabase
+    .from("ai_likes")
+    .delete()
+    .eq("user_id", user.id)
+    .eq("ai_id", ai.id);
 
-  } else {
-    // 💔 UNLIKE
-    const { error } = await supabase
-      .from("ai_likes")
-      .delete()
-      .eq("user_id", user.id)
-      .eq("ai_id", ai.id);
+  if (!error) {
+    ai.likes = Math.max(0, ai.likes - 1);
+    userHasLiked = false;
+    likeBtn.classList.remove("liked");
+    countEl.textContent = ai.likes;
 
-    if (!error) {
-      ai.likes = Math.max(0, ai.likes - 1); // UI locale
-      userHasLiked = false;
-      likeBtn.classList.remove("liked");
-      countEl.textContent = ai.likes;
+    // 🔥 Supprimer du coffre (local)
+    let myAI = JSON.parse(localStorage.getItem("my_ai")) || [];
+    myAI = myAI.filter(item => item.id !== ai.id);
+    localStorage.setItem("my_ai", JSON.stringify(myAI));
+
+    // 🔥 Supprimer visuellement (UNIQUEMENT si succès)
+    if (window.location.pathname.includes("my-ai")) {
+      const cardEl = likeBtn.closest(".ai-card");
+
+      if (cardEl) {
+        cardEl.style.transition = "all 0.3s ease";
+        cardEl.style.opacity = "0";
+        cardEl.style.transform = "scale(0.8)";
+
+        setTimeout(() => {
+          cardEl.remove();
+        }, 300);
+      }
     }
   }
+}
 
   likeBtn.style.pointerEvents = "auto";
 }, true);

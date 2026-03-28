@@ -130,11 +130,22 @@ const user = currentUser;
 
   const likedIds = new Set(likes?.map(l => l.ai_id));
 
+  const { data: likesData } = await supabase
+  .from("ai_likes")
+  .select("ai_id");
+
+  const likeMap = {};
+
+likesData?.forEach(l => {
+  likeMap[l.ai_id] = (likeMap[l.ai_id] || 0) + 1;
+});
+
   // marquer les AI déjà likées
-  allAIs = allAIs.map(ai => ({
-    ...ai,
-    userHasLiked: likedIds.has(ai.id)
-  }));
+ allAIs = data.map(ai => ({
+  ...ai,
+  likes: likeMap[ai.id] || 0,
+  userHasLiked: likedIds.has(ai.id)
+}));
 
 };
   fetchAIs();
