@@ -65,8 +65,7 @@
 /* mini card uniforme */
 .search-moon-card.mini {
   width: 100%;
-  min-height: 140px;   /* au lieu de height fixe */
-  height: auto;
+  height: 180px; 
 
   padding: 10px;
   border-radius: 18px;
@@ -120,6 +119,8 @@
 .search-moon-card.mini .ai-center .ai-placeholder {
   display: none;   /* si tu ne veux pas le placeholder non plus */
 }
+
+
 
 .search-moon-card.mini .ai-info {
   flex: 1;
@@ -248,15 +249,31 @@
 
 }
 
-/*AJOUTTTE */
-.search-moon-card.mini {
-  height: 180px;         /* 🔒 fixe stabilité */
+
+
+
+
+
+.search-moon-card.mini .ai-top {
+  flex-shrink: 0;
+}
+
+.search-moon-card.mini .ai-center {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
   overflow: hidden;
 }
 
 
+.search-moon-card.mini .ai-stats {
+  flex-shrink: 0;
 
-.search-moon-card.mini {
-  min-height: 180px;
-  max-height: 180px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  margin-top: auto; /* 🔥 force en bas */
 }
