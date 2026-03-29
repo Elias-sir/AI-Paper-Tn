@@ -60,18 +60,6 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 
-
-
-
-
-
-
-
-
-
-
-
-
 // likes, approvals, micro-anim
 
 // van compte 

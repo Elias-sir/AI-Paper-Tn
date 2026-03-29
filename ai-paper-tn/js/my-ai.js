@@ -72,6 +72,7 @@ for (const ai of ais) {
   ai.usersCount = ai.users || 0;
   ai.userHasLiked = true;
   ai.likes = ai.ai_likes?.[0]?.count || 0;
+  ai.vibe = ai.description;
 
   const card = await createAICard(ai);
   container.appendChild(card);

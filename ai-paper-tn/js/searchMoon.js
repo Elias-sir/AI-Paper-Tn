@@ -3,6 +3,7 @@ let currentUser = null;
 
 function formatUsers(count) {
   if (!count) return "0";
+  if (count >= 1_000_000_000) return Math.round(count / 1_000_000_000) + "B";
   if (count >= 1_000_000) return Math.round(count / 1_000_000) + "M";
   if (count >= 1_000) return Math.round(count / 1_000) + "k";
   return count.toString();

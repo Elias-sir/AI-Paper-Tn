@@ -14,6 +14,7 @@ export async function createAICard(ai) {
 // card.js - en haut du fichier
 function formatUsers(count) {
   if (!count) return "0";
+  if (count >= 1_000_000_000) return Math.round(count / 1_000_000_000) + "B";
   if (count >= 1_000_000) return Math.round(count / 1_000_000) + "M";
   if (count >= 1_000) return Math.round(count / 1_000) + "k";
   return count.toString();
@@ -218,9 +219,6 @@ if (ai.signals) {
   /* ─────────────────────────────
      🔗 NAVIGATION
   ───────────────────────────── */
- /* ─────────────────────────────
-   🔢 TRACK CLICK AI CARD (ILLIMITÉ)
-───────────────────────────── */
 /* ─────────────────────────────
    🔢 TRACK CLICK AI CARD (ILLIMITÉ)
 ───────────────────────────── */
