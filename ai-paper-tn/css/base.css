@@ -580,3 +580,8 @@ html, body {
 #nav-right .nav-btn:not(.nav-profile):hover {
   background: rgba(255,255,255,0.04); /* quasi invisible */
 }
+
+/*TITRE CLICABLE */
+.ai-label {
+  cursor: pointer;
+}

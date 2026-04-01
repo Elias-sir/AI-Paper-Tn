@@ -59,6 +59,12 @@ document.addEventListener('DOMContentLoaded', () => {
   updateHeroButton();
 });
 
+// Titre rafraichi clicable 
+document.getElementById("home-btn").addEventListener("click", () => {
+  location.reload();
+});
+
+
 
 // likes, approvals, micro-anim
 
