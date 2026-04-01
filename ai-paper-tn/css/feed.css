@@ -452,7 +452,7 @@
 
 /*pour ne ps gener*/
 .hero-all-ai {
-  opacity: 0.3;
+  opacity: 0.9;
 }
 
 /*allumer celui qui est pointer*/
@@ -461,7 +461,7 @@
 }
 
 .hero-all-ai .hero-ai:hover {
-  opacity: 100; /* celui hover = full visible */
+  opacity: 0.9; /* celui hover = full visible */
   filter: none;
   transform: scale(1.2);
 }
