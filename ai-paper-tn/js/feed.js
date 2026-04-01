@@ -256,12 +256,9 @@ const placedAI = []; // positions déjà utilisées
 // pour les fixe dans le hero pas debordement
 function getNonOverlappingPosition(container, size = 45) {
   let top, left, safe = false, attempts = 0;
-
   const rect = container.getBoundingClientRect();
-
   const width = rect.width;
   const height = rect.height;
-
   const marginPx = size; // évite coupure
 
   while (!safe && attempts < 100) {
@@ -313,17 +310,17 @@ const sorted = data.sort((a, b) => {
 const top100 = sorted.slice(0, 100);
 
 // top 6 parmi les 100
-const top6 = top100.slice(0, 6);
+const top10 = top100.slice(0, 10);
 
-return { all: top100, top6 };
+return { all: top100, top10 };
 }
 
 
 //pour les afficher
 async function displayHeroAI() {
-  const { all, top6 } = await getPopularAI();
+  const { all, top10 } = await getPopularAI();
 
-  const topIds = new Set(top6.map(ai => ai.id));
+  const topIds = new Set(top10.map(ai => ai.id));
 
   
 const container = document.querySelector(".hero-all-ai");
@@ -395,7 +392,7 @@ setInterval(() => {
     el.classList.toggle("dim");
   });
 
-}, 2000);
+}, 1000);
 
 
 
