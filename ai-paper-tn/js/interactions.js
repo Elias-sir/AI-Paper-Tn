@@ -11,7 +11,7 @@ async function updateHeroButton() {
   if (!user || error) {
     // pas connecté → bouton normal
     heroBtn.innerHTML = "🚀 Nous rejoindre";
-    heroBtn.setAttribute('href', 'login.html');
+    heroBtn.setAttribute('href', 'register.html');
     heroBtn.classList.add('primary');
     heroBtn.classList.remove('welcome-btn');
     return;
