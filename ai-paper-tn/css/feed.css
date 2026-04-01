@@ -346,3 +346,134 @@
   }
 }
 
+/* PARTIE HERO AI*/
+
+.star-ai {
+  width: 50px;
+  height: 50px;
+  margin: 10px;
+}
+
+.star-ai img {
+  width: 100%;
+  border-radius: 50%;
+}
+
+
+.hero {
+  position: relative;
+}
+
+.hero-ai-stars {
+  position: absolute;
+  inset: 0; /* top:0 left:0 width:100% height:100% */
+  pointer-events: none;
+}
+
+
+
+.star-ai {
+  pointer-events: auto;
+  cursor: pointer;
+}
+.star-ai:hover {
+  transform: scale(1.15);
+}
+
+
+
+.hero-all-ai {
+  position: absolute;
+  inset: 0;
+  display: block;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  gap: 15px;
+  pointer-events: none;
+}
+
+.hero-ai {
+  width: 45px;
+  height: 45px;
+  pointer-events: auto;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.hero-ai img {
+  width: 100%;
+  border-radius: 50%;
+}
+
+/* 🌟 TOP 6 lumineux */
+.hero-ai.glow {
+  filter: none;
+  
+  transform: scale(1.1);
+}
+
+/* 🌑 reste en noir & blanc */
+.hero-ai.dim {
+  filter: grayscale(1) brightness(0.4);
+  opacity: 0.5;
+}
+
+.hero-ai:hover {
+  transform: scale(1.2);
+  filter: none;
+  opacity: 1;
+}
+
+
+/*pour eviter que sa deborde*/
+.hero {
+  position: relative;
+  overflow: hidden; /* 🔥 */
+}
+
+/* 🌌 couche AI (arrière-plan) */
+.hero-all-ai {
+  z-index: 1;
+}
+
+/* 🧠 contenu hero (devant) */
+.hero > *:not(.hero-all-ai) {
+  position: relative;
+  z-index: 2;
+}
+
+.hero-ai.glow {
+  filter: none;
+  opacity: 1;
+  transform: scale(1.15);
+}
+
+
+/*pour ne ps gener*/
+.hero-all-ai {
+  opacity: 0.3;
+}
+
+/*allumer celui qui est pointer*/
+.hero-all-ai:hover .hero-ai {
+  opacity: 0.3; /* tout devient fade */
+}
+
+.hero-all-ai .hero-ai:hover {
+  opacity: 100; /* celui hover = full visible */
+  filter: none;
+  transform: scale(1.2);
+}
+
+/*
+@keyframes float {
+  0%   { transform: translate(0px, 0px); }
+  50%  { transform: translate(8px, -10px); }
+  100% { transform: translate(0px, 0px); }
+}
+
+.hero-ai {
+  animation: float 6s ease-in-out infinite;
+}
+  */

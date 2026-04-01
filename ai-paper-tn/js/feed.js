@@ -22,6 +22,8 @@ function shuffleArray(array) {
   return arr;
 }
 
+
+
 // 🔹 Fetch IA + sponsors + rendu feed
 export async function fetchFeed() {
   const { data: { user } } = await supabase.auth.getUser();
@@ -247,5 +249,156 @@ observer.observe(sponsorCard);
   }
 }
 
+
+//LA PARTIE HERO AI 
+const placedAI = []; // positions déjà utilisées
+
+// pour les fixe dans le hero pas debordement
+function getNonOverlappingPosition(container, size = 45) {
+  let top, left, safe = false, attempts = 0;
+
+  const rect = container.getBoundingClientRect();
+
+  const width = rect.width;
+  const height = rect.height;
+
+  const marginPx = size; // évite coupure
+
+  while (!safe && attempts < 100) {
+
+    // 🔥 position en PX (pas %)
+    const x = marginPx + Math.random() * (width - marginPx * 2);
+    const y = marginPx + Math.random() * (height - marginPx * 2);
+
+    // converti en %
+    left = (x / width) * 100;
+    top = (y / height) * 100;
+
+    safe = true;
+
+    for (const pos of placedAI) {
+      const dx = (pos.left - left) * width / 100;
+      const dy = (pos.top - top) * height / 100;
+      const distance = Math.sqrt(dx * dx + dy * dy);
+
+      if (distance < size) {
+        safe = false;
+        break;
+      }
+    }
+
+    attempts++;
+  }
+
+  placedAI.push({ top, left });
+  return { top, left };
+}
+
+
+//pour captuer les ai pulaire
+async function getPopularAI() {
+  const { data, error } = await supabase
+    .from("ai_tools")
+    .select("*");
+
+  if (error) return [];
+
+const sorted = data.sort((a, b) => {
+  const scoreA = (a.clicks_count || 0) + (a.likes_count || 0) * 2;
+  const scoreB = (b.clicks_count || 0) + (b.likes_count || 0) * 2;
+  return scoreB - scoreA;
+});
+
+// 🔥 ON LIMITE À 100
+const top100 = sorted.slice(0, 100);
+
+// top 6 parmi les 100
+const top6 = top100.slice(0, 6);
+
+return { all: top100, top6 };
+}
+
+
+//pour les afficher
+async function displayHeroAI() {
+  const { all, top6 } = await getPopularAI();
+
+  const topIds = new Set(top6.map(ai => ai.id));
+
+  
+const container = document.querySelector(".hero-all-ai");
+if (!container) return;
+
+// 🔥 important
+container.style.position = "absolute";
+
+all.forEach((ai) => {
+  const el = document.createElement("div");
+  el.className = "hero-ai";
+
+  const isTop = topIds.has(ai.id);
+
+  el.innerHTML = `<img src="${ai.logo_url}" />`;
+
+  el.classList.add("dim");
+
+if (isTop) {
+  el.classList.add("top-ai");
+}
+
+
+   // ⚡ position random avec collision
+  const pos = getNonOverlappingPosition(container, 45);
+  
+  // 🌌 POSITION RANDOM
+  el.style.position = "absolute";
+  el.style.top = pos.top + "%";
+  el.style.left = pos.left + "%";
+
+ 
+  // 🎲 variation animation
+// el.style.animationDuration = (4 + Math.random() * 4) + "s"; // 4s → 8s
+// el.style.animationDelay = Math.random() * 5 + "s";//
+
+// 🎲 profondeur (parallax)
+// el.dataset.speed = (Math.random() * 0.3 + 0.05).toFixed(2); //
+
+  el.addEventListener("click", () => {
+    window.location.href = `ai-detail.html?id=${ai.id}`;
+  });
+
+  container.appendChild(el);
+});
+}
+
+
+
+window.addEventListener("scroll", () => {
+  const scrollY = window.scrollY;
+
+  document.querySelectorAll(".hero-ai").forEach(el => {
+    const speed = parseFloat(el.dataset.speed);
+
+    const y = scrollY * speed;
+
+    el.style.transform += ` translateY(${y}px)`;
+  });
+});
+
+
+// pour afficher dans un delais preci
+setInterval(() => {
+  const topEls = document.querySelectorAll(".top-ai");
+
+  topEls.forEach(el => {
+    el.classList.toggle("glow");
+    el.classList.toggle("dim");
+  });
+
+}, 2000);
+
+
+
+displayHeroAI();
 // 🔹 Lancer fetch feed
 fetchFeed();
