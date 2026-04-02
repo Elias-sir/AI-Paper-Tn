@@ -1,7 +1,8 @@
 /* =================== Card (réutilisable) ============== */
 
 .ai-card {
-  min-height: calc(90dvh - var(--nav-h));
+  height: 520px; /* ou 500 / 550 selon ton design */
+  min-height: unset;
   scroll-snap-align: start;
   padding: 20px;
   display: flex;
@@ -21,12 +22,6 @@
 .ai-card:hover {
   transform: translateY(-6px);
   box-shadow: 0 30px 60px rgba(0,0,0,0.35);
-}
-
-
-.ai-vibe {
-  opacity: 0.8;
-  margin-top: 8px;
 }
 
 .ai-actions {
@@ -85,7 +80,8 @@
   overflow: hidden;
   text-overflow: ellipsis;
 
-  font-size: 1.5rem;
+  font-size: 1.3rem;
+  line-height: 1.25;
   font-weight: 800;
   letter-spacing: 0.02em;
   line-height: 1.2;
@@ -128,6 +124,34 @@
 .ai-header {
   filter: drop-shadow(0 6px 18px rgba(0,0,0,0.5));
 }
+
+.ai-header {
+  display: -webkit-box;
+  -webkit-line-clamp: 2; /* max 2 lignes */
+  line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.ai-vibe {
+  display: -webkit-box;
+  -webkit-line-clamp: 2; /* ou 3 */
+  line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+/*======= DESCRI¨PTION ==== */
+
+
+
+.ai-vibe {
+  opacity: 0.8;
+  margin-top: 6px;
+
+}
+
+
 
 
 /* =======================  LOGO FIX   ========================= */ 
@@ -188,18 +212,13 @@
 .ai-card:active {
   transform: scale(0.98);
 }
-/* =================  carde image   ==========================*/
+/* =================  CARD ET IMAGE  ==========================*/
 /* Container fixe pour l'image */
 .ai-center {
-  width: 100%;
-  height: auto;           /* plus de hauteur fixe */
-  max-height: none;       /* on enlève la limite dure */
+  width: calc(100% + 40px);   /* 🔥 élargit la zone */
+  margin-left: -20px;         /* aligne à gauche */
   
-  border-radius: 0;       /* ❌ plus de cadre visible */
-  overflow: visible;      /* ❌ on libère l’image */
-
-  display: block;         /* plus besoin de flex centré */
-  padding: 0;
+  display: block;
 }
 
 
@@ -207,12 +226,26 @@
 .ai-center img {
   width: 100%;
   height: auto;           /* 🔥 image naturelle */
-  
-  object-fit: cover;
-  border-radius: 20px;    /* 👈 fusion douce avec card */
-
-  transition: transform 0.35s ease, filter 0.35s ease;
+  border-radius: 0px;    /* 👈 fusion douce avec card */
+   max-height: 35dvh;   /* 🔥 limite intelligente */
+  object-fit: cover;   /* coupe proprement si trop grande */
 }
+
+
+.ai-center {
+  margin-left: -20px;
+  margin-right: -20px;
+}
+
+.ai-center img {
+  border-radius: 0; /* ❌ on enlève arrondi interne */
+}
+
+
+
+
+
+
 
 /* =================   Punchli    ==========================*/
 .ai-punchline {
@@ -246,35 +279,6 @@
   100% { text-shadow: 0 4px 12px rgba(155,93,229,0.5); }
 }
 
-/*-----------  FLASH  -------  
-
-.punchlight {
-  display: inline-block;
-  margin-left: 0.3em;
-  font-size: 1.4em;   
-  background: linear-gradient(
-    120deg,
-    #6cf2c2,
-    #4cc9f0,
-    #9b5de5,
-    #f15bb5
-  );
-  -webkit-background-clip: text;
-  background-clip: text;
-  -webkit-text-fill-color: transparent;
-  text-shadow: 0 6px 16px rgba(0,0,0,0.5);
-  
-  animation: punchlightGlow 1.2s ease-in-out infinite alternate,
-             punchlightBounce 2s ease-in-out infinite;
-}
-
-@keyframes punchlightGlow {
-  0%   { filter: drop-shadow(0 4px 12px rgba(108,242,194,0.5)); }
-  50%  { filter: drop-shadow(0 8px 24px rgba(76,201,240,0.7)); }
-  100% { filter: drop-shadow(0 4px 12px rgba(155,93,229,0.5)); }
-}
-
-*/
 
 /* =============== Like button modernisé ====================  */
 .like-btn {
@@ -628,35 +632,11 @@
 ===================================================== */
 
 /* ===================== MEDIA CENTER ====================== */
-.ai-center {
-  width: 100%;
-  max-height: 250px; /* comme sponsor card */
-  border-radius: 20px;
-  overflow: hidden;
-  
-
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 0;
-}
-
-.ai-center img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  border-radius: 20px;
-  transition: transform 0.35s ease, filter 0.35s ease;
-  
-}
 
 .ai-card:hover .ai-center img {
   transform: scale(1.05);
   
 }
-
-
-
 .ai-footer {
   display: flex;
   justify-content: space-between;
