@@ -471,6 +471,18 @@
 }
 
 
+
+
+
+/* ================  RESPONSIVE MOBILE ================ */
+
+/* On s'assure que la card peut accueillir des éléments absolus */
+.ai-card {
+  position: relative;
+  overflow: hidden;
+}
+
+
 /* =====================================================
    ::before = Bordure fine + label "Vérifié"
 ===================================================== */
