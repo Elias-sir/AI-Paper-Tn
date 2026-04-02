@@ -192,23 +192,27 @@
 /* Container fixe pour l'image */
 .ai-center {
   width: 100%;
-  max-height: 250px;   /* limite la hauteur du container */
-  height: 250px;       /* hauteur fixe pour uniformité */
-  border-radius: 20px;
-  overflow: hidden;
-  flex: 1;   
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  height: auto;           /* plus de hauteur fixe */
+  max-height: none;       /* on enlève la limite dure */
+  
+  border-radius: 0;       /* ❌ plus de cadre visible */
+  overflow: visible;      /* ❌ on libère l’image */
+
+  display: block;         /* plus besoin de flex centré */
   padding: 0;
 }
+
+
 /* L'image à l'intérieur */
 .ai-center img {
-  object-fit: cover;  /* ne déforme pas l'image */
+  width: 100%;
+  height: auto;           /* 🔥 image naturelle */
+  
+  object-fit: cover;
+  border-radius: 20px;    /* 👈 fusion douce avec card */
 
   transition: transform 0.35s ease, filter 0.35s ease;
 }
-
 
 /* =================   Punchli    ==========================*/
 .ai-punchline {

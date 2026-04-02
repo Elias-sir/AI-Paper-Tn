@@ -27,7 +27,7 @@ function formatUsers(count) {
 
 
 
-// 👇👇👇 COLLE ICI 👇👇👇
+// 👇👇👇 TEMPS DES SHORTS 👇👇👇
 document.addEventListener("play", e => {
   const v = e.target;
   if (v.tagName === "VIDEO") {
@@ -35,7 +35,7 @@ document.addEventListener("play", e => {
     v._limitTimer = setTimeout(() => {
       v.pause();
       v.currentTime = 0;
-    }, 20000);
+    }, 30000);
   }
 }, true);
 

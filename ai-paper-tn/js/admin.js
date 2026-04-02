@@ -374,7 +374,8 @@ updatePreview();
 ///////////////////////   preview AI DETAILS   ////////////////
 
 function formatUsers(count) {
-  if (count >= 1_000_000) return (count / 1_000_000).toFixed(0) + " millions";
+  if (count >= 1_000_000_000) return (count / 1_000_000_000).toFixed(0) + "B";
+  if (count >= 1_000_000) return (count / 1_000_000).toFixed(0) + "M";
   if (count >= 1_000) return (count / 1_000).toFixed(0) + "k";
   return count.toString();
 }
@@ -463,7 +464,7 @@ ${footerVideos.length ? `
       src="${url}"
       controls
       preload="metadata"
-      onloadedmetadata="this.duration > 20 && (this.currentTime = 0, this.pause())"
+      onloadedmetadata="this.duration > 30 && (this.currentTime = 0, this.pause())"
     ></video>
   `).join("")}
 </div>` : ""}
