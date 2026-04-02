@@ -491,11 +491,22 @@
 
   .ai-center img {
     width: 100%;
-    height: 180px; /* 🔥 hauteur FIXE */
+    height: auto;           /* 🔥 image naturelle */
     object-fit: cover;
-
+    object-fit: cover;   /* coupe proprement si trop grande */
     border-radius: 20px;
   }
+
+
+  .ai-center img {
+  border-radius: 0; /* ❌ on enlève arrondi interne */
+}
+
+.ai-center {
+  margin-left: -20px;
+  margin-right: -20px;
+}
+
 
   /* Logo plus petit pour mobile */
   .ai-logo {
