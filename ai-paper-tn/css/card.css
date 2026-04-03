@@ -1,7 +1,7 @@
 /* =================== Card (réutilisable) ============== */
 
 .ai-card {
-  height: 520px; /* ou 500 / 550 selon ton design */
+  height: 520px; /* taille de la gard*/
   min-height: unset;
   scroll-snap-align: start;
   padding: 20px;
@@ -74,13 +74,13 @@
 }
 
 
-/*======= TITRE ==== */
+/*========================================= TITRE ============================= */
 .ai-header {
   white-space: normal;
   overflow: hidden;
   text-overflow: ellipsis;
 
-  font-size: 1.3rem;
+  font-size: 1.1rem;
   line-height: 1.25;
   font-weight: 800;
   letter-spacing: 0.02em;
@@ -125,13 +125,15 @@
   filter: drop-shadow(0 6px 18px rgba(0,0,0,0.5));
 }
 
-/*======= DESCRIPTION ==== */
+/*================================ DESCRIPTION ========================= */
 .ai-vibe {
-  opacity: 0.8;
-  margin-top: 6px;
+  opacity: 0.7;
+  margin-top: 5px;
 
 }
-/* =======================  LOGO FIX   ========================= */ 
+
+
+/* =======================  LOGO   ============================== */ 
 
 .ai-logo img {
   border-radius: 50%;
@@ -172,8 +174,6 @@
   object-fit: cover;        /* remplit complètement */
 }
 
-
-
 .ai-card:hover .ai-logo img {
   transform: scale(1.18);
   filter:
@@ -189,15 +189,17 @@
 .ai-card:active {
   transform: scale(0.98);
 }
-/* =================  CARD ET IMAGE  ==========================*/
-/* Container fixe pour l'image */
+
+
+/* =========================================  CARD ET IMAGE POUR L'ENSEMBLE  =====================================*/
+
+/* Container carde */
 .ai-center {
-  width: calc(100% + 40px);   /* 🔥 élargit la zone */
+  width: calc(100% + 40px);   
   margin-left: -20px;         /* aligne à gauche */
   
   display: block;
 }
-
 
 /* L'image à l'intérieur */
 .ai-center img {
@@ -219,12 +221,7 @@
 }
 
 
-
-
-
-
-
-/* =================   Punchli    ==========================*/
+/* =================   Punchline Page ai detail    ==========================*/
 .ai-punchline {
   font-size: 1.6rem;
   font-weight: 700;
@@ -257,7 +254,7 @@
 }
 
 
-/* =============== Like button modernisé ====================  */
+/* =============== Bouton like ====================  */
 .like-btn {
   position: relative;
   cursor: pointer;
@@ -325,7 +322,7 @@
 
 
 
-/* =============== signals badges ============== */
+/* =============== Badges ============== */
 
 .ai-badges {
   display: flex;
@@ -380,9 +377,6 @@
 
 
 
-
-
-
 /*===============  CARTES PC FIRSt ======================  */
 #feed-cards {
   display: flex;
@@ -390,73 +384,6 @@
   gap: 40px;
   padding: 20px;
 }
-
-/*============= RESPONSIVE  PC / Desktop ============== */
-@media (min-width: 1024px) {
-
- #feed-cards {
-    flex-direction: row;        /* ✅ cartes horizontales */
-    flex-wrap: wrap;            /* plusieurs lignes si besoin */
-    justify-content: center;    /* centre le tout */
-    align-items: flex-start;    /* cartes alignées en haut */
-    gap: 30px;                  /* espace entre les cartes */
-    
-  }
-
-  .ai-card {
-    min-height: 413px;          /* même hauteur pour toutes, tu peux ajuster */
-    max-width: 370px;           /* largeur fixe pour toutes les cartes */
-    height: auto;               /* laisse le contenu décider si c’est plus grand */
-    scroll-snap-align: none;    /* désactive snap sur PC */
-    
-  }
-  .ai-center {
-    padding: 20px 0;
-    transform: none;
-  }
-
-  .ai-punchline {
-    font-size: 1.4rem;             /* plus sage sur PC */
-    max-width: 100%;
-  }
-
-}
-
-
-@media (hover: hover) and (min-width: 1024px) {
-  .ai-card:hover {
-    transform: translateY(-3px);
-  }
-
-  .ai-card:hover .ai-punchline {
-    transform: scale(1.03);
-  }
-}
-
-
-
-
-/*======== L'EFFET QUI POUSSE A CLIQUER ======= */
-
-@media (hover: hover) {
-  .ai-card {
-    animation: cardBreath 6s ease-in-out infinite;
-  }
-
-  .ai-card:hover {
-    animation: none;
-  }
-}
-
-@keyframes cardBreath {
-  0% { transform: translateY(0); }
-  50% { transform: translateY(-3px); }
-  100% { transform: translateY(0); }
-}
-
-
-
-
 
 /* ================  RESPONSIVE MOBILE ================ */
 
@@ -528,28 +455,6 @@
   );
 }
 
-
-/* =====================================================
-   Animation respiration verified
-
-
-@media (hover: hover) {
-  .ai-card {
-    animation: verifiedGlow 6s ease-in-out infinite;
-  }
-
-  .ai-card:hover {
-    animation: none;
-  }
-}
-
-@keyframes verifiedGlow {
-  0%   { box-shadow: 0 16px 32px rgba(0,0,0,0.28); }
-  50%  { box-shadow: 0 20px 40px rgba(108,242,194,0.15); }
-  100% { box-shadow: 0 16px 32px rgba(0,0,0,0.28); }
-}
-===================================================== */
-
 /* ===================== MEDIA CENTER ====================== */
 
 .ai-card:hover .ai-center img {
@@ -596,8 +501,107 @@
 }
 
 
+
+/*  ===================================  LES RESPONSIVES ===============================*/
+
+/*RESPONSIVE  PC / Desktop  */
+@media (min-width: 1024px) {
+
+ #feed-cards {
+    flex-direction: row;        /* ✅ cartes horizontales */
+    flex-wrap: wrap;            /* plusieurs lignes si besoin */
+    justify-content: center;    /* centre le tout */
+    align-items: flex-start;    /* cartes alignées en haut */
+    gap: 30px;                  /* espace entre les cartes */
+    
+  }
+
+  .ai-card {
+    min-height: 413px;          /* même hauteur pour toutes, tu peux ajuster */
+    max-width: 370px;           /* largeur fixe pour toutes les cartes */
+     height: 420px; /* fixe = toutes les card identiques */
+    scroll-snap-align: none;    /* désactive snap sur PC */
+    overflow: hidden;
+    
+  }
+
+.ai-center img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover; /* 🔥 l’image s’adapte sans casser */
+}
+
+  .ai-center {
+    padding: 20px 0;
+    transform: none;
+  }
+
+  .ai-punchline {
+    font-size: 1.4rem;             /* plus sage sur PC */
+    max-width: 100%;
+  }
+
+}
+
+
+@media (hover: hover) and (min-width: 1024px) {
+  .ai-card:hover {
+    transform: translateY(-3px);
+  }
+
+  .ai-card:hover .ai-punchline {
+    transform: scale(1.03);
+  }
+}
+
+/*Tablette */
+
 @media (min-width: 601px) and (max-width: 1023px) {
   .ai-feed {
     grid-template-columns: repeat(2, 1fr);
   }
 }
+
+
+
+/*======== L'EFFET QUI POUSSE A CLIQUER ======= */
+
+@media (hover: hover) {
+  .ai-card {
+    animation: cardBreath 6s ease-in-out infinite;
+  }
+
+  .ai-card:hover {
+    animation: none;
+  }
+}
+
+@keyframes cardBreath {
+  0% { transform: translateY(0); }
+  50% { transform: translateY(-3px); }
+  100% { transform: translateY(0); }
+}
+
+
+
+
+/* =====================================================
+   Animation respiration verified
+
+
+@media (hover: hover) {
+  .ai-card {
+    animation: verifiedGlow 6s ease-in-out infinite;
+  }
+
+  .ai-card:hover {
+    animation: none;
+  }
+}
+
+@keyframes verifiedGlow {
+  0%   { box-shadow: 0 16px 32px rgba(0,0,0,0.28); }
+  50%  { box-shadow: 0 20px 40px rgba(108,242,194,0.15); }
+  100% { box-shadow: 0 16px 32px rgba(0,0,0,0.28); }
+}
+===================================================== */
