@@ -651,10 +651,6 @@ html, body {
     margin: 0 auto;
   }
 
-  .ai-detail-card .ai-logo::before {
-  will-change: transform;
-  transform: translateZ(0);
-}
 
 }
 
@@ -749,4 +745,13 @@ html, body {
     flex-shrink: 0; /* label ne se rétrécit pas */
   }
 
+}
+
+
+
+@media (max-width:768px){
+  .ai-detail-card .ai-logo {
+    position: relative;
+    z-index: 1;
+  }
 }
