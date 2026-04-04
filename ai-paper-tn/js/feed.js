@@ -250,10 +250,10 @@ observer.observe(sponsorCard);
 }
 
 
-//LA PARTIE HERO AI 
+//LA PARTIE AFFICHE AI DANS HERO
 const placedAI = []; // positions déjà utilisées
 
-// pour les fixe dans le hero pas debordement
+// pour le fixé dans le hero pas debordement
 function getNonOverlappingPosition(container, size = 45) {
   let top, left, safe = false, attempts = 0;
   const rect = container.getBoundingClientRect();
@@ -292,7 +292,7 @@ function getNonOverlappingPosition(container, size = 45) {
 }
 
 
-//pour captuer les ai pulaire
+//pour capturé les ai populaire
 async function getPopularAI() {
   const { data, error } = await supabase
     .from("ai_tools")
