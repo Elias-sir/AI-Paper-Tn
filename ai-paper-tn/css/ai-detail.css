@@ -651,6 +651,11 @@ html, body {
     margin: 0 auto;
   }
 
+  .ai-detail-card .ai-logo::before {
+  will-change: transform;
+  transform: translateZ(0);
+}
+
 }
 
 /* =========================
