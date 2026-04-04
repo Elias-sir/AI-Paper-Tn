@@ -136,3 +136,48 @@ html {
   box-shadow: 0 10px 30px rgba(46,204,113,0.4);
   background: linear-gradient(45deg, #6cf2c2, #2ecc71);
 }
+
+
+/* Footer Contact spécifique, différent des cards */
+.footer-contact {
+  text-align: center;
+  margin: 40px auto;
+  padding: 25px 20px;
+  max-width: 600px;
+  background: rgba(10,10,20,0.7);       /* plus sombre que les cards */
+  border-radius: 18px;
+  box-shadow: 0 12px 28px rgba(0,0,0,0.4);
+  color: #a0ffea;                        /* harmonisé avec ton thème */
+}
+
+.footer-contact h2 {
+  font-size: 1.8rem;
+  margin-bottom: 12px;
+  background: linear-gradient(90deg, #6cf2c2, #4cc9f0, #9b5de5);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  text-shadow: 0 4px 12px rgba(0,0,0,0.6);
+}
+
+.footer-contact p {
+  margin: 6px 0;
+  font-size: 1rem;
+  color: #ddd;
+  line-height: 1.5;
+}
+
+
+.footer-contact a {
+  color: rgba(108, 242, 194, 0.8); /* néon mais moins opaque */
+  text-decoration: none;
+  font-weight: 600;
+  transition: color 0.2s ease, opacity 0.2s ease;
+}
+
+.footer-contact a:hover {
+  color: rgba(76, 201, 240, 1); /* plus vif au hover */
+  text-decoration: underline;
+  opacity: 1; /* full opacity au survol */
+}
+
