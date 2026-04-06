@@ -385,6 +385,12 @@
   border: 1px solid rgba(255, 215, 0, 0.15);
 }
 
+.sponsor-card .sponsor-media {
+  position: relative;
+  z-index: 10;
+}
+
+
 .sponsor-card::after {
   content: "";
   position: absolute;
@@ -411,24 +417,7 @@
 
   color: rgba(255, 255, 255, 0.4);
 }
-/*
-@media (hover: hover) {
-  .sponsor-card {
-    animation: sponsorGlow 6s ease-in-out infinite;
-  }
 
-  .sponsor-card:hover {
-    animation: none;
-  }
-}
-
-@keyframes sponsorGlow {
-  0%   { box-shadow: 0 16px 32px rgba(0, 0, 0, 0.28); }
-  50%  { box-shadow: 0 20px 40px rgba(255, 215, 0, 0.15); }
-  100% { box-shadow: 0 16px 32px rgba(0, 0, 0, 0.28); }
-}
-
-*/
 
 /* =====================================================
    RESPONSIVE

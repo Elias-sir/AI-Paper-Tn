@@ -250,6 +250,22 @@ observer.observe(sponsorCard);
 }
 
 
+//LA PARTIE FEED END
+const feedEnd = document.querySelector('.feed-end');
+
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      feedEnd.classList.add('visible');
+    }
+  });
+});
+
+observer.observe(feedEnd);
+
+
+
+
 //LA PARTIE AFFICHE AI DANS HERO
 const placedAI = []; // positions déjà utilisées
 
@@ -397,5 +413,33 @@ setInterval(() => {
 
 
 displayHeroAI();
-// 🔹 Lancer fetch feed
+
+
+async function displayFooterAI() {
+  const { all } = await getPopularAI();
+
+  const container = document.querySelector(".footer-ai-bg");
+  if (!container) return;
+
+  const max = 50; // moins chargé que hero
+  const selected = all.slice(0, max);
+
+  selected.forEach(ai => {
+    const el = document.createElement("div");
+    el.className = "footer-ai";
+
+    el.innerHTML = `<img src="${ai.logo_url}" />`;
+
+    // position random simple
+    el.style.top = Math.random() * 100 + "%";
+    el.style.left = Math.random() * 100 + "%";
+
+    container.appendChild(el);
+  });
+}
+
+displayFooterAI();
+
+
+// 🔹 LANCER LE FEED
 fetchFeed();

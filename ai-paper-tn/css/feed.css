@@ -477,3 +477,160 @@
   animation: float 6s ease-in-out infinite;
 }
   */
+
+
+/*FOOTER END pc UNIQUEMENT */
+
+@media (max-width: 768px) {
+  .feed-end {
+    display: none !important;
+  }
+}
+
+
+  .feed-end {
+  text-align: center;
+  padding: 80px 20px 40px;
+  position: relative;
+}
+
+/* Ligne séparatrice stylée */
+.feed-separator {
+  height: 2px;
+  width: 60%;
+  margin: 1px auto;
+  background: linear-gradient(90deg, transparent, #00f0ff, transparent);
+  opacity: 0.8;
+}
+
+/* Message fin */
+.end-message {
+  margin-top: 40px;
+  padding: 40px 20px;
+  text-align: center;
+}
+
+.end-icon i {
+  font-size: 40px;
+  color: #00f0ff;
+  text-shadow: 0 0 15px #00f0ff;
+}
+
+.end-message h2 {
+  margin: 20px 0 15px;
+  font-size: 26px;
+  color: #fff;
+}
+
+.end-message p {
+  color: #aaa;
+  line-height: 1.7;
+  font-size: 15px;
+}
+
+.end-quote {
+  margin-top: 20px;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  color: #00f0ff;
+  font-weight: bold;
+  text-shadow: 0 0 10px #00f0ff;
+}
+
+/* Footer glass */
+.footer-contact {
+  margin-top: 60px;
+  padding: 30px;
+  border-radius: 20px;
+  background: rgba(255,255,255,0.05);
+   -webkit-backdrop-filter : blur(10px);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255,255,255,0.08);
+}
+
+.footer-contact a {
+  color: #00f0ff;
+  text-decoration: none;
+}
+
+/* Footer final */
+footer {
+  margin-top: 40px;
+  color: #777;
+}
+
+.chat-btn {
+  display: inline-block;
+  margin-top: 10px;
+  padding: 10px 20px;
+  border-radius: 12px;
+  background: #00f0ff;
+  color: #000;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+.footer-contact a,
+.chat-btn {
+  transition: all 0.25s ease;
+}
+
+/* Hover liens */
+.footer-contact a:hover {
+  color: #00f0ff;
+  text-shadow: 0 0 8px #00f0ff;
+}
+
+/* Hover bouton */
+.chat-btn:hover {
+  background: #00c8d6;
+  box-shadow: 0 0 12px #00f0ff;
+  transform: translateY(-2px);
+}
+
+
+.footer-contact {
+  position: relative;
+  overflow: hidden;
+}
+
+/* layer AI */
+.footer-ai-bg {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+}
+
+/* contenu au-dessus */
+.footer-contact > *:not(.footer-ai-bg) {
+  position: relative;
+  z-index: 2;
+}
+
+/* AI style */
+.footer-ai {
+  position: absolute;
+  width: 35px;
+  height: 35px;
+  opacity: 0.15;
+  filter: grayscale(1);
+  transition: 0.3s;
+}
+
+.footer-ai img {
+  width: 100%;
+  border-radius: 50%;
+}
+
+/* effet hover global */
+.footer-contact:hover .footer-ai {
+  opacity: 0.3;
+}
+
+.footer-contact:hover .footer-ai:hover {
+  opacity: 0.8;
+  filter: none;
+  transform: scale(1.2);
+}
