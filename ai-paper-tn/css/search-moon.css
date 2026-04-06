@@ -325,3 +325,26 @@
   font-size: 0.7rem;
   opacity: 0.6;
 }
+
+
+@media (max-width:600px){
+
+  .search-moon-results{
+    grid-template-columns: repeat(3, 1fr); /* 🔥 3 colonnes */
+    gap: 10px; /* un peu moins d’espace pour laisser respirer */
+  }
+
+  .search-category-card{
+    padding: 14px; /* 🔥 élargit visuellement la carte */
+  }
+
+  .cat-name{
+    font-size: 0.9rem;
+  }
+
+  .cat-count{
+    font-size: 0.75rem;
+  }
+
+}
+
