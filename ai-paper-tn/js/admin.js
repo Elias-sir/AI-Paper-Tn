@@ -92,10 +92,14 @@ async function fetchAIs() {
     // Affichage avec clicks_count
     li.textContent = `${ai.name} [${ai.category}] - ${ai.status} - Clicks: ${ai.clicks_count || 0}`;
 
-    const editBtn = document.createElement('button');
-    editBtn.textContent = 'Modifier';
-    editBtn.style.marginRight = '8px';
-    editBtn.addEventListener('click', () => {
+  const editBtn = document.createElement('button');
+editBtn.textContent = 'Modifier';
+editBtn.style.marginRight = '8px';
+
+editBtn.addEventListener('click', () => {
+  // ⚡ remonter en haut de la page
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+
   // 1️⃣ changement de texte pour montrer qu'on clique
   editBtn.textContent = "✏️ Editing...";
   editBtn.disabled = true;
@@ -169,6 +173,10 @@ setTimeout(() => {
   const website_url = document.getElementById('ai-website').value;
   const punchline = document.getElementById("ai-punchline").value.trim();
 
+const categori = Array.from(
+  document.querySelectorAll('#ai-category-search-container input[type="checkbox"]:checked')
+).map(cb => cb.value);
+
   const signals = document.getElementById("ai-signals").value.trim();
 const story = document.getElementById("ai-story").value.trim();
 const users = document.getElementById("ai-users")?.value.trim() || "";
@@ -207,7 +215,7 @@ if (youtube_videos.length >= 5) {
       .from('ai_tools')
 
       .update({
-  name, description, logo_url, category,
+  name, description, logo_url, category,categori,
   badges, signals,media_url,punchline,
   youtube_videos,
   footer_videos,use_cases,
@@ -226,7 +234,7 @@ if (youtube_videos.length >= 5) {
     .from('ai_tools')
 
     .insert([
-  { name, description, logo_url, category, 
+  { name, description, logo_url, category,categori, 
     badges, signals, media_url,punchline,youtube_videos, website_url, story, 
     users, author,country,utility, target, payment, advantages, disadvantages ,footer_videos ,use_cases, status: 'published', 
     created_by: null },
@@ -242,6 +250,8 @@ document.getElementById('ai-name').value = '';
   document.getElementById('ai-description').value = '';
   document.getElementById('ai-logo').value = '';
   document.getElementById('ai-category').value = '';
+  document.querySelectorAll('#ai-category-search-container input[type="checkbox"]')
+  .forEach(cb => cb.checked = false);
   document.getElementById('ai-badges').value = '';
   document.getElementById('ai-website').value = '';
   document.getElementById('ai-media').value = '';
@@ -290,6 +300,14 @@ function editAI(ai) {
   document.getElementById('ai-logo').value = ai.logo_url || '';
   document.getElementById('ai-category').value = ai.category || '';
   
+ // récupérer toutes les checkboxes
+const categoriCheckboxes = document.querySelectorAll('#ai-category-search-container input[type="checkbox"]');
+
+// cocher celles qui correspondent à ai.categori
+categoriCheckboxes.forEach(cb => {
+  cb.checked = ai.categori?.includes(cb.value) || false;
+});
+  
   document.getElementById('ai-website').value = ai.website_url || '';
   document.getElementById('ai-media').value = ai.media_url || '';
   document.getElementById('ai-punchline').value = ai.punchline || '';
@@ -334,10 +352,10 @@ function updatePreview() {
   const logo = document.getElementById("ai-logo").value.trim() || "assents/icons/...png";
  const media = document.getElementById("ai-media").value.trim();
   const category = document.getElementById("ai-category").value.trim() || "green";
+
   const signals = document.getElementById("ai-signals").value.trim() || "";
   const description = document.getElementById("ai-description").value.trim() || "Description de l'IA";
 
-  
 
   // badges animés
   const badgesArray = signals.split(",").map(b => b.trim()).filter(b => b);

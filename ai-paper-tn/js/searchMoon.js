@@ -80,6 +80,207 @@ if (mobileSearchOpen && mobileMenu) {
 
   // --- fetch IA depuis Supabase ---
   let allAIs = [];
+
+    const categories = [
+  { name: "Assistant AI", tag: "green" },
+  { name: "AI Polyvalent", tag: "green" },
+  { name: "Image", tag: "green" },
+  { name: "Video", tag: "green" },
+  { name: "Audio", tag: "green" },
+  { name: "Music", tag: "green" },
+  { name: "Code", tag: "green" },
+  { name: "Business", tag: "green" },
+  { name: "Marketing", tag: "green" },
+  { name: "Mode", tag: "green" },
+  { name: "Fitness", tag: "green" },
+  { name: "Education", tag: "green" },
+  { name: "Texte", tag: "green" },
+  { name: "Voyage", tag: "green" },
+  { name: "Ladies", tag: "green" },
+  { name: "AI tunisien", tag: "green" },
+  { name: "Fun", tag: "green" }
+];
+
+  // --- RECUPERATION DES CATEGORI debut ---
+
+function renderCategories() {
+
+  // 🔢 compter les AI par catégorie
+ const counts = {};
+
+allAIs.forEach(ai => {
+  const cats = Array.isArray(ai.categori) ? ai.categori : [ai.categori || "Other"];
+  cats.forEach(cat => {
+    counts[cat] = (counts[cat] || 0) + 1;
+  });
+});
+
+  resultsContainer.innerHTML = categories.map(cat => {
+    const count = counts[cat.name] || 0;
+
+    return `
+      <div class="search-category-card tag-${cat.tag}" data-category="${cat.name}">
+        <div class="cat-name">${cat.name}</div>
+        <div class="cat-count">${count} AI</div>
+      </div>
+    `;
+  }).join("");
+
+  // click → filtre par catégorie
+  document.querySelectorAll(".search-category-card").forEach(card => {
+ card.addEventListener("click", () => {
+  const selected = card.dataset.category.toLowerCase();
+
+ // 🔍 filtrage
+ let filtered = allAIs.filter(ai =>
+  Array.isArray(ai.categori)
+    ? ai.categori.map(c => c.toLowerCase()).includes(selected)
+    : (ai.categori || "").toLowerCase() === selected
+);
+
+  // 🔥 EXACTEMENT le même rendu que search
+  resultsContainer.innerHTML = filtered.length > 0
+    ? filtered.map(ai => {
+      const logoUrl   = ai.logo_url || "assets/icons/default.png";
+      const name      = ai.name || "IA inconnue";
+      const description = ai.description || ""; 
+      const category  = ai.category || "green";
+      const media = ai.media_url || "";
+
+      return `
+        <div class="search-moon-card mini ai-card-content" data-id="${ai.id}">
+          <div class="ai-top">
+            <div class="ai-info">
+              <div class="ai-header tag-${category}">${name}</div>
+              ${description ? `<div class="ai-vibe">${description}</div>` : ""}
+            </div>
+
+            <div class="ai-logo">
+              <img src="${logoUrl}" alt="${name}">
+            </div>
+          </div>
+
+          <div class="ai-center">
+            ${
+              media
+                ? `<img src="${media}" class="ai-main-image" alt="${name}" />`
+                : `<div class="ai-placeholder">Image IA</div>`
+            }
+          </div>
+          <div class="ai-stats">
+
+  <div class="ai-users">
+    <i class="ph ph-users"></i>
+    <span>${formatUsers(ai.users || 0)}</span>
+  </div>
+
+
+   <div class="ai-views">
+    <i class="ph ph-eye"></i>
+    <span>${formatUsers(ai.clicks_count || 0)}</span>
+  </div>
+
+
+  <div class="ai-btn like-btn ${ai.userHasLiked ? "liked" : ""}">
+    <svg xmlns="http://www.w3.org/2000/svg" fill="none"
+      viewBox="0 0 24 24" stroke="currentColor"
+      stroke-width="1.5" class="icon-heart">
+      <path stroke-linecap="round" stroke-linejoin="round"
+        d="M6.633 10.25c.806 0 1.533-.446 2.031-1.08a9.041 9.041 0 0 1 2.861-2.4c.723-.384 1.35-.956 1.653-1.715a4.498 4.498 0 0 0 .322-1.672V2.75a.75.75 0 0 1 .75-.75 2.25 2.25 0 0 1 2.25 2.25c0 1.152-.26 2.243-.723 3.218-.266.558.107 1.282.725 1.282m0 0h3.126c1.026 0 1.945.694 2.054 1.715.045.422.068.85.068 1.285a11.95 11.95 0 0 1-2.649 7.521c-.388.482-.987.729-1.605.729H13.48c-.483 0-.964-.078-1.423-.23l-3.114-1.04a4.501 4.501 0 0 0-1.423-.23H5.904m10.598-9.75H14.25M5.904 18.5c.083.205.173.405.27.602.197.4-.078.898-.523.898h-.908c-.889 0-1.713-.518-1.972-1.368a12 12 0 0 1-.521-3.507c0-1.553.295-3.036.831-4.398C3.387 9.953 4.167 9.5 5 9.5h1.053c.472 0 .745.556.5.96a8.958 8.958 0 0 0-1.302 4.665c0 1.194.232 2.333.654 3.375Z"/>
+    </svg>
+    <span class="like-count">${ai.likes || 0}</span>
+  </div>
+</div>
+</div>
+      `;
+    }).join('')
+    : `<p class="search-moon-no-results">Aucune IA trouvée</p>`;
+
+  // ⚠️ IMPORTANT → remettre les events (click + like)
+  attachCardEvents();
+});
+  });
+}
+
+  function attachCardEvents() {
+  document.querySelectorAll('.search-moon-card').forEach(card => {
+    const likeBtn = card.querySelector(".like-btn");
+    const likeCount = card.querySelector(".like-count");
+    const clicksEl = card.querySelector(".ai-views span");
+    const aiId = card.dataset.id;
+
+    // --- CLICK CARD → vue + redirection ---
+    card.addEventListener('click', async (e) => {
+      if (e.target.closest(".like-btn")) return;
+
+      const visitorId = getVisitorId();
+
+      try {
+        if (currentUser) {
+          await supabase.rpc('increment_ai_clicks', { ai_id: aiId, user_id: currentUser.id });
+        } else {
+          await supabase.rpc('increment_ai_clicks_public', { ai_id: aiId, visitor_id: visitorId });
+        }
+
+        // Update UI
+        let current = parseInt(clicksEl.textContent.replace(/\D/g, "")) || 0;
+        clicksEl.textContent = formatUsers(current + 1);
+
+        // Redirection
+        window.location.href = `ai-detail.html?id=${aiId}`;
+      } catch (err) {
+        console.error("Erreur click AI:", err.message);
+      }
+    });
+
+    // --- LIKE BUTTON ---
+    if (likeBtn && likeCount) {
+      likeBtn.addEventListener("click", async (e) => {
+        e.stopPropagation();
+
+        if (!currentUser) {
+          window.location.href = "login.html";
+          return;
+        }
+
+        likeBtn.style.pointerEvents = "none";
+
+        const currentLikes = parseInt(likeCount.textContent) || 0;
+        const isLiked = likeBtn.classList.contains("liked");
+
+        if (!isLiked) {
+          // liker
+          const { error } = await supabase.from("ai_likes").insert({ user_id: currentUser.id, ai_id: aiId });
+          if (!error) {
+            likeBtn.classList.add("liked");
+            likeCount.textContent = currentLikes + 1;
+          }
+        } else {
+          // deliker
+          const { error } = await supabase
+            .from("ai_likes")
+            .delete()
+            .eq("user_id", currentUser.id)
+            .eq("ai_id", aiId);
+
+          if (!error) {
+            likeBtn.classList.remove("liked");
+            likeCount.textContent = Math.max(0, currentLikes - 1);
+          }
+        }
+
+        likeBtn.style.pointerEvents = "auto";
+      });
+    }
+  });
+}
+
+attachCardEvents();
+
+
+// --- RECUPERATION DES CATEGORI fin ---
+
+
   const fetchAIs = async () => {
   
   const { data, error } = await supabase
@@ -89,6 +290,7 @@ id,
 name,
 description,
 category,
+categori,
 signals,
 use_cases,
 story,
@@ -149,11 +351,19 @@ likesData?.forEach(l => {
 }));
 
 };
-  fetchAIs();
+ fetchAIs().then(() => {
+  renderCategories();
+});
 
   // --- filtrage + tri ---
   searchInput.addEventListener("input", () => {
+
   const query = searchInput.value.toLowerCase().trim();
+
+      if (!query) {
+  renderCategories();
+  return;
+}
 
   // Filtrage intelligent multi-colonnes
   let filtered = allAIs.filter(ai => {
@@ -212,9 +422,6 @@ likesData?.forEach(l => {
     ? `<img src="${media}" class="ai-main-image" alt="${name}" />`
     : `<div class="ai-placeholder">Image IA</div>`}
 </div>
-
-
-  
 
    <div class="ai-stats">
 
@@ -347,8 +554,6 @@ if (!user) {
     }
   });
 });
-
-
 
   });
 });
