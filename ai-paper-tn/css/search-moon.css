@@ -329,21 +329,13 @@
 
 @media (max-width:600px){
 
-  .search-moon-results{
-    grid-template-columns: repeat(3, 1fr); /* 🔥 3 colonnes */
-    gap: 10px; /* un peu moins d’espace pour laisser respirer */
+  .search-moon-results:has(.search-category-card){
+    grid-template-columns: repeat(3, 1fr); /* 🔥 3 colonnes فقط catégories */
+    gap: 10px;
   }
 
   .search-category-card{
-    padding: 14px; /* 🔥 élargit visuellement la carte */
-  }
-
-  .cat-name{
-    font-size: 0.9rem;
-  }
-
-  .cat-count{
-    font-size: 0.75rem;
+    padding: 14px;
   }
 
 }
