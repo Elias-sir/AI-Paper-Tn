@@ -94,6 +94,7 @@ if (mobileSearchOpen && mobileMenu) {
   { name: "Mode", tag: "green" },
   { name: "Fitness", tag: "green" },
   { name: "Education", tag: "green" },
+  { name: "Médicale", tag: "green" },
   { name: "Texte", tag: "green" },
   { name: "Voyage", tag: "green" },
   { name: "Ladies", tag: "green" },

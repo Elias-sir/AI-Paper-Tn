@@ -326,10 +326,9 @@
   font-size: 0.7rem;
   opacity: 0.6;
 }
-/*caché les compte */
-.cat-count {
-  display: none;
-}
+
+
+
 /*SUR MOBILE*/
 @media (max-width:600px){
 
