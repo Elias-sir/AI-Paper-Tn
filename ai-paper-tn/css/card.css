@@ -20,8 +20,9 @@
 }
 
 .ai-card:hover {
-  transform: translateY(-6px);
   box-shadow: 0 30px 60px rgba(0,0,0,0.35);
+  transform: translateY(-6px) scale(1.015);
+
 }
 
 .ai-actions {
@@ -182,9 +183,6 @@
     contrast(1.15);
 }
 
-.ai-card:hover {
-  transform: translateY(-6px) scale(1.015);
-}
 
 .ai-card:active {
   transform: scale(0.98);
@@ -196,8 +194,6 @@
 /* Container carde */
 .ai-center {
   width: calc(100% + 40px);   
-  margin-left: -20px;         /* aligne à gauche */
-  
   display: block;
 }
 
@@ -210,7 +206,7 @@
   object-fit: cover;   /* coupe proprement si trop grande */
 }
 
-
+/*l'espace gauche et droite pour s'attaché a la card mobile uniquement*/
 .ai-center {
   margin-left: -20px;
   margin-right: -20px;
@@ -393,6 +389,14 @@
   overflow: hidden;
 }
 
+.ai-center img {
+  backface-visibility: hidden;
+  transform: translateZ(0);
+  
+  transition: transform 0.25s ease;
+
+}
+
 
 /* =====================================================
    ::before = Bordure fine + label "Vérifié"
@@ -519,22 +523,28 @@
   .ai-card {
     min-height: 413px;          /* même hauteur pour toutes, tu peux ajuster */
     max-width: 370px;           /* largeur fixe pour toutes les cartes */
-     height: 420px; /* fixe = toutes les card identiques */
+     height: 450px; /* fixe = toutes les card identiques */
     scroll-snap-align: none;    /* désactive snap sur PC */
     overflow: hidden;
     
   }
 
+.ai-center {
+  width: calc(100% + 40px); /* compense le padding */
+  margin-left: -20px;
+  margin-right: -20px;
+
+  aspect-ratio: 1200 / 630;
+  overflow: hidden;
+}
+
+
 .ai-center img {
   width: 100%;
   height: 100%;
-  object-fit: cover; /* 🔥 l’image s’adapte sans casser */
+  object-fit: cover;
+  
 }
-
-  .ai-center {
-    padding: 20px 0;
-    transform: none;
-  }
 
   .ai-punchline {
     font-size: 1.4rem;             /* plus sage sur PC */
@@ -546,11 +556,7 @@
 
 @media (hover: hover) and (min-width: 1024px) {
   .ai-card:hover {
-    transform: translateY(-3px);
-  }
-
-  .ai-card:hover .ai-punchline {
-    transform: scale(1.03);
+    transform: translateY(-3px) scale(1.01);
   }
 }
 
@@ -568,7 +574,7 @@
 
 @media (hover: hover) {
   .ai-card {
-    animation: cardBreath 6s ease-in-out infinite;
+    will-change: transform;
   }
 
   .ai-card:hover {

@@ -294,7 +294,8 @@
   font-weight: 600;
   color: #fff;
   cursor: pointer;
-  transition: transform 0.2s ease, box-shadow 0.3s ease, background 0.2s ease;
+  transition: transform 0.03s linear, box-shadow 0.03s linear, background 0.03s linear;
+
   flex-direction: column;
   gap: 4px;
 
@@ -302,10 +303,10 @@
 
 .search-category-card:hover {
   background: #242430;
-  transform: scale(1.05);
-
-  /* Néon plus visible au hover */
-  box-shadow: 0 0 20px 3px rgba(0, 255, 255, 0.2), 0 0 30px 6px rgba(0, 255, 255, 0.1);
+  transform: translateY(-3px) scale(1.03); /* 🔥 moins violent */
+  box-shadow: 
+    0 0 12px rgba(0, 255, 255, 0.15),
+    0 0 25px rgba(0, 255, 255, 0.08);
 }
 
 /* Clic avec effet pop + néon */
@@ -325,8 +326,11 @@
   font-size: 0.7rem;
   opacity: 0.6;
 }
-
-
+/*caché les compte */
+.cat-count {
+  display: none;
+}
+/*SUR MOBILE*/
 @media (max-width:600px){
 
   .search-moon-results:has(.search-category-card){
@@ -340,3 +344,13 @@
 
 }
 
+
+@media (hover: hover) {
+  .search-category-card:hover {
+    background: #242430;
+    transform: translateY(-3px) scale(1.03);
+    box-shadow: 
+      0 0 12px rgba(0, 255, 255, 0.15),
+      0 0 25px rgba(0, 255, 255, 0.08);
+  }
+}

@@ -226,7 +226,14 @@ export function setupSponsorForm(form, listContainer, previewContainer) {
   setupLivePreview(form, previewContainer);
 
   form.addEventListener("submit", async e => {
-    e.preventDefault();
+  e.preventDefault();
+//animation bouton publier
+  const submitBtn = form.querySelector("button[type='submit']");
+  
+  submitBtn.textContent = "⏳ Publication...";
+  submitBtn.disabled = true;
+
+
     const formData = new FormData(form);
     const data = {
   title: formData.get("title"),
@@ -252,6 +259,16 @@ export function setupSponsorForm(form, listContainer, previewContainer) {
   await createSponsorCard(data);
 }
 
+//animation bouton publier
+submitBtn.textContent = "✅ Terminé !";
+
+setTimeout(() => {
+  submitBtn.textContent = "Publier";
+  submitBtn.disabled = false;
+}, 1500);
+
+
+
 
     form.reset();
     renderSponsorList(listContainer);
@@ -274,6 +291,8 @@ export function setupSponsorActions(listContainer, form) {
     }
 
     if (editBtn) {
+  editBtn.textContent = "✏️ Chargement...";
+  editBtn.disabled = true;
       const id = editBtn.dataset.id;
       const cards = await fetchSponsorCards();
       const card = cards.find(c => c.id == id);
@@ -286,6 +305,13 @@ export function setupSponsorActions(listContainer, form) {
       form.querySelector("input[name='signals']").value = (card.signals || []).join(",");
       form.querySelector("input[name='logo_url']").value = card.logo_url || "";
       form.querySelector("input[name='priority']").value = card.priority || 0;
+
+// animation
+      setTimeout(() => {
+  editBtn.textContent = "✏️ Edit";
+  editBtn.disabled = false;
+}, 1200);
+
 
       // garder l'id pour update
       form.dataset.editId = card.id;

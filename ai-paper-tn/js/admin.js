@@ -579,6 +579,34 @@ function openUserProfile(userId) {
 }
 
 
+
+
+//--------------POUR LES RECHERCHES FILTRES LISTE AI ---
+
+const searchInput = document.getElementById("search-ai");
+
+searchInput.addEventListener("input", (e) => {
+  const value = e.target.value.toLowerCase();
+
+  const items = document.querySelectorAll("#ais li");
+
+  items.forEach(item => {
+    const text = item.textContent.toLowerCase();
+
+    if (text.includes(value)) {
+      item.style.display = "flex"; // ou "flex" si tu préfères
+    } else {
+      item.style.display = "none";
+    }
+  });
+});
+
+
+
+
+
+
+
 // -------------------- INIT --------------------
 document.addEventListener('DOMContentLoaded', async () => {
   const hasAccess = await checkAdminAccess();

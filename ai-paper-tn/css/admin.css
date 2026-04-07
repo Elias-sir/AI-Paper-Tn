@@ -85,7 +85,7 @@ button:hover {
   box-shadow: 0 6px 15px rgba(255,221,170,0.5);
 }
 
-/* ===== Liste IA ===== */
+/* =================== LISTE IA ====================== */
 #ai-list ul {
   list-style: none;
   display: flex;
@@ -106,6 +106,22 @@ button:hover {
 #ai-list li:hover {
   background: rgba(70,70,110,0.8);
 }
+
+#ai-list ul {
+  max-height: 400px; /* hauteur visible */
+  overflow-y: auto;  /* scroll vertical */
+  padding-right: 6px;
+}
+
+#ai-list ul::-webkit-scrollbar {
+  width: 6px;
+}
+
+#ai-list ul::-webkit-scrollbar-thumb {
+  background: #6cf2c2;
+  border-radius: 10px;
+}
+
 
 /* ===== Ligne séparatrice ===== */
 hr {
