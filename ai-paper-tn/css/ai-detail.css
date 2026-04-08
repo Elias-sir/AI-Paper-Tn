@@ -1,6 +1,8 @@
 /* ==========================================================
    CONTENEUR PRINCIPAL
    ========================================================== */
+
+   
    /* empêcher tout scroll horizontal fantôme */
 html, body {
   overflow-x: hidden;
@@ -82,11 +84,7 @@ html, body {
   color: #ddd;
 }
 
-/* Hover effet léger 
-.ai-detail-card:hover {
-  transform: scale(1.01);
-  box-shadow: 0 40px 80px rgba(0,0,0,0.6);
-}*/
+
 
 .ai-detail-card::-webkit-scrollbar {
   width: 6px;
@@ -117,10 +115,6 @@ html, body {
   transition: transform 0.4s ease, box-shadow 0.4s ease;
 }
 
-/*.ai-detail-card .ai-top:hover {
-  transform: translateY(-2px) scale(1.005);
-  box-shadow: 0 20px 48px rgba(0,0,0,0.55);
-}*/
 
 /* ===== LOGO ===== */
 .ai-detail-card .ai-logo {
@@ -238,10 +232,8 @@ html, body {
    ========================================================== */
 
 .ai-detail-card .ai-badges {
-  display: center;
   gap: 10px;
   flex-wrap: wrap;
- 
   align-items: center;
   margin-top: 8px;
   position: relative;
@@ -688,10 +680,6 @@ html, body {
 
 }
 
-
-/* =========================
-   PC : ENTETE CENTRÉ
-========================= */
 /* =========================
    PC : HEADER CENTRÉ
 ========================= */
@@ -747,11 +735,21 @@ html, body {
 
 }
 
-
-
 @media (max-width:768px){
   .ai-detail-card .ai-logo {
     position: relative;
     z-index: 1;
+  }
+}
+
+/* Pour eviter un gros trous entre le badges et le puncline car le puncline
+est dans ai-center modifier depuis card.css donc quand on le touche , ai detail cris- .ai-center = bloc média (image)
+MAIS il contient aussi du texte (punchline) ET ce bloc a une hauteur forcée énorme sur PC
+
+     */
+@media (min-width: 1024px) {
+  .ai-center {
+    aspect-ratio: auto;   
+    height: auto;         
   }
 }

@@ -44,20 +44,21 @@
 }
 
 /* ============================ */
-/* Results Grid Compact */
+/* Results COLONNES PC */
 /* ============================ */
 .search-moon-results {
   flex: 1;
   overflow-y: auto;
-  padding: 16px;
+  padding: 25px;
 
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); /*Nombres des colonnes pc*/
   gap: 16px;
 
-  max-width: 1000px;
+  max-width: 1300px;
   margin: auto;
 }
+
 
 /* ============================ */
 /* Mini Cards Compact */
@@ -241,19 +242,6 @@
   color: #39b0e0;
 }
 
-@media (max-width:600px){
-
-.search-moon-results{
-  grid-template-columns: repeat(2,1fr);
-}
-
-}
-
-
-
-
-
-
 .search-moon-card.mini .ai-top {
   flex-shrink: 0;
 }
@@ -267,7 +255,6 @@
   overflow: hidden;
 }
 
-
 .search-moon-card.mini .ai-stats {
   flex-shrink: 0;
 
@@ -278,7 +265,14 @@
   margin-top: auto; /* 🔥 force en bas */
 }
 
+/*RESPONSIVE AI SEACH MOBILE 2 colonnes */
+@media (max-width:600px){
 
+.search-moon-results{
+  grid-template-columns: repeat(2,1fr);
+}
+
+}
 
 /* ============================ */
 /* 🌌 Neon dark glow derrière catégorie */
@@ -327,9 +321,7 @@
   opacity: 0.6;
 }
 
-
-
-/*SUR MOBILE*/
+/*SUR MOBILE CATEGORIE*/
 @media (max-width:600px){
 
   .search-moon-results:has(.search-category-card){
@@ -342,8 +334,6 @@
   }
 
 }
-
-
 @media (hover: hover) {
   .search-category-card:hover {
     background: #242430;

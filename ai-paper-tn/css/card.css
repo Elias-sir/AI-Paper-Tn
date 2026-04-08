@@ -523,11 +523,13 @@
   .ai-card {
     min-height: 413px;          /* même hauteur pour toutes, tu peux ajuster */
     max-width: 370px;           /* largeur fixe pour toutes les cartes */
-     height: 450px; /* fixe = toutes les card identiques */
+    height: 450px;              /* fixe = toutes les card identiques */
     scroll-snap-align: none;    /* désactive snap sur PC */
     overflow: hidden;
     
   }
+
+  
 
 .ai-center {
   width: calc(100% + 40px); /* compense le padding */
