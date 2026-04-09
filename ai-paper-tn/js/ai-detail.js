@@ -35,7 +35,7 @@ document.addEventListener("play", e => {
     v._limitTimer = setTimeout(() => {
       v.pause();
       v.currentTime = 0;
-    }, 30000);
+    }, 60000);
   }
 }, true);
 
