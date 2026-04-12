@@ -82,7 +82,7 @@ if (mobileSearchOpen && mobileMenu) {
   let allAIs = [];
 
     const categories = [
-  { name: "Assistant AI", tag: "green" },
+  { name: "AI Assistant", tag: "green" },
   { name: "AI Polyvalent", tag: "green" },
   { name: "Image", tag: "green" },
   { name: "Video", tag: "green" },

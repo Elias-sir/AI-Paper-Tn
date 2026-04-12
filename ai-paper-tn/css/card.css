@@ -562,11 +562,17 @@
   }
 }
 
-/*Tablette */
+/*============  Tablette =====================  */
 
 @media (min-width: 601px) and (max-width: 1023px) {
-  .ai-feed {
-    grid-template-columns: repeat(2, 1fr);
+  #feed-cards {
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 20px;
+  }
+
+  .ai-card {
+    width: calc(50% - 10px); /* 🔥 2 colonnes */
   }
 }
 

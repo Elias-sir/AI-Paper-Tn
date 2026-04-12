@@ -266,7 +266,7 @@ observer.observe(feedEnd);
 
 
 
-//LA PARTIE AFFICHE AI DANS HERO
+// =============  LA PARTIE AFFICHE AI DANS HERO  =================  // 
 const placedAI = []; // positions déjà utilisées
 
 // pour le fixé dans le hero pas debordement
@@ -325,7 +325,7 @@ const sorted = data.sort((a, b) => {
 // 🔥 ON LIMITE À 100
 const top100 = sorted.slice(0, 100);
 
-// top 6 parmi les 100
+// top 10 parmi les 100
 const top10 = top100.slice(0, 10);
 
 return { all: top100, top10 };
@@ -399,22 +399,22 @@ window.addEventListener("scroll", () => {
 });
 
 
-// pour afficher dans un delais preci
-setInterval(() => {
-  const topEls = document.querySelectorAll(".top-ai");
+// POUR AFFICHER LES 10 POPULAIRE AI AVEC ANIMATION
+//setInterval(() => {
+  //const topEls = document.querySelectorAll(".top-ai");
 
-  topEls.forEach(el => {
-    el.classList.toggle("glow");
-    el.classList.toggle("dim");
-  });
+  //topEls.forEach(el => {
+   // el.classList.toggle("glow");
+   // el.classList.toggle("dim");
+  //});
 
-}, 1000);
-
+//}, 1000);
+//
 
 
 displayHeroAI();
 
-
+// =========== LA PARTIE HERO FOOTER ===========  // 
 async function displayFooterAI() {
   const { all } = await getPopularAI();
 
