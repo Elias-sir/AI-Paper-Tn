@@ -1,14 +1,16 @@
 // interactions.js
 import { supabase } from "./supabase.js";
+import { getUser } from "./authService.js";
+
 
 async function updateHeroButton() {
   const heroBtn = document.querySelector('.hero-btn.primary');
   if (!heroBtn) return;
 
   // Récupérer user connecté
-  const { data: { user }, error } = await supabase.auth.getUser();
+  const user = await getUser();
 
-  if (!user || error) {
+  if (!user) {
     // pas connecté → bouton normal
     heroBtn.innerHTML = "🚀 Nous rejoindre";
     heroBtn.setAttribute('href', 'register.html');
@@ -48,11 +50,6 @@ async function updateHeroButton() {
     window.location.href = 'profile.html';
   });
 }
-
-// Exécution au chargement
-document.addEventListener('DOMContentLoaded', () => {
-  updateHeroButton();
-});
 
 // Exécution au chargement
 document.addEventListener('DOMContentLoaded', () => {

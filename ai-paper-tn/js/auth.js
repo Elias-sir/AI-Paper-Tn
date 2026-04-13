@@ -1,4 +1,7 @@
+import { getUser } from './authService.js'
 import { supabase } from './supabase.js';
+
+
 
 document.addEventListener('DOMContentLoaded', () => {
 
@@ -47,6 +50,12 @@ if (!loginEmail.value.trim() || !loginPassword.value.trim()) {
           .select('pseudo, avatar')
           .eq('id', authData.user.id)
           .single();
+
+
+
+const testUser = await getUser()
+console.log("USER VIA SERVICE:", testUser)
+
       
  if (authError) {
 

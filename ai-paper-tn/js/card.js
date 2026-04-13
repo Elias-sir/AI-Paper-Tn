@@ -1,4 +1,5 @@
 import { supabase } from "./supabase.js";
+import { getUser } from "./authService.js";
 
 export async function createAICard(ai) {
 
@@ -23,7 +24,7 @@ function formatUsers(count) {
   /* ─────────────────────────────
      🔐 USER CONNECTÉ
   ───────────────────────────── */
-  const { data: { user } } = await supabase.auth.getUser();
+  const user = await getUser();
 
   /* ─────────────────────────────
      ❤️ ÉTAT LIKE USER
@@ -147,7 +148,7 @@ if (ai.signals) {
     e.preventDefault();
     e.stopPropagation();
 
-    const { data: { user } } = await supabase.auth.getUser();
+    const user = await getUser();
     if (!user) {
       window.location.href = "login.html";
       return;
@@ -230,7 +231,7 @@ card.addEventListener("click", async (e) => {
   console.log("ai.id:", ai.id);
 
   try {
-    const { data: { user } } = await supabase.auth.getUser();
+    const user = await getUser();
 
     if (user) {
       // Utilisateur connecté → click illimité

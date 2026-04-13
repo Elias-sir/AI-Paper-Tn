@@ -1,5 +1,6 @@
 import { supabase } from "./supabase.js";
 import { createAICard } from "./card.js";
+import { getUser } from "./authService.js";
 
 const feedCards = document.getElementById("feed-cards");
 
@@ -26,7 +27,7 @@ function shuffleArray(array) {
 
 // 🔹 Fetch IA + sponsors + rendu feed
 export async function fetchFeed() {
-  const { data: { user } } = await supabase.auth.getUser();
+  const user = await getUser();
 console.log("Current user:", user);
   // 1️⃣ Fetch IA normales
   const { data: aisData, error: aisError } = await supabase
@@ -46,6 +47,8 @@ console.log("Current user:", user);
       users,
       created_at
     `)
+
+    /// MELANGES DES AI
     .order("created_at", { ascending: false });
 
   if (aisError) {
@@ -394,7 +397,7 @@ window.addEventListener("scroll", () => {
 
     const y = scrollY * speed;
 
-    el.style.transform += ` translateY(${y}px)`;
+    el.style.transform = ` translateY(${y}px)`;
   });
 });
 
@@ -421,7 +424,7 @@ async function displayFooterAI() {
   const container = document.querySelector(".footer-ai-bg");
   if (!container) return;
 
-  const max = 50; // moins chargé que hero
+  const max = 70; // moins chargé que hero
   const selected = all.slice(0, max);
 
   selected.forEach(ai => {
