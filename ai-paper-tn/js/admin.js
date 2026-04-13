@@ -315,10 +315,10 @@ categoriCheckboxes.forEach(cb => {
   document.getElementById('ai-badges').value = 
   Array.isArray(ai.badges) ? ai.badges.join(', ') : (ai.badges || '');
 
-document.getElementById('ai-signals').value = 
+  document.getElementById('ai-signals').value = 
   Array.isArray(ai.signals) ? ai.signals.join(', ') : (ai.signals || '');
 
- document.getElementById('ai-users').value =
+  document.getElementById('ai-users').value =
   Array.isArray(ai.users) ? ai.users.join(', ') : (ai.users || '');
 
   document.getElementById('ai-author').value = ai.author || '';
@@ -330,17 +330,35 @@ document.getElementById('ai-signals').value =
   document.getElementById('ai-advantages').value =
   Array.isArray(ai.advantages) ? ai.advantages.join(', ') : (ai.advantages || '');
 
-document.getElementById('ai-disadvantages').value =
+  document.getElementById('ai-disadvantages').value =
   Array.isArray(ai.disadvantages) ? ai.disadvantages.join(', ') : (ai.disadvantages || '');
 
   document.getElementById('ai-story').value = ai.story || '';
-document.querySelectorAll(".yt-input").forEach((input, i) => {
-  input.value = ai.youtube_videos?.[i] || "";
+
+  // sécuriser format tableau
+const ytVideos = Array.isArray(ai.youtube_videos)
+  ? ai.youtube_videos
+  : (typeof ai.youtube_videos === "string"
+      ? JSON.parse(ai.youtube_videos)
+      : []);
+
+const footerVideos = Array.isArray(ai.footer_videos)
+  ? ai.footer_videos
+  : (typeof ai.footer_videos === "string"
+      ? JSON.parse(ai.footer_videos)
+      : []);
+
+// remplir inputs
+  document.querySelectorAll(".yt-input").forEach((input, i) => {
+  input.value = ytVideos[i] || "";
 });
 
-document.querySelectorAll(".footer-video-input").forEach((input, i) => {
-  input.value = ai.footer_videos?.[i] || "";
+  document.querySelectorAll(".footer-video-input").forEach((input, i) => {
+  input.value = footerVideos[i] || "";
 });
+
+
+
 
   document.getElementById('add-ai-btn').textContent = 'Modifier IA';
 }
