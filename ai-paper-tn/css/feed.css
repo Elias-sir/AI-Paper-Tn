@@ -636,3 +636,21 @@ footer {
   filter: none;
   transform: scale(1.2);
 }
+
+
+
+.social-btn-outside {
+  display: flex;
+  justify-content: center;
+  margin: 20px 0 30px;
+  font-size: 35px;
+  color: #00f0ff;
+  opacity: 0.8;
+  transition: 0.25s ease;
+}
+
+.social-btn-outside:hover {
+  opacity: 1;
+  transform: scale(1.2);
+  text-shadow: 0 0 10px #00f0ff;
+}

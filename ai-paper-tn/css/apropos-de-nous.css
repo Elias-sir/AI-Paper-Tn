@@ -138,7 +138,7 @@ html {
 }
 
 
-/* Footer Contact spécifique, différent des cards */
+/* DEBUT Footer Contact spécifique, différent des cards */
 .footer-contact {
   text-align: center;
   margin: 40px auto;
@@ -179,5 +179,65 @@ html {
   color: rgba(76, 201, 240, 1); /* plus vif au hover */
   text-decoration: underline;
   opacity: 1; /* full opacity au survol */
+}
+
+
+.footer-contact-icons {
+  display: flex;
+  justify-content: center;
+  gap: 16px;
+  margin-top: 15px;
+}
+
+.footer-contact-icons a {
+  width: 44px;
+  height: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 12px;
+  background: rgba(255,255,255,0.05);
+  border: 1px solid rgba(255,255,255,0.08);
+
+  color: rgba(108, 242, 194, 0.8);
+  font-size: 20px;
+
+  transition: all 0.25s ease;
+}
+
+.footer-contact-icons a:hover {
+  transform: translateY(-3px) scale(1.1);
+  color: #4cc9f0;
+  background: rgba(76, 201, 240, 0.12);
+  box-shadow: 0 0 14px rgba(76, 201, 240, 0.35);
+}
+
+.footer-contact-icons i {
+  transition: transform 0.25s ease;
+}
+
+.footer-contact-icons a:hover i {
+  transform: scale(1.15);
+}
+/* FIN Footer Contact spécifique, différent des cards */
+
+
+
+/*  ICONE FACEBOOK */
+.social-btn-outside {
+  display: flex;
+  justify-content: center;
+  margin: 20px 0 30px;
+  font-size: 35px;
+  color:rgba(108, 242, 194, 0.8);
+  opacity: 0.8;
+  transition: 0.25s ease;
+}
+
+.social-btn-outside:hover {
+  opacity: 1;
+  transform: scale(1.2);
+  text-shadow: 0 0 10px #00f0ff;
 }
 
