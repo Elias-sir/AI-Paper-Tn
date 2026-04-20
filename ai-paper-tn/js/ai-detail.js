@@ -35,7 +35,7 @@ document.addEventListener("play", e => {
     v._limitTimer = setTimeout(() => {
       v.pause();
       v.currentTime = 0;
-    }, 60000);
+    }, 180000); // 3 minutes
   }
 }, true);
 
