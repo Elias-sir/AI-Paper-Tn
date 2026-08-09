@@ -1,192 +1,85 @@
-/* ============================================================ */
-/* =================== RESET, VARIABLES ====================== */
-/* ============================================================ */
+/* ============================================================
+   BASE.CSS - Navigation & Structure
+   Version : V2.0 - Glass Ready
+   ============================================================ */
 
+/* ── Reset de base ── */
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
 }
 
-:root {
-  --apt-bg: #0f0f12;
-  --apt-text: #f5f5f5;
-
-  --apt-green: #2ecc71;
-  --apt-amber: #f39c12;
-  --apt-red: #e74c3c;
-
-  --apt-card: #18181d;
-  --nav-h: 56px;
-}
-
 html, body {
   height: 100%;
-  background: var(--apt-bg);
-  color: var(--apt-text);
-  font-family: system-ui, -apple-system, sans-serif;
-  overflow: hidden;
+  background: var(--bg-primary, #0a0a0f);
+  color: var(--text-primary, #f5f5f5);
+  font-family: 'Inter', -apple-system, system-ui, sans-serif;
+  overflow-x: hidden;
 }
 
-/* ============================================================ */
-/* ======================= NAV GLOBALE ======================= */
-/* ============================================================ */
-
-#feed {
-  padding-top: var(--nav-h);
-}
-
-.snap-buffer {
-  height: 1px;
-  scroll-snap-align: start;
-}
-
+/* ── Nav globale ── */
 .apt-nav {
   position: fixed;
   top: 0;
-  width: 100%;
-  height: var(--nav-h);
+  left: 0;
+  right: 0;
+  height: var(--nav-height, 60px);
   padding: 0 16px;
-
   display: flex;
   justify-content: space-between;
   align-items: center;
-
-  background: rgba(15,15,18,0.45);
-  -webkit-backdrop-filter: blur(10px);
-  backdrop-filter: blur(14px);
+  background: rgba(10, 10, 15, 0.7);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.2);
   z-index: 1000;
 }
 
+/* ── Logo ── */
 .nav-logo {
   font-weight: 800;
   letter-spacing: 1px;
-}
-
-.nav-actions {
-  display: flex;
-  gap: 12px;
-}
-
-.nav-btn {
-  font-size: 0.85rem;
-  opacity: 0.8;
+  font-size: 1.1rem;
   cursor: pointer;
 }
 
-.nav-btn:hover {
-  opacity: 1;
-}
-
-.nav-center {
-  position: absolute;
-  left: 50%;
-  transform: translateX(-50%);
-}
-
-/* =======  BULLE AI CORE =======*/
-.ai-core {
-  width: 30px;
-  height: 30px;
-  border-radius: 50%;
-
-  background: radial-gradient(circle at 30% 30%, #ffffff, #6cf2c2, #2ecc71);
-
-  box-shadow:
-    0 0 12px rgba(46,204,113,0.8),
-    0 0 24px rgba(46,204,113,0.4);
-
-  animation:
-    corePulse 4s infinite ease-in-out,
-    coreRainbow 8s infinite linear;
-}
-
-@keyframes corePulse {
-  0% {
-    transform: scale(1);
-  }
-
-  50% {
-    transform: scale(1.2);
-  }
-
-  100% {
-    transform: scale(1);
-  }
-}
-
-@keyframes coreRainbow {
-  0% {
-    filter: hue-rotate(0deg);
-  }
-
-  100% {
-    filter: hue-rotate(360deg);
-  }
-}
-
-
-.ai-core {
-  animation:
-    corePulse 4s infinite ease-in-out,
-    coreRainbow 8s infinite linear,
-    coreGlow 3s infinite ease-in-out;
-}
-
-@keyframes coreGlow {
-  0% { box-shadow: 0 0 10px #2ecc71, 0 0 20px #2ecc71; }
-  50% { box-shadow: 0 0 25px #2ecc71, 0 0 50px #2ecc71; }
-  100% { box-shadow: 0 0 10px #2ecc71, 0 0 20px #2ecc71; }
-}
-
-
-/* ===================== ICONES & COMPTE ===================== */
-
-
-/* Icone Globe */
-.icon-globe {
-  display: inline-block;
-  font-size: 20px; 
-  animation: rotateEarth 2s linear infinite;
-  transform-origin: 50% 50%; 
-}
-
-@keyframes rotateEarth {
-  0% { transform: rotate(0deg); }
-  100% { transform: rotate(360deg); }
-}
-
-/* Titre nav */
 .ai-label {
-  font-weight: 600;
+  font-weight: 700;
   font-size: 1.2rem;
   background: linear-gradient(90deg, #6cf2c2, #4cc9f0, #9b5de5, #f15bb5);
   background-size: 200% auto;
   -webkit-background-clip: text;
   background-clip: text;
   -webkit-text-fill-color: transparent;
+  cursor: pointer;
+  transition: var(--transition-base, 0.3s ease);
 }
 
-/* ===== Texte après le titre nav ===== */
+.ai-label:hover {
+  background-position: 100% center;
+  transform: scale(1.02);
+}
+
 .ai-after-title {
   font-weight: 600;
   font-size: 1rem;
   margin-left: 2px;
-  color: #6cf2c2;
   background: linear-gradient(90deg, #6cf2c2, #4cc9f0, #9b5de5, #f15bb5);
   background-size: 200% auto;
   -webkit-background-clip: text;
   background-clip: text;
   -webkit-text-fill-color: transparent;
-  transition: color 0.25s ease, transform 0.25s ease;
   display: inline-block;
   vertical-align: middle;
+  transition: var(--transition-base, 0.3s ease);
 }
 
-/* Ajouter le tiret automatiquement avant le texte */
 .ai-after-title::before {
   content: " - ";
-  color: #6cf2c2; /* couleur du séparateur */
+  color: #6cf2c2;
+  -webkit-text-fill-color: #6cf2c2;
 }
 
 .ai-after-title:hover {
@@ -194,66 +87,203 @@ html, body {
 }
 
 @media (max-width: 640px) {
-  .ai-after-title{
+  .ai-after-title {
     display: none;
   }
 }
-/* ======================= BOUTONS NAV ======================== */
 
-
-/* Desktop (horizontal) */
-#nav-right {
-  display: flex;
-  gap: 12px;
-  align-items: center;
+/* ── AI Core (boule au centre) ── */
+.ai-core {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 30% 30%, #ffffff, #6cf2c2, #2ecc71);
+  box-shadow: 0 0 12px rgba(46, 204, 113, 0.8), 0 0 24px rgba(46, 204, 113, 0.4);
+  animation: corePulse 4s infinite ease-in-out, coreRainbow 8s infinite linear;
+  transition: var(--transition-base, 0.3s ease);
 }
 
-#nav-right .nav-btn {
+.ai-core:hover {
+  transform: scale(1.3);
+  box-shadow: 0 0 30px rgba(46, 204, 113, 1), 0 0 60px rgba(46, 204, 113, 0.6);
+}
+
+@keyframes corePulse {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.15); }
+}
+
+@keyframes coreRainbow {
+  0% { filter: hue-rotate(0deg); }
+  100% { filter: hue-rotate(360deg); }
+}
+
+/* ── Nav centre ── */
+.nav-center {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  pointer-events: none;
+}
+
+@media (max-width: 768px) {
+  .ai-core {
+    position: relative;
+    left: 9px;
+    top: 50%;
+    transform: translateY(-50%);
+    margin: 0;
+  }
+}
+
+/* ── Nav droite ── */
+.nav-right {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.nav-btn {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-
-  background: none;        /* ❌ supprime fond */
-  color: #fff;             /* texte blanc clean */
-
-  padding: 6px 8px;        /* plus léger */
+  gap: 6px;
+  padding: 6px 10px;
   border-radius: 8px;
-
   font-weight: 500;
+  font-size: 0.85rem;
+  color: rgba(255, 255, 255, 0.7);
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  transition: var(--transition-base, 0.3s ease);
   text-decoration: none;
-
-  transition: all 0.2s ease;
-  box-shadow: none;        /* ❌ supprime ombre */
 }
 
-#nav-right .nav-btn:hover {
-  background: rgba(255,255,255,0.06); /* léger voile */
+.nav-btn:hover {
+  color: #fff;
+  background: rgba(255, 255, 255, 0.04);
   transform: translateY(-1px);
 }
 
-#nav-right .nav-btn:active {
-  transform: translateY(0) scale(0.98);
-  box-shadow: 0 2px 8px rgba(0,0,0,0.25);
+.nav-btn:active {
+  transform: scale(0.95);
 }
 
-/* Mobile (burger vertical) */
-@media (max-width: 768px) {
-  #nav-right {
-    display: flex;
-    flex-direction: column;
-    gap: 14px;
-    padding: 16px;
-  }
-
-  #nav-right .nav-btn {
-    width: 100%;
-    margin-left: 0;
-    text-align: center;
-  }
+.nav-btn i {
+  font-size: 20px;
+  transition: var(--transition-base, 0.3s ease);
 }
 
-/* ======================= BURGER ============================ */
+.nav-btn:hover i {
+  transform: translateY(-2px) scale(1.05);
+}
 
+/* ── Search button ── */
+.search-btn:hover i {
+  color: var(--neon-cyan, #06B6D4);
+  text-shadow: 0 0 20px rgba(6, 182, 212, 0.3);
+}
+
+/* ── Notif button ── */
+.notif-btn {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 12px;
+  border-radius: 10px;
+  background: transparent;
+  color: rgba(255, 255, 255, 0.7);
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  border: none;
+  transition: var(--transition-base, 0.3s ease);
+}
+
+.notif-btn:hover {
+  color: #fff;
+  background: rgba(255, 255, 255, 0.04);
+  transform: translateY(-1px);
+}
+
+.notif-btn:hover i {
+  color: var(--neon-green, #10B981);
+}
+
+#notif-badge {
+  position: absolute;
+  top: -4px;
+  right: -4px;
+  min-width: 18px;
+  height: 18px;
+  padding: 2px 5px;
+  background: linear-gradient(135deg, #ff3b3b, #ff0000);
+  color: white;
+  font-size: 10px;
+  font-weight: 700;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50px;
+  box-shadow: 0 0 0 2px #0a0a0f;
+}
+
+#notif-badge.pulse {
+  display: flex;
+  animation: notifPulse 2s infinite;
+}
+
+@keyframes notifPulse {
+  0% { box-shadow: 0 0 0 0 rgba(255, 0, 0, 0.4); }
+  70% { box-shadow: 0 0 0 6px rgba(255, 0, 0, 0); }
+  100% { box-shadow: 0 0 0 0 rgba(255, 0, 0, 0); }
+}
+
+/* ── Profile button ── */
+.nav-profile {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 4px 12px 4px 4px;
+  border-radius: 50px;
+  font-weight: 600;
+  font-size: 0.85rem;
+  color: var(--text-primary, #fff);
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.04);
+  cursor: pointer;
+  transition: var(--transition-base, 0.3s ease);
+  text-decoration: none;
+}
+
+.nav-profile:hover {
+  background: rgba(255, 255, 255, 0.08);
+  transform: translateY(-2px);
+  border-color: rgba(139, 92, 246, 0.2);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+}
+
+.nav-profile:active {
+  transform: scale(0.97);
+}
+
+.nav-profile img.nav-avatar {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid rgba(139, 92, 246, 0.2);
+  transition: var(--transition-base, 0.3s ease);
+}
+
+.nav-profile:hover img.nav-avatar {
+  border-color: var(--neon-purple, #8B5CF6);
+  box-shadow: 0 0 20px rgba(139, 92, 246, 0.2);
+}
+
+/* ── Burger mobile ── */
 .nav-burger {
   display: none;
   background: none;
@@ -261,110 +291,17 @@ html, body {
   color: white;
   font-size: 1.6rem;
   cursor: pointer;
-  
+  padding: 4px 8px;
+  border-radius: 8px;
+  transition: var(--transition-base, 0.3s ease);
 }
 
-/* ===================== BOUTON PROFIL ======================== */
-
-/* Bouton global (like nav-btn) */
-.nav-profile {
-  display: inline-flex;                /* comme nav-btn desktop */
-  align-items: center;
-  gap: 8px;                            /* espace entre avatar et texte si nécessaire */
-  padding: 8px 14px;
-  border-radius: 12px;
-  font-weight: 600;
-  text-decoration: none;
-  background: linear-gradient(135deg, #6cf2c2, #4cc9f0);
-  color: #0f0f12;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+.nav-burger:hover {
+  background: rgba(255, 255, 255, 0.04);
 }
 
-.nav-profile:hover {
- 
-  transform: translateY(-2px) scale(1.03);
-  box-shadow: 0 6px 18px rgba(0,0,0,0.35);
-}
-
-.nav-profile:active {
-  transform: translateY(0) scale(0.98);
-  box-shadow: 0 2px 8px rgba(0,0,0,0.25);
-}
-
-/* Avatar dans le bouton */
-.nav-profile img.nav-avatar {
-  width: 36px;
-  height: 36px;
-  border-radius: 50%;
-  object-fit: cover;
-  border: 2px solid #6cf2c2; /* couleur initiale */
-  box-shadow: 0 4px 12px rgba(0,0,0,0.3);
-  transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.5s ease;
-  
-  /* Animation contour façon AI core */
-  animation: avatarCorePulse 2.8s infinite ease-in-out, avatarCoreMagic 2s infinite linear;
-}
-
-/* Hover sur avatar */
-.nav-profile:hover img.nav-avatar {
-  transform: translateY(-2px) scale(1.05);
-  box-shadow: 0 6px 18px rgba(0,0,0,0.4);
-}
-
-/* Active sur avatar */
-.nav-profile:active img.nav-avatar {
-  transform: translateY(0) scale(0.98);
-  box-shadow: 0 3px 10px rgba(0,0,0,0.25);
-}
-
-/* ================= ANIMATION CONTOR AVATAR ================= */
-@keyframes avatarCorePulse {
-  0% { transform: scale(1); box-shadow: 0 0 12px rgba(46,204,113,0.6); }
-  50% { transform: scale(1.1); box-shadow: 0 0 20px rgba(46,204,113,1); }
-  100% { transform: scale(1); box-shadow: 0 0 12px rgba(46,204,113,0.6); }
-}
-
-@keyframes avatarCoreMagic {
-  0% { border-color: #ffffff; }
-  25% { border-color: #6cf2c2; }
-  50% { border-color: #9b5de5; }
-  75% { border-color: #f15bb5; }
-  100% { border-color: #ffffff; }
-}
-
-
-
-/* Bouton profil minimaliste */
-#profile-btn.nav-profile {
-  background: none;        /* pas de couleur de fond */
-  box-shadow: none;        /* pas d’ombre */
-  border: none;            /* pas de bordure */
-  padding: 0;              /* pas de padding */
-  display: inline-flex;    
-  align-items: center;
-  justify-content: center;
-  cursor: pointer;
-}
-
-#profile-btn.nav-profile span {
-  display: none;           /* on cache le texte pour garder juste l'avatar */
-}
-
-#profile-btn.nav-profile img.nav-avatar {
-  width: 36px;             /* taille de l'avatar */
-  height: 36px;
-  border-radius: 50%;      /* rond parfait */
-  object-fit: cover;
-  border: 2px solid #6cf2c2; /* optionnel : un contour fin */
-  box-shadow: none;        /* supprime toutes ombres */
-  animation: none;         /* supprime animation si tu avais avatarCorePulse ou Magic */
-}
-
-/* ===================== RESPONSIVE NAV ======================= */
+/* ── Responsive nav ── */
 @media (max-width: 768px) {
-
   .nav-left {
     font-size: 0.75rem;
   }
@@ -377,211 +314,52 @@ html, body {
     display: block;
   }
 
-  #nav-right {
+  .nav-right {
     position: fixed;
-    top: var(--nav-h);
+    top: var(--nav-height, 60px);
     right: 0;
     width: 220px;
-    height: calc(100vh - var(--nav-h));
-    background: rgba(15,15,18,0.95);
-    -webkit-backdrop-filter: blur(12px);
-    backdrop-filter: blur(12px);
+    height: calc(100dvh - var(--nav-height, 60px));
+    flex-direction: column;
+    padding: 20px 16px;
+    gap: 12px;
+    background: rgba(10, 10, 15, 0.95);
+    backdrop-filter: blur(24px);
+    -webkit-backdrop-filter: blur(24px);
     transform: translateX(100%);
-    transition: transform 0.25s ease;
+    transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    border-left: 1px solid rgba(255, 255, 255, 0.04);
   }
 
-  #nav-right.open {
+  .nav-right.open {
     transform: translateX(0);
   }
-}
 
-/* ======================= ICONES NAV ======================== */
+  .nav-right .nav-btn {
+    width: 100%;
+    justify-content: center;
+    padding: 10px;
+    font-size: 0.9rem;
+  }
 
-/* Base commune */
-.nav-btn {
-  gap: 8px;
-}
-
-.nav-btn i {
-  font-size: 20px;
-  display: inline-block;
-  transition: transform 0.25s ease, color 0.25s ease, text-shadow 0.25s ease;
-}
-
-/* ===================== ICONE RECHERCHE ===================== */
-/*.search-btn i {
-  animation: searchBounce 2s infinite;
-}*/
-
-.search-btn:hover i {
-  transform: translateY(-3px) scale(1.1);
-  text-shadow: 0 0 6px #4cc9f0, 0 0 12px #6cf2c2;
-}
-
-@keyframes searchBounce {
-  0% { transform: translateY(0) scale(1); }
-  50% { transform: translateY(-4px) scale(1.05); }
-  100% { transform: translateY(0) scale(1); }
-}
-
-/* ===================== ICONE CHAT ===================== */
-.notif-btn i {
-  font-size: 22px;
-  /*animation: chatPulse 1.8s infinite ease-in-out;*/
-}
-
-.notif-btn:hover i {
-  transform: translateY(-2px) scale(1.1);
-  color: #6cf2c2;
-  text-shadow: 0 0 8px #6cf2c2, 0 0 16px #4cc9f0;
-}
-
-@keyframes chatPulse {
-  0%   { transform: rotate(0deg) scale(1); }
-  25%  { transform: rotate(-5deg) scale(1.05); }
-  50%  { transform: rotate(5deg) scale(1.1); }
-  75%  { transform: rotate(-3deg) scale(1.05); }
-  100% { transform: rotate(0deg) scale(1); }
-}
-
-
-/*RESPONSIVE AI CORE ET LABEL */
-@media (max-width: 768px) {
-  /* Décale AI core vers le burger sur mobile */
-  .ai-core {
-    position: relative;       /* le sort du flux normal */
-    left: 9px;               /* +px vers burger  // -px vers compte */
-    top: 50%;                 /* centre verticalement dans la nav */
-    transform: translateY(-50%); /* ajuste le centrage vertical */
-    margin: 0;                /* supprime tout margin */
+  .nav-profile {
+    width: 100%;
+    justify-content: center;
+    padding: 8px 16px;
   }
 }
 
-
-
-/* ===================== BOUTON A PROPOS ===================== */
-
-.about-btn {
-  background: linear-gradient(135deg, #9b5de5, #f15bb5);
-  color: white;
+/* ── Feed padding ── */
+#feed {
+  padding-top: var(--nav-height, 60px);
 }
 
-.about-btn:hover {
-  background: linear-gradient(135deg, #f15bb5, #9b5de5);
+.snap-buffer {
+  height: 1px;
+  scroll-snap-align: start;
 }
 
-/*.about-btn i {
-  animation: infoFloat 2.5s infinite ease-in-out;
-}*/
-
-@keyframes infoFloat {
-  0% { transform: translateY(0); }
-  50% { transform: translateY(-3px); }
-  100% { transform: translateY(0); }
-}
-
-
-
-/* Cacher Chat et About sur desktop uniquement 
-@media (min-width: 769px) {
-  .notif-btn,
-  .about-btn {
-    display: none !important;
-  }
-}*/
-
-
-/* --- Bouton chat --- */
-.notif-btn {
-  position: relative;
-  display: flex;
-  align-items: center;
-  gap: 6px;
-  padding: 8px 12px;
-  border-radius: 10px;
-  background: linear-gradient(145deg, #1f1f1f, #181818);
-  color: #fff;
-  font-size: 14px;
-  font-weight: 500;
-  cursor: pointer;
-  transition: all 0.2s ease;
-}
-
-
-.notif-btn:hover {
-  background: #25d366;
-  color: #000;
-  transform: translateY(-1px);
-  box-shadow: 0 5px 15px #25d36655;
-}
-
-/* --- Badge notification --- */
-#notif-badge {
-  position: absolute;
-  top: -6px;
-  right: -6px;
-  min-width: 18px;
-  height: 18px;
-  padding: 2px 5px;
-  background: linear-gradient(135deg, #ff3b3b, #ff0000);
-  color: white;
-  font-size: 11px;
-  font-weight: 600;
-  display: none; /* affiché via JS */
-  align-items: center;
-  justify-content: center;
-  border-radius: 50px;
-  box-shadow: 0 0 0 2px #0b0b0b;
-}
-
-/* --- Badge animé --- */
-#notif-badge.pulse {
-  display: flex;
-  animation: notifPulse 2s infinite;
-}
-
-/* --- Animation pulse --- */
-@keyframes notifPulse {
-  0% {
-    box-shadow: 0 0 0 0 rgba(255, 0, 0, 0.6);
-  }
-  70% {
-    box-shadow: 0 0 0 6px rgba(255, 0, 0, 0);
-  }
-  100% {
-    box-shadow: 0 0 0 0 rgba(255, 0, 0, 0);
-  }
-}
-
-.notif-btn {
-  position: relative; /* ajoute ça */
-}
-
-
-
-/* RESET TOTAL boutons nav (sauf profil) */
-#nav-right .nav-btn:not(.nav-profile) {
-  background: transparent !important;
-  box-shadow: none !important;
-  border: none !important;
-
-  padding: 4px;              /* réduit zone → plus de carré visible */
-  border-radius: 6px;        /* mini arrondi discret */
-}
-
-/* supprime tout style spécifique parasite */
-.notif-btn,
-.search-btn {
-  background: transparent !important;
-  box-shadow: none !important;
-}
-
-/* hover ULTRA léger (presque invisible) */
-#nav-right .nav-btn:not(.nav-profile):hover {
-  background: rgba(255,255,255,0.04); /* quasi invisible */
-}
-
-/*TITRE CLICABLE */
-.ai-label {
+/* ── Texte cliquable ── */
+#home-btn {
   cursor: pointer;
 }

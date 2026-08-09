@@ -1,116 +1,60 @@
-/* Reset & base */
+/* ============================================================
+   APROPOS-DE-NOUS.CSS - Page À propos
+   Version : V2.0 - Glass Ready
+   ============================================================ */
+
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  font-family: 'Inter', sans-serif;
+  font-family: 'Inter', -apple-system, system-ui, sans-serif;
 }
 
 body {
-  background: linear-gradient(135deg, #10101a, #1a1a28);
-  color: #e0e0e0;
-  line-height: 1.6;
+  background: var(--bg-primary, #0a0a0f);
+  color: var(--text-primary, #e0e0e0);
+  line-height: 1.7;
   padding: 20px;
+  min-height: 100vh;
 }
 
-/* Header */
+/* ── Header ── */
 header {
   text-align: center;
   margin-bottom: 40px;
+  padding: 40px 20px 20px;
 }
 
 header h1 {
-  font-size: 2.8rem;
-  background: linear-gradient(90deg, #6cf2c2, #4cc9f0, #9b5de5, #f15bb5);
+  font-size: clamp(2.2rem, 5vw, 3.2rem);
+  background: linear-gradient(135deg, #6cf2c2, #4cc9f0, #9b5de5, #f15bb5);
   -webkit-background-clip: text;
   background-clip: text;
   -webkit-text-fill-color: transparent;
-  text-shadow: 0 4px 16px rgba(0,0,0,0.6);
 }
 
 header .subtitle {
-  font-size: 1.2rem;
-  color: #aaa;
+  font-size: 1.1rem;
+  color: rgba(255, 255, 255, 0.5);
   margin-top: 8px;
+  max-width: 560px;
+  margin-left: auto;
+  margin-right: auto;
 }
 
-/* Card style */
+/* ── Cards ── */
 .card {
-  background: rgba(20, 20, 28, 0.85);
-  -webkit-backdrop-filter: blur(8px);
-  backdrop-filter: blur(8px);
-  border-radius: 20px;
-  padding: 25px;
-  margin-bottom: 25px;
-  box-shadow: 0 16px 32px rgba(0,0,0,0.28);
-  transition: transform 0.3s ease, box-shadow 0.3s ease, background 0.3s ease;
-  position: relative;
-  overflow: hidden;
-}
-
-.card::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  border-radius: 20px;
-  background: linear-gradient(135deg, rgba(108,242,194,0.05), rgba(155,93,229,0.05));
-  pointer-events: none;
-}
-
-.card:hover {
-  transform: translateY(-6px) scale(1.02);
-  box-shadow: 0 24px 48px rgba(0,0,0,0.35);
-}
-
-/* Headings inside cards */
-.card h2 {
-  margin-bottom: 15px;
-  background: linear-gradient(90deg, #6cf2c2, #4cc9f0, #9b5de5);
-  -webkit-background-clip: text;
-  background-clip: text;
-  -webkit-text-fill-color: transparent;
-  text-shadow: 0 4px 12px rgba(0,0,0,0.5);
-}
-
-/* Lists */
-ul {
-  margin: 10px 0 15px 20px;
-}
-
-ul li {
-  margin-bottom: 8px;
-}
-
-/* Blockquotes */
-blockquote {
-  margin: 10px 0 15px 20px;
-  padding-left: 15px;
-  border-left: 4px solid #6cf2c2;
-  font-style: italic;
-  color: #ccc;
-  background: rgba(255,255,255,0.02);
-  border-radius: 6px;
-  padding: 10px 15px;
-}
-
-/* Footer */
-footer {
-  text-align: center;
-  margin-top: 40px;
-  color: #777;
-  font-size: 0.9rem;
-}
-
-/* Smooth scroll */
-html {
-  scroll-behavior: smooth;
-}
-
-/* Fade-in animation for cards */
-.card {
+  background: rgba(255, 255, 255, 0.03);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.04);
+  border-radius: var(--radius-lg, 24px);
+  padding: 28px 32px;
+  margin-bottom: 24px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+  transition: var(--transition-base, 0.3s ease);
   opacity: 0;
   transform: translateY(30px);
-  transition: opacity 0.6s ease-out, transform 0.6s ease-out;
 }
 
 .card.active {
@@ -118,126 +62,174 @@ html {
   transform: translateY(0);
 }
 
-/* Chat button */
-.chat-btn {
-  display: inline-block;
-  margin-top: 10px;
-  padding: 12px 24px;
-  background: linear-gradient(45deg, #2ecc71, #6cf2c2);
-  color: #0f0f12;
-  text-decoration: none;
-  border-radius: 14px;
-  font-weight: 700;
-  transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.3s ease;
+.card:hover {
+  transform: translateY(-4px);
+  border-color: rgba(139, 92, 246, 0.08);
+  box-shadow: 0 12px 48px rgba(0, 0, 0, 0.3);
 }
 
-.chat-btn:hover {
-  transform: scale(1.05);
-  box-shadow: 0 10px 30px rgba(46,204,113,0.4);
-  background: linear-gradient(45deg, #6cf2c2, #2ecc71);
-}
-
-
-/* DEBUT Footer Contact spécifique, différent des cards */
-.footer-contact {
-  text-align: center;
-  margin: 40px auto;
-  padding: 25px 20px;
-  max-width: 600px;
-  background: rgba(10,10,20,0.7);       /* plus sombre que les cards */
-  border-radius: 18px;
-  box-shadow: 0 12px 28px rgba(0,0,0,0.4);
-  color: #a0ffea;                        /* harmonisé avec ton thème */
-}
-
-.footer-contact h2 {
-  font-size: 1.8rem;
+.card h2 {
   margin-bottom: 12px;
-  background: linear-gradient(90deg, #6cf2c2, #4cc9f0, #9b5de5);
+  font-size: 1.5rem;
+  font-weight: 700;
+  background: linear-gradient(135deg, #6cf2c2, #4cc9f0, #9b5de5);
   -webkit-background-clip: text;
   background-clip: text;
   -webkit-text-fill-color: transparent;
-  text-shadow: 0 4px 12px rgba(0,0,0,0.6);
+}
+
+.card p {
+  color: rgba(255, 255, 255, 0.7);
+  font-size: 0.95rem;
+  line-height: 1.8;
+}
+
+.card ul {
+  margin: 10px 0 14px 20px;
+  list-style: none;
+}
+
+.card ul li {
+  position: relative;
+  padding-left: 24px;
+  margin-bottom: 6px;
+  color: rgba(255, 255, 255, 0.6);
+  font-size: 0.9rem;
+}
+
+.card ul li::before {
+  content: "✦";
+  position: absolute;
+  left: 0;
+  color: var(--neon-cyan, #06b6d4);
+  font-size: 0.8rem;
+}
+
+blockquote {
+  margin: 12px 0 8px 20px;
+  padding: 12px 20px;
+  border-left: 3px solid rgba(139, 92, 246, 0.2);
+  font-style: italic;
+  color: rgba(255, 255, 255, 0.5);
+  background: rgba(255, 255, 255, 0.02);
+  border-radius: var(--radius-sm, 8px);
+}
+
+/* ── Footer contact ── */
+.footer-contact {
+  text-align: center;
+  padding: 32px 24px;
+  max-width: 600px;
+  margin: 40px auto;
+  background: rgba(255, 255, 255, 0.03);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.04);
+  border-radius: var(--radius-lg, 24px);
+}
+
+.footer-contact h2 {
+  font-size: 1.4rem;
+  margin-bottom: 8px;
+  background: linear-gradient(135deg, #6cf2c2, #4cc9f0, #9b5de5);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
 }
 
 .footer-contact p {
-  margin: 6px 0;
-  font-size: 1rem;
-  color: #ddd;
-  line-height: 1.5;
+  color: rgba(255, 255, 255, 0.4);
+  font-size: 0.9rem;
 }
-
-
-.footer-contact a {
-  color: rgba(108, 242, 194, 0.8); /* néon mais moins opaque */
-  text-decoration: none;
-  font-weight: 600;
-  transition: color 0.2s ease, opacity 0.2s ease;
-}
-
-.footer-contact a:hover {
-  color: rgba(76, 201, 240, 1); /* plus vif au hover */
-  text-decoration: underline;
-  opacity: 1; /* full opacity au survol */
-}
-
 
 .footer-contact-icons {
   display: flex;
   justify-content: center;
   gap: 16px;
-  margin-top: 15px;
+  margin-top: 16px;
 }
 
 .footer-contact-icons a {
-  width: 44px;
-  height: 44px;
+  width: 48px;
+  height: 48px;
   display: flex;
   align-items: center;
   justify-content: center;
-
-  border-radius: 12px;
-  background: rgba(255,255,255,0.05);
-  border: 1px solid rgba(255,255,255,0.08);
-
-  color: rgba(108, 242, 194, 0.8);
+  border-radius: var(--radius-md, 16px);
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid rgba(255, 255, 255, 0.04);
+  color: rgba(255, 255, 255, 0.4);
   font-size: 20px;
-
-  transition: all 0.25s ease;
+  transition: var(--transition-base, 0.3s ease);
+  text-decoration: none;
 }
 
 .footer-contact-icons a:hover {
-  transform: translateY(-3px) scale(1.1);
-  color: #4cc9f0;
-  background: rgba(76, 201, 240, 0.12);
-  box-shadow: 0 0 14px rgba(76, 201, 240, 0.35);
+  color: var(--neon-cyan, #06b6d4);
+  background: rgba(6, 182, 212, 0.05);
+  border-color: rgba(6, 182, 212, 0.1);
+  transform: translateY(-2px);
 }
 
-.footer-contact-icons i {
-  transition: transform 0.25s ease;
+/* ── Chat button ── */
+.chat-btn {
+  display: inline-block;
+  margin-top: 12px;
+  padding: 10px 24px;
+  border-radius: 50px;
+  background: linear-gradient(135deg, #6cf2c2, #2ecc71);
+  color: #0a0a0f;
+  font-weight: 700;
+  text-decoration: none;
+  transition: var(--transition-base, 0.3s ease);
 }
 
-.footer-contact-icons a:hover i {
-  transform: scale(1.15);
+.chat-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(46, 204, 113, 0.2);
 }
-/* FIN Footer Contact spécifique, différent des cards */
 
-
-
-/*  ICONE FACEBOOK */
+/* ── Social ── */
 .social-btn-outside {
   display: flex;
   justify-content: center;
-  margin: 20px 0 30px;
-  font-size: 35px;
-  color:rgba(108, 242, 194, 0.8);
-  opacity: 0.8;
-  transition: 0.25s ease;
+  margin: 16px 0 30px;
+  font-size: 28px;
+  color: rgba(255, 255, 255, 0.2);
+  transition: var(--transition-base, 0.3s ease);
 }
 
 .social-btn-outside:hover {
-  opacity: 1;
-  transform: scale(1.2);
-  text-shadow: 0 0 10px #00f0ff;
+  color: #fff;
+  transform: scale(1.1);
 }
 
+/* ── Footer ── */
+footer {
+  text-align: center;
+  padding: 20px;
+  color: rgba(255, 255, 255, 0.2);
+  font-size: 0.85rem;
+}
+
+/* ── Responsive ── */
+@media (max-width: 600px) {
+  .card {
+    padding: 20px;
+    border-radius: var(--radius-md, 16px);
+  }
+
+  .card h2 {
+    font-size: 1.2rem;
+  }
+
+  .footer-contact {
+    padding: 24px 16px;
+  }
+
+  .footer-contact-icons a {
+    width: 40px;
+    height: 40px;
+    font-size: 16px;
+  }
+}

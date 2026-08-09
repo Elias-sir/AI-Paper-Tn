@@ -1,624 +1,350 @@
-/* ===============================
-   FEED TikTok STYLE
-================================ */
+/* ============================================================
+   FEED.CSS - Feed principal + Hero
+   Version : V2.0 - Glass Ready
+   ============================================================ */
+
+/* ── Feed container ── */
 #feed {
   height: 100dvh;
   overflow-y: scroll;
-  scroll-snap-type: y mandatory;
   scroll-behavior: smooth;
   overscroll-behavior-y: contain;
 }
 
-/* Chrome / Safari / Edge */
 #feed::-webkit-scrollbar {
   width: 0;
   height: 0;
 }
 
-/* ===============================
-   HERO
-================================ */
-.hero {
-  height: calc(100dvh - var(--nav-h)); /* ajuste pour enlever l’espace sous la nav */
-  scroll-snap-align: start;
-  scroll-margin-top: var(--nav-h);
 
-  padding-top: 12px;      /* réduit padding top inutile */
-  padding-inline: 16px;
-  padding-bottom: 16px;
-  border-radius: 80px; /* arrondi “carte” */
+
+/* ── Hero Section ── */
+.hero {
+  position: relative;
+  height: calc(100dvh - var(--nav-height, 60px));
+  scroll-snap-align: start;
+  scroll-margin-top: var(--nav-height, 60px);
+  padding: 16px 20px;
   display: flex;
   flex-direction: column;
-  justify-content: center; /* vertical centré */
-  align-items: center;     /* horizontal centré */
-  gap: 16px;
-
-  background: linear-gradient(180deg, #0f0f12, #14141a);
-  overflow-x: hidden;
-}
-
-
-/* ===============================
-   HERO BADGE
-================================ */
-.hero-badge {
-  display: inline-block;
-  padding: 6px 16px;
-  border-radius: 999px;
-  font-size: 0.85rem;
-  font-weight: 700;
-  background: rgba(46,204,113,0.15);
-  color: #6cf2c2;
-  box-shadow: 0 0 20px rgba(46,204,113,0.35);
+  justify-content: center;
+  align-items: center;
+  gap: 12px;
   text-align: center;
+  background: var(--bg-primary, #0a0a0f);
+  overflow: hidden;
 }
 
+/* ── Fond hero avec effet glass ── */
+.hero::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: 
+    radial-gradient(ellipse at 20% 50%, rgba(139, 92, 246, 0.06), transparent 50%),
+    radial-gradient(ellipse at 80% 50%, rgba(6, 182, 212, 0.06), transparent 50%),
+    radial-gradient(ellipse at 50% 100%, rgba(236, 72, 153, 0.04), transparent 50%);
+  pointer-events: none;
+  z-index: 0;
+}
+
+.hero::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image: radial-gradient(rgba(255, 255, 255, 0.02) 1px, transparent 1px);
+  background-size: 3px 3px;
+  opacity: 0.1;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.hero > * {
+  position: relative;
+  z-index: 1;
+}
+
+/* ── Hero badge ── */
 .hero-badge {
-  padding: 4px 12px; /* plus petit pour mobile */
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 16px;
+  border-radius: 50px;
   font-size: 0.75rem;
-  margin-bottom: 7px; /* rapprocher du titre */
+  font-weight: 600;
+  background: rgba(16, 185, 129, 0.1);
+  color: var(--neon-green, #10B981);
+  border: 1px solid rgba(16, 185, 129, 0.15);
+  animation: pulseGlow 3s ease-in-out infinite;
 }
 
-/* ===============================
-   TITRE HERO
-================================ */
+.hero-badge .badge-star {
+  font-size: 10px;
+  opacity: 0.6;
+}
+
+/* ── Hero titre ── */
 .hero h1 {
-  font-size: clamp(2.4rem, 6vw, 3.6rem);
+  font-size: clamp(2.2rem, 6vw, 3.6rem);
   font-weight: 900;
   line-height: 1.1;
   max-width: 680px;
+  background: linear-gradient(135deg, #ffffff, #6cf2c2, #4cc9f0, #9b5de5);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  text-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+}
+
+.hero h1 .mobile-break {
+  display: none;
+}
+
+@media (max-width: 640px) {
+  .hero h1 .mobile-break {
+    display: block;
+  }
+}
+
+/* ── Hero line ── */
+.hero-line {
+  font-size: clamp(0.9rem, 1.5vw, 1.1rem);
+  font-weight: 600;
+  max-width: 560px;
+  color: rgba(255, 255, 255, 0.8);
+  line-height: 1.5;
+}
+
+/* ── Hero sub ── */
+.hero-sub {
+  font-size: 0.85rem;
+  opacity: 0.5;
+  max-width: 480px;
+  line-height: 1.6;
+}
+
+/* ── Hero actions ── */
+.hero-actions {
+  display: flex;
+  gap: 12px;
+  margin-top: 8px;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+/* ── Hero buttons ── */
+.hero-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 14px 28px;
+  border-radius: 50px;
+  font-weight: 600;
+  font-size: 0.9rem;
+  cursor: pointer;
+  border: none;
+  text-decoration: none;
+  transition: var(--transition-base, 0.3s ease);
+}
+
+.hero-btn.primary {
+  background: linear-gradient(135deg, #6cf2c2, #2ecc71);
+  color: #0a0a0f;
+  box-shadow: 0 8px 32px rgba(46, 204, 113, 0.25);
+}
+
+.hero-btn.primary:hover {
+  transform: translateY(-2px) scale(1.02);
+  box-shadow: 0 12px 40px rgba(46, 204, 113, 0.35);
+}
+
+.hero-btn.ghost {
+  background: rgba(255, 255, 255, 0.04);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  color: #fff;
+}
+
+.hero-btn.ghost:hover {
+  background: rgba(255, 255, 255, 0.08);
+  transform: translateY(-2px);
+}
+
+/* ── Hero scroll indicator ── */
+.hero-scroll {
+  background: none !important;
+  border: none !important;
+  color: rgba(255, 255, 255, 0.4) !important;
+  font-size: 0.85rem !important;
+  animation: floatDown 2s infinite ease-in-out;
+  cursor: pointer;
+}
+
+@keyframes floatDown {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(6px); }
+}
+
+/* ── Welcome button (connecté) ── */
+.welcome-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 20px;
+  border-radius: 50px;
+  font-weight: 700;
+  font-size: 0.85rem;
+  background: rgba(255, 255, 255, 0.04);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  color: #fff;
+  cursor: pointer;
+  transition: var(--transition-base, 0.3s ease);
+}
+
+.welcome-btn:hover {
+  background: rgba(255, 255, 255, 0.08);
+  transform: translateY(-2px);
+}
+
+.welcome-btn .hero-avatar {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid rgba(139, 92, 246, 0.2);
+}
+
+/* ── Feed cards grid ── */
+#feed-cards {
+  padding: 16px 20px;
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+/* ── Feed end ── */
+.feed-end {
   text-align: center;
-  white-space: normal; 
-  background: linear-gradient(90deg, #ffffff, #6cf2c2, #f39c12);
+  padding: 60px 20px 40px;
+  position: relative;
+}
+
+.feed-separator {
+  height: 1px;
+  width: 60%;
+  margin: 0 auto 40px;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.06), transparent);
+}
+
+.end-message {
+  padding: 40px 20px;
+  text-align: center;
+  background: rgba(255, 255, 255, 0.02);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.04);
+  border-radius: var(--radius-lg, 24px);
+}
+
+.end-icon i {
+  font-size: 36px;
+  background: linear-gradient(135deg, #6cf2c2, #4cc9f0);
   -webkit-background-clip: text;
   background-clip: text;
   -webkit-text-fill-color: transparent;
 }
 
-.mobile-break{
-  display: none;
-}
-
-@media (max-width: 640px){
-  .mobile-break{
-    display: block;
-  }
-
-   .badge-star{
-    opacity: 0.6;
-    margin: 0 5px;
-  }
-}
-.badge-star{
-  font-size: 11px;
-  margin: 0 6px;
-  opacity: 0.75;
-  position: relative;
-  top: 1px;
-}
-
-/* ===============================
-   TEXTE HERO
-================================ */
-.hero-line {
-  font-size: 0.95rem;
-  font-weight: 600;
-  max-width: 680px;
-  text-align: center;
-  white-space: normal; /* <-- changer de nowrap à normal pour desktop */
-  line-height: 1.4;    /* améliorer lisibilité multi-lignes */
-  word-wrap: break-word; /* couper correctement les longs mots si nécessaire */
-}
-
-
-.hero-sub {
-  font-size: 0.9rem;
-  opacity: 0.65;
-  max-width: 560px;
-  text-align: center;
-}
-
-/* ===============================
-   ACTIONS HERO
-================================ */
-.hero-actions {
-  display: flex;
-  gap: 16px;
-  margin-top: 24px;
-  align-items: center;
-  flex-wrap: wrap;
-  justify-content: center; /* centré horizontalement */
-}
-
-.hero-btn {
-  min-width: 180px;
-  height: 48px;
-  padding: 0 20px;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  border-radius: 14px;
-  font-weight: 700;
-  font-size: 0.95rem;
-  cursor: pointer;
-  border: none;
-  text-decoration: none;
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
-}
-
-.hero-btn.primary {
-  background: linear-gradient(45deg, #2ecc71, #6cf2c2);
-  color: #0f0f12;
-  box-shadow: 0 10px 30px rgba(46,204,113,0.4);
-}
-
-.hero-btn.primary:hover {
-  transform: scale(1.05);
-}
-
-.hero-btn.ghost {
-  background: rgba(255,255,255,0.06);
-  color: #fff;
-  border: 1px solid rgba(255,255,255,0.18);
-}
-
-.hero-btn.ghost:hover {
-  background: rgba(255,255,255,0.1);
-}
-
-/* ===============================
-   SCROLL INDICATEUR
-================================ */
-.hero-scroll {
-  opacity: 0.7;
-  font-size: 0.95rem;
-  animation: floatDown 2s infinite ease-in-out;
-  margin: 0;
-  align-self: center; /* centré comme bouton principal */
-}
-
-@keyframes floatDown {
-  0% { transform: translateY(0); }
-  50% { transform: translateY(6px); }
-  100% { transform: translateY(0); }
-}
-
-/* ===============================
-   RESPONSIVE
-================================ */
-@media (max-width: 640px) {
-  .hero h1,
-  .hero-line {
-    white-space: normal; /* autoriser retour à la ligne mobile */
-  }
-
-  .hero-line br,
-  .hero h1 br {
-    display: inline; /* réactiver le br */
-  }
-
-  .hero-actions {
-    flex-direction: column;
-    align-items: stretch;
-  }
-
-  .hero-btn {
-    width: 100%;
-  }
-
-  .hero-badge {
-    text-align: center;
-  }
-}
-
-/*RESPONSIVE GLOBALE et scrole */
-@media (max-width: 768px) {
-  #feed {
-    height: 100dvh;
-    overflow-y: scroll;
-    scroll-snap-type: y mandatory;
-  }
-}
-
-
-@media (min-width: 1024px) {
-  #feed {
-    height: auto;
-    overflow: visible;
-    scroll-snap-type: none;
-  }
-}
-
-
-@media (min-width: 1024px) {
-  html, body {
-    height: auto;
-    overflow-y: auto;
-  }
-}
-
-@media (min-width: 1024px) {
-  html, body {
-    height: auto;
-    overflow-y: auto;
-  }
-}
-
-
-/*RESPONSIVE HERO*/
-@media (max-width: 414px) {
-  .hero {
-    height: calc(100dvh - var(--nav-h)); /* enlève l’espace supplémentaire */
-    padding-top: 12px;                  /* juste un petit padding */
-    justify-content: center;            /* vertical centré */
-  }
-}
-
-
-.hero::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-
-  background-image:
-    radial-gradient(rgba(255,255,255,0.04) 1px, transparent 1px);
-
-  background-size: 3px 3px;
-  opacity: 0.15;
-  pointer-events: none;
-}
-
-
-
-/* ===============================
-   BOUTON "BIENVENUE" HERO
-================================ */
-.welcome-btn {
-  display: inline-flex;
-  align-items: center;
-  gap: 12px;
-  padding: 0 20px;
-  height: 50px;
-  border-radius: 24px;
-  font-weight: 700;
-  font-size: 0.95rem;
-  cursor: pointer;
-  background: linear-gradient(45deg, #6cf2c2, #2ecc71);
-  color: #0f0f12;
-  box-shadow: 0 12px 30px rgba(46,204,113,0.5);
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
-  position: relative;
-  overflow: hidden;
-}
-
-.welcome-btn:hover {
-  transform: scale(1.05);
-  box-shadow: 0 16px 36px rgba(46,204,113,0.6);
-}
-
-/* Avatar dans le bouton */
-.welcome-btn .hero-avatar {
-  width: 32px;
-  height: 32px;
-  border-radius: 50%;
-  object-fit: cover;
-  border: 2px solid #fff;
-  position: relative;
-  z-index: 1;
-  animation: pulseNeon 2.5s infinite alternate;
-}
-
-/* Cercle néon animé autour de l’avatar */
-.welcome-btn .hero-avatar::before {
-  content: "";
-  position: absolute;
-  inset: -6px; /* cercle légèrement plus grand que l'avatar */
-  border-radius: 50%;
-  background: rgba(108,242,194,0.5);
-  filter: blur(8px);
-  z-index: -1;
-  animation: pulseGlow 2.5s infinite alternate;
-}
-
-/* Animation glow */
-@keyframes pulseGlow {
-  0% { transform: scale(0.9); opacity: 0.6; }
-  50% { transform: scale(1.1); opacity: 0.9; }
-  100% { transform: scale(0.9); opacity: 0.6; }
-}
-
-/* Animation légère de pulse sur l’avatar */
-@keyframes pulseNeon {
-  0% { transform: scale(1); }
-  50% { transform: scale(1.05); }
-  100% { transform: scale(1); }
-}
-
-/* Responsive mobile */
-@media (max-width: 640px) {
-  .welcome-btn {
-    width: 100%;
-    justify-content: center;
-  }
-  .welcome-btn .hero-avatar {
-    width: 28px;
-    height: 28px;
-  }
-}
-
-/* ===========   PARTIE HERO AI ================ */
-
-.star-ai {
-  width: 50px;
-  height: 50px;
-  margin: 10px;
-}
-
-.star-ai img {
-  width: 100%;
-  border-radius: 50%;
-}
-
-
-.hero {
-  position: relative;
-}
-
-.hero-ai-stars {
-  position: absolute;
-  inset: 0; /* top:0 left:0 width:100% height:100% */
-  pointer-events: none;
-}
-
-
-
-.star-ai {
-  pointer-events: auto;
-  cursor: pointer;
-}
-.star-ai:hover {
-  transform: scale(1.15);
-}
-
-
-
-.hero-all-ai {
-  position: absolute;
-  inset: 0;
-  display: block;
-  flex-wrap: wrap;
-  justify-content: center;
-  align-items: center;
-  gap: 15px;
-  pointer-events: none;
-}
-
-.hero-ai {
-  width: 45px;
-  height: 45px;
-  pointer-events: auto;
-  cursor: pointer;
-  transition: 0.3s;
-}
-
-.hero-ai img {
-  width: 100%;
-  border-radius: 50%;
-}
-
-/* 🌟 TOP 10 ALLUMER */
-.hero-ai.glow {
-  filter: none;
-  
-  transform: scale(1.1);
-}
-
-
-
-/* 🌑 reste en noir & blanc */
-.hero-ai.dim {
-  filter: grayscale(1) brightness(0.4);
-  opacity: 0.5;
-}
-
-.hero-ai:hover {
-  transform: scale(1.2);
-  filter: none;
-  opacity: 1;
-}
-
-
-/*pour eviter que sa deborde*/
-.hero {
-  position: relative;
-  overflow: hidden; /* 🔥 */
-}
-
-/* 🌌 couche AI (arrière-plan) */
-.hero-all-ai {
-  z-index: 1;
-}
-
-/* 🧠 contenu hero (devant) */
-.hero > *:not(.hero-all-ai) {
-  position: relative;
-  z-index: 2;
-}
-
-.hero-ai.glow {
-  filter: none;
-  opacity: 1;
-  transform: scale(1.15);
-}
-
-
-/*pour ne ps gener*/
-.hero-all-ai {
-  opacity: 0.9;
-}
-
-/*allumer celui qui est pointer*/
-.hero-all-ai:hover .hero-ai {
-  opacity: 0.3; /* tout devient fade */
-}
-
-.hero-all-ai .hero-ai:hover {
-  opacity: 0.9; /* celui hover = full visible */
-  filter: none;
-  transform: scale(1.2);
-}
-
-/*
-@keyframes float {
-  0%   { transform: translate(0px, 0px); }
-  50%  { transform: translate(8px, -10px); }
-  100% { transform: translate(0px, 0px); }
-}
-
-.hero-ai {
-  animation: float 6s ease-in-out infinite;
-}
-  */
-
-
-/*FOOTER END pc UNIQUEMENT */
-
-@media (max-width: 768px) {
-  .feed-end {
-    display: none !important;
-  }
-}
-
-
-  .feed-end {
-  text-align: center;
-  padding: 80px 20px 40px;
-  position: relative;
-}
-
-/* Ligne séparatrice stylée */
-.feed-separator {
-  height: 2px;
-  width: 60%;
-  margin: 1px auto;
-  background: linear-gradient(90deg, transparent, #00f0ff, transparent);
-  opacity: 0.8;
-}
-
-/* Message fin */
-.end-message {
-  margin-top: 40px;
-  padding: 40px 20px;
-  text-align: center;
-}
-
-.end-icon i {
-  font-size: 40px;
-  color: #00f0ff;
-  text-shadow: 0 0 15px #00f0ff;
-}
-
 .end-message h2 {
-  margin: 20px 0 15px;
-  font-size: 26px;
+  font-size: 1.3rem;
+  margin: 16px 0 12px;
   color: #fff;
 }
 
 .end-message p {
-  color: #aaa;
+  color: rgba(255, 255, 255, 0.5);
   line-height: 1.7;
-  font-size: 15px;
+  font-size: 0.9rem;
+  max-width: 480px;
+  margin: 0 auto;
 }
 
 .end-quote {
-  margin-top: 20px;
+  margin-top: 16px;
   display: inline-flex;
   align-items: center;
   gap: 8px;
-  color: #00f0ff;
-  font-weight: bold;
-  text-shadow: 0 0 10px #00f0ff;
+  color: var(--neon-cyan, #06B6D4);
+  font-weight: 600;
+  font-size: 0.85rem;
 }
 
-/* Footer glass */
+/* ── Footer contact ── */
 .footer-contact {
-  margin-top: 60px;
-  padding: 30px;
-  border-radius: 20px;
-  background: rgba(255,255,255,0.05);
-   -webkit-backdrop-filter : blur(10px);
-  backdrop-filter: blur(10px);
-  border: 1px solid rgba(255,255,255,0.08);
-}
-
-.footer-contact a {
-  color: #00f0ff;
-  text-decoration: none;
-}
-
-/* Footer final */
-footer {
+  position: relative;
   margin-top: 40px;
-  color: #777;
+  padding: 30px 20px;
+  border-radius: var(--radius-lg, 24px);
+  background: rgba(255, 255, 255, 0.02);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.04);
+  overflow: hidden;
+}
+
+.footer-contact > * {
+  position: relative;
+  z-index: 2;
+}
+
+.footer-contact h2 {
+  font-size: 1.2rem;
+  margin-bottom: 8px;
+  color: #fff;
+}
+
+.footer-contact p {
+  color: rgba(255, 255, 255, 0.4);
+  font-size: 0.85rem;
 }
 
 .chat-btn {
   display: inline-block;
-  margin-top: 10px;
+  margin-top: 12px;
   padding: 10px 20px;
-  border-radius: 12px;
-  background: #00f0ff;
-  color: #000;
+  border-radius: 50px;
+  background: linear-gradient(135deg, #6cf2c2, #2ecc71);
+  color: #0a0a0f;
+  font-weight: 700;
+  font-size: 0.85rem;
   text-decoration: none;
-  font-weight: bold;
+  transition: var(--transition-base, 0.3s ease);
 }
 
-.footer-contact a,
-.chat-btn {
-  transition: all 0.25s ease;
-}
-
-/* Hover liens */
-.footer-contact a:hover {
-  color: #00f0ff;
-  text-shadow: 0 0 8px #00f0ff;
-}
-
-/* Hover bouton */
 .chat-btn:hover {
-  background: #00c8d6;
-  box-shadow: 0 0 12px #00f0ff;
   transform: translateY(-2px);
+  box-shadow: 0 8px 32px rgba(46, 204, 113, 0.2);
 }
 
-
-.footer-contact {
-  position: relative;
-  overflow: hidden;
-}
-
-/* layer AI */
+/* ── Footer AI background ── */
 .footer-ai-bg {
   position: absolute;
   inset: 0;
   z-index: 0;
   pointer-events: none;
+  overflow: hidden;
 }
 
-/* contenu au-dessus */
-.footer-contact > *:not(.footer-ai-bg) {
-  position: relative;
-  z-index: 2;
-}
-
-/* AI style */
 .footer-ai {
   position: absolute;
-  width: 35px;
-  height: 35px;
-  opacity: 0.15;
+  width: 30px;
+  height: 30px;
+  opacity: 0.05;
   filter: grayscale(1);
-  transition: 0.3s;
+  transition: var(--transition-base, 0.3s ease);
 }
 
 .footer-ai img {
@@ -626,31 +352,129 @@ footer {
   border-radius: 50%;
 }
 
-/* effet hover global */
 .footer-contact:hover .footer-ai {
-  opacity: 0.3;
+  opacity: 0.08;
 }
 
-.footer-contact:hover .footer-ai:hover {
-  opacity: 0.8;
-  filter: none;
-  transform: scale(1.2);
-}
-
-
-
+/* ── Social button ── */
 .social-btn-outside {
   display: flex;
   justify-content: center;
-  margin: 20px 0 30px;
-  font-size: 35px;
-  color: #00f0ff;
-  opacity: 0.8;
-  transition: 0.25s ease;
+  margin: 16px 0 30px;
+  font-size: 28px;
+  color: rgba(255, 255, 255, 0.3);
+  transition: var(--transition-base, 0.3s ease);
 }
 
 .social-btn-outside:hover {
+  color: #fff;
+  transform: scale(1.1);
+  text-shadow: 0 0 20px rgba(139, 92, 246, 0.2);
+}
+
+/* ── Hero AI stars ── */
+.hero-all-ai {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+}
+
+.hero-ai {
+  position: absolute;
+  width: 40px;
+  height: 40px;
+  pointer-events: auto;
+  cursor: pointer;
+  transition: var(--transition-base, 0.3s ease);
+}
+
+.hero-ai img {
+  width: 100%;
+  border-radius: 50%;
+  border: 1px solid rgba(255, 255, 255, 0.04);
+}
+
+.hero-ai.dim {
+  filter: grayscale(1) brightness(0.3);
+  opacity: 0.3;
+}
+
+.hero-ai.glow {
+  filter: none;
   opacity: 1;
-  transform: scale(1.2);
-  text-shadow: 0 0 10px #00f0ff;
+  transform: scale(1.15);
+}
+
+.hero-ai:hover {
+  transform: scale(1.3) !important;
+  filter: none !important;
+  opacity: 1 !important;
+  box-shadow: 0 0 30px rgba(139, 92, 246, 0.2);
+}
+
+/* ── Responsive ── */
+@media (max-width: 640px) {
+  .hero {
+    padding: 12px 16px;
+  }
+
+  .hero-actions {
+    flex-direction: column;
+    width: 100%;
+    max-width: 320px;
+  }
+
+  .hero-btn {
+    width: 100%;
+    justify-content: center;
+  }
+
+  .hero-badge {
+    font-size: 0.65rem;
+    padding: 4px 12px;
+  }
+
+  .end-message {
+    padding: 24px 16px;
+  }
+
+  .end-message h2 {
+    font-size: 1.1rem;
+  }
+}
+
+@media (max-width: 768px) {
+  #feed {
+    height: 100dvh;
+    overflow-y: scroll;
+    scroll-snap-type: y mandatory;
+  }
+
+  .feed-end {
+    display: none !important;
+  }
+
+  .hero-ai {
+    width: 32px;
+    height: 32px;
+  }
+}
+
+@media (min-width: 769px) {
+  #feed {
+    height: auto;
+    overflow: visible;
+    scroll-snap-type: none;
+  }
+
+  html, body {
+    height: auto;
+    overflow-y: auto;
+  }
+
+  .hero {
+    height: calc(100vh - var(--nav-height, 60px));
+    min-height: 500px;
+  }
 }

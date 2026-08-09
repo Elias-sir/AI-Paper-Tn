@@ -1,0 +1,478 @@
+/* ============================================================
+   GLASS.CSS - Composants Glassmorphism
+   Version : V2.0 - TikTok Ready
+   ============================================================ */
+
+/* ── 1. GLASS CARD ── */
+.glass-card {
+  background: rgba(255, 255, 255, 0.03);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  border-radius: var(--radius-lg, 24px);
+  box-shadow: 
+    0 8px 32px rgba(0, 0, 0, 0.3),
+    inset 0 1px 0 rgba(255, 255, 255, 0.05);
+  transition: var(--transition-base, 0.3s ease);
+  position: relative;
+  overflow: hidden;
+}
+
+.glass-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: radial-gradient(
+    circle at top right,
+    rgba(139, 92, 246, 0.05),
+    transparent 60%
+  );
+  pointer-events: none;
+  border-radius: inherit;
+}
+
+.glass-card:hover {
+  transform: translateY(-4px) scale(1.01);
+  border-color: rgba(139, 92, 246, 0.2);
+  box-shadow: 
+    0 12px 48px rgba(0, 0, 0, 0.4),
+    0 0 40px rgba(139, 92, 246, 0.05),
+    inset 0 1px 0 rgba(255, 255, 255, 0.08);
+}
+
+.glass-card:active {
+  transform: scale(0.98);
+}
+
+/* ── Effet "shine" sur la carte ── */
+.glass-card::after {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: radial-gradient(
+    circle at 30% 30%,
+    rgba(255, 255, 255, 0.03),
+    transparent 60%
+  );
+  pointer-events: none;
+  opacity: 0;
+  transition: var(--transition-base, 0.3s ease);
+}
+
+.glass-card:hover::after {
+  opacity: 1;
+}
+
+/* ── 2. GLASS NAV ── */
+.glass-nav {
+  background: rgba(10, 10, 15, 0.7);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.3);
+}
+
+/* ── 3. GLASS INPUT ── */
+.glass-input {
+  background: rgba(255, 255, 255, 0.04);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  border-radius: var(--radius-md, 16px);
+  padding: 12px 16px;
+  color: var(--text-primary, #fff);
+  font-size: 0.95rem;
+  transition: var(--transition-base, 0.3s ease);
+  outline: none;
+}
+
+.glass-input::placeholder {
+  color: rgba(255, 255, 255, 0.3);
+}
+
+.glass-input:focus {
+  border-color: rgba(139, 92, 246, 0.3);
+  box-shadow: 0 0 20px rgba(139, 92, 246, 0.05);
+  background: rgba(255, 255, 255, 0.06);
+}
+
+/* ── 4. GLASS BUTTON ── */
+.glass-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 12px 24px;
+  border-radius: 50px;
+  font-weight: 600;
+  font-size: 0.9rem;
+  color: var(--text-primary, #fff);
+  background: rgba(255, 255, 255, 0.04);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  cursor: pointer;
+  transition: var(--transition-base, 0.3s ease);
+}
+
+.glass-btn:hover {
+  background: rgba(139, 92, 246, 0.15);
+  border-color: rgba(139, 92, 246, 0.2);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(139, 92, 246, 0.1);
+}
+
+.glass-btn:active {
+  transform: scale(0.97);
+}
+
+/* ── 5. GLASS BADGE ── */
+.glass-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 14px;
+  border-radius: 50px;
+  font-size: 0.7rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  background: rgba(255, 255, 255, 0.04);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  color: var(--text-secondary, rgba(255,255,255,0.7));
+}
+
+.glass-badge.neon-purple {
+  background: rgba(139, 92, 246, 0.15);
+  border-color: rgba(139, 92, 246, 0.2);
+  color: var(--neon-purple, #8B5CF6);
+}
+
+.glass-badge.neon-cyan {
+  background: rgba(6, 182, 212, 0.15);
+  border-color: rgba(6, 182, 212, 0.2);
+  color: var(--neon-cyan, #06B6D4);
+}
+
+.glass-badge.neon-pink {
+  background: rgba(236, 72, 153, 0.15);
+  border-color: rgba(236, 72, 153, 0.2);
+  color: var(--neon-pink, #EC4899);
+}
+
+.glass-badge.neon-green {
+  background: rgba(16, 185, 129, 0.15);
+  border-color: rgba(16, 185, 129, 0.2);
+  color: var(--neon-green, #10B981);
+}
+
+.glass-badge.neon-amber {
+  background: rgba(245, 158, 11, 0.15);
+  border-color: rgba(245, 158, 11, 0.2);
+  color: var(--neon-amber, #F59E0B);
+}
+
+/* ── 6. GLASS PANEL ── */
+.glass-panel {
+  background: rgba(255, 255, 255, 0.02);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.04);
+  border-radius: var(--radius-lg, 24px);
+  padding: 24px;
+  box-shadow: 
+    0 8px 32px rgba(0, 0, 0, 0.2),
+    inset 0 1px 0 rgba(255, 255, 255, 0.03);
+}
+
+/* ── 7. GLASS DIVIDER ── */
+.glass-divider {
+  height: 1px;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255, 255, 255, 0.06),
+    transparent
+  );
+  margin: 24px 0;
+}
+
+/* ── 8. GLASS AVATAR ── */
+.glass-avatar {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.04);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 2px solid rgba(255, 255, 255, 0.06);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  transition: var(--transition-base, 0.3s ease);
+}
+
+.glass-avatar:hover {
+  border-color: rgba(139, 92, 246, 0.3);
+  transform: scale(1.05);
+}
+
+.glass-avatar img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* ── 9. GLASS DROPDOWN ── */
+.glass-dropdown {
+  background: rgba(20, 20, 30, 0.85);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  border-radius: var(--radius-md, 16px);
+  box-shadow: 0 12px 48px rgba(0, 0, 0, 0.5);
+  padding: 8px;
+}
+
+.glass-dropdown-item {
+  padding: 10px 16px;
+  border-radius: var(--radius-sm, 8px);
+  color: var(--text-secondary, rgba(255,255,255,0.7));
+  cursor: pointer;
+  transition: var(--transition-fast, 0.15s ease);
+}
+
+.glass-dropdown-item:hover {
+  background: rgba(255, 255, 255, 0.04);
+  color: var(--text-primary, #fff);
+}
+
+/* ── 10. GLASS NOTIFICATION ── */
+.glass-notif {
+  background: rgba(255, 255, 255, 0.03);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.04);
+  border-radius: var(--radius-md, 16px);
+  padding: 16px 20px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  transition: var(--transition-base, 0.3s ease);
+  animation: slideInRight 0.4s ease-out;
+}
+
+.glass-notif:hover {
+  background: rgba(255, 255, 255, 0.06);
+  transform: translateX(-4px);
+}
+
+.glass-notif .notif-icon {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: rgba(139, 92, 246, 0.15);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 16px;
+  color: var(--neon-purple, #8B5CF6);
+}
+
+.glass-notif .notif-content {
+  flex: 1;
+}
+
+.glass-notif .notif-title {
+  font-weight: 600;
+  font-size: 0.85rem;
+}
+
+.glass-notif .notif-time {
+  font-size: 0.7rem;
+  color: var(--text-muted, rgba(255,255,255,0.4));
+}
+
+@keyframes slideInRight {
+  from {
+    opacity: 0;
+    transform: translateX(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+/* ── 11. GLASS LOADER ── */
+.glass-loader {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 20px;
+}
+
+.glass-loader .dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.1);
+  animation: glassLoaderBounce 1.4s infinite ease-in-out both;
+}
+
+.glass-loader .dot:nth-child(1) { animation-delay: -0.32s; }
+.glass-loader .dot:nth-child(2) { animation-delay: -0.16s; }
+.glass-loader .dot:nth-child(3) { animation-delay: 0s; }
+
+@keyframes glassLoaderBounce {
+  0%, 80%, 100% { 
+    transform: scale(0);
+    background: rgba(255, 255, 255, 0.1);
+  }
+  40% { 
+    transform: scale(1);
+    background: var(--neon-purple, #8B5CF6);
+  }
+}
+
+/* ── 12. GLASS TOOLTIP ── */
+.glass-tooltip {
+  background: rgba(10, 10, 15, 0.85);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  border-radius: var(--radius-sm, 8px);
+  padding: 6px 14px;
+  font-size: 0.75rem;
+  color: var(--text-secondary, rgba(255,255,255,0.7));
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
+  pointer-events: none;
+  animation: tooltipFade 0.2s ease-out;
+}
+
+@keyframes tooltipFade {
+  from { opacity: 0; transform: translateY(-4px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* ── 13. GLASS SCROLLBAR ── */
+.glass-scroll::-webkit-scrollbar {
+  width: 4px;
+}
+.glass-scroll::-webkit-scrollbar-track {
+  background: transparent;
+}
+.glass-scroll::-webkit-scrollbar-thumb {
+  background: rgba(139, 92, 246, 0.2);
+  border-radius: 10px;
+}
+.glass-scroll::-webkit-scrollbar-thumb:hover {
+  background: rgba(139, 92, 246, 0.4);
+}
+
+/* ── 14. GLASS CARD SPONSOR ── */
+.glass-card-sponsor {
+  background: rgba(255, 215, 0, 0.02);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 215, 0, 0.08);
+  border-radius: var(--radius-lg, 24px);
+  box-shadow: 
+    0 8px 32px rgba(0, 0, 0, 0.3),
+    inset 0 1px 0 rgba(255, 215, 0, 0.05);
+  transition: var(--transition-base, 0.3s ease);
+  position: relative;
+  overflow: hidden;
+}
+
+.glass-card-sponsor::before {
+  content: '⭐ Partenaire';
+  position: absolute;
+  top: 12px;
+  right: 16px;
+  font-size: 0.6rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  color: rgba(255, 215, 0, 0.4);
+  text-transform: uppercase;
+}
+
+.glass-card-sponsor:hover {
+  transform: translateY(-4px);
+  border-color: rgba(255, 215, 0, 0.2);
+  box-shadow: 
+    0 12px 48px rgba(0, 0, 0, 0.4),
+    0 0 40px rgba(255, 215, 0, 0.03);
+}
+
+/* ── 15. RESPONSIVE TWEAKS ── */
+@media (max-width: 768px) {
+  .glass-card {
+    border-radius: var(--radius-md, 16px);
+  }
+  
+  .glass-panel {
+    padding: 16px;
+    border-radius: var(--radius-md, 16px);
+  }
+  
+  .glass-notif {
+    padding: 12px 16px;
+    border-radius: var(--radius-sm, 8px);
+  }
+  
+  .glass-btn {
+    padding: 10px 20px;
+    font-size: 0.8rem;
+    width: 100%;
+  }
+}
+
+/* ── SCROLL SNAP (mobile TikTok) ── */
+@media (max-width: 768px) {
+  .snap-scroll {
+    scroll-snap-type: y mandatory;
+    overflow-y: scroll;
+    height: 100dvh;
+    scroll-behavior: smooth;
+  }
+  
+  .snap-child {
+    scroll-snap-align: start;
+    scroll-margin-top: var(--nav-height, 60px);
+    height: calc(100dvh - var(--nav-height, 60px));
+    min-height: calc(100dvh - var(--nav-height, 60px));
+  }
+}
+
+/* ── GLOW EFFECTS ── */
+.glow-purple {
+  box-shadow: 0 0 40px rgba(139, 92, 246, 0.1);
+}
+.glow-cyan {
+  box-shadow: 0 0 40px rgba(6, 182, 212, 0.1);
+}
+.glow-pink {
+  box-shadow: 0 0 40px rgba(236, 72, 153, 0.1);
+}
+
+.glow-purple:hover {
+  box-shadow: 0 0 60px rgba(139, 92, 246, 0.2);
+}
+.glow-cyan:hover {
+  box-shadow: 0 0 60px rgba(6, 182, 212, 0.2);
+}
+.glow-pink:hover {
+  box-shadow: 0 0 60px rgba(236, 72, 153, 0.2);
+}

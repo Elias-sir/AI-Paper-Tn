@@ -1,75 +1,82 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-
-  <!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-P534F1YS8E"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-
-  gtag('config', 'G-P534F1YS8E');
-</script>
-
+  <!-- Google tag -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-P534F1YS8E"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-P534F1YS8E');
+  </script>
 
   <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>The AI's Chat</title>
   <link rel="icon" type="image/png" href="assents/fonts/theaisfavi.png">
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="css/theme.css" />
+  <link rel="stylesheet" href="css/glass.css" />
+  <link rel="stylesheet" href="css/base.css" />
   <link rel="stylesheet" href="css/messagerie.css" />
-  <link rel="stylesheet" href="css/notifications.css">
-  
+  <link rel="stylesheet" href="css/notifications.css" />
+
+  <script src="https://unpkg.com/@phosphor-icons/web"></script>
 </head>
 <body>
 
+<!-- ===== NAVBAR ===== -->
+<nav class="apt-nav">
+  <div class="nav-left">
+    <a href="index.html" class="nav-btn" style="display:flex;align-items:center;gap:6px;">
+      <i class="ph ph-arrow-left"></i> Accueil
+    </a>
+  </div>
+  <div class="nav-center">
+    <div class="ai-core"></div>
+  </div>
+  <div class="nav-right">
+    <button class="nav-btn search-btn" id="search-open" aria-label="Rechercher">
+      <i class="ph ph-magnifying-glass"></i>
+    </button>
+    <a href="login.html" class="nav-btn" id="login-btn">Connexion</a>
+  </div>
+</nav>
+
+<!-- ===== CHAT APP (WhatsApp style) ===== -->
 <div class="chat-app">
 
-<div id="chat-header" class="chat-header">
-  <button id="burger-btn">☰</button>
-  <span id="chat-user">Appuyez sur Admin pour ouvrir une conversation</span>
-</div>
+  <!-- ===== SIDEBAR (gauche) ===== -->
+  <aside class="sidebar" id="sidebar">
+    <div class="sidebar-header">
+      <h2>💬 Messages</h2>
+    </div>
+    <div id="conversation-list" class="conversation-list">
+      <div class="conversation" data-admin-email="super_adminaipaper.visionon.world@gmail.com">
+        <img src="assents/icons/default-profile.png" class="conv-avatar" alt="Avatar Admin 1" />
+        <span>Admin 1</span>
+      </div>
+    </div>
+  </aside>
 
-
-<button class="notif-btn" id="notif-btn">
-  💬 Messages
-  <span id="notif-badge"></span>
-</button>
-
-
-  <!-- SIDEBAR -->
-  <aside class="sidebar">
-  <div class="sidebar-header">
-    <h2>💬 Contacter un admin</h2>
-  </div>
-
-  <div id="conversation-list" class="conversation-list">
- <div class="conversation" data-conv-id="1" data-admin-email="super_adminaipaper.visionon.world@gmail.com">
-  <img src="assents/icons/default-profile.png" class="conv-avatar" alt="Avatar Admin 1" />
-  <span>Admin 1</span>
-</div>
-
-  <!-- <div class="conversation" data-conv-id="2" data-admin-email="super_adminaipaper.visionon.world2@gmail.com">
-  <img src="assents/icons/default-profile.png" class="conv-avatar" alt="Avatar Admin 2" />
-  <span>Admin 2</span>
-</div>
-<div class="conversation" data-conv-id="3" data-admin-email="super_adminaipaper.visionon.world3@gmail.com">
-  <img src="assents/icons/default-profile.png" class="conv-avatar" alt="Avatar Admin 3" />
-  <span>Admin 3</span>
-</div>-->
-
-
-  </div>
-</aside>
-
-
-  <!-- CHAT -->
+  <!-- ===== CHAT AREA (droite) ===== -->
   <section class="chat-area">
 
-    <div id="chat-messages" class="chat-messages empty">
-  <p>👋 Écrivez-nous, un admin vous répondra.</p>
-</div>
+    <!-- Chat header avec burger -->
+    <div class="chat-header">
+      <button id="burger-btn" aria-label="Ouvrir le menu" title="Menu">
+        <i class="ph ph-list"></i>
+      </button>
+      <span id="chat-user">💬 Sélectionnez un admin</span>
+    </div>
 
+    <!-- Messages -->
+    <div id="chat-messages" class="chat-messages empty">
+      <p>👋 Écrivez-nous, un admin vous répondra.</p>
+    </div>
+
+    <!-- Formulaire -->
     <form id="chat-form" class="chat-form">
       <input
         type="text"
@@ -77,12 +84,20 @@
         placeholder="Tapez un message…"
         autocomplete="off"
       />
-      <button type="submit">➤</button>
+      <button type="submit" aria-label="Envoyer le message" title="Envoyer">
+  <i class="ph ph-paper-plane-right"></i>
+</button>
     </form>
 
   </section>
 
 </div>
+
+<!-- ===== BOUTON FLOTTANT NOTIFICATIONS (FAB) ===== -->
+<button class="fab-notif" id="notif-btn" aria-label="Messages">
+  <i class="ph ph-chat-text"></i>
+  <span id="notif-badge"></span>
+</button>
 
 <script type="module" src="js/messagerie.js"></script>
 <script type="module" src="js/notifications.js"></script>

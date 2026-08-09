@@ -1,341 +1,362 @@
-/* ==========================================================
-   CONTENEUR PRINCIPAL
-   ========================================================== */
+/* ============================================================
+   AI-DETAIL.CSS - Page détail IA
+   Version : V2.0 - Glass Ready
+   ============================================================ */
 
-   
-   /* empêcher tout scroll horizontal fantôme */
-html, body {
+/* ── Reset ── */
+html,
+body {
   overflow-x: hidden;
-}
-
-html, body {
   height: 100%;
   margin: 0;
   padding: 0;
-  font-family: 'Inter', sans-serif;
-  background: linear-gradient(135deg, #10101a, #1a1a28);
-  color: #fff;
+  font-family: 'Inter', -apple-system, system-ui, sans-serif;
+  background: var(--bg-primary, #0a0a0f);
+  color: var(--text-primary, #fff);
 }
 
-.apt-nav {
-  height: var(--nav-h, 60px);
-  display: flex;
-  align-items: center;
-  padding: 0 16px;
-  background: rgba(20,20,28,0.95);
-  -webkit-backdrop-filter: blur(8px);
-   backdrop-filter: blur(8px);
-  position: sticky;
-  top: 0;
-  z-index: 100;
-}
-
+/* ── Container ── */
 #ai-detail-container {
   width: 100%;
+  max-width: 900px;
+  margin: 0 auto;
+  padding: calc(var(--nav-height, 60px) + 20px) 20px 40px;
   display: flex;
   flex-direction: column;
-  justify-content: flex-start;
-  align-items: center;
-  padding: 16px;
   gap: 24px;
-  max-height: calc(100vh - var(--nav-h, 60px));
-  overflow-y: auto;
-  scroll-behavior: smooth;
-  scroll-snap-type: y proximity;
+  min-height: 100dvh;
 }
 
-#ai-detail-container::-webkit-scrollbar {
-  width: 6px;
-}
-
-#ai-detail-container::-webkit-scrollbar-thumb {
-  background: rgba(255,255,255,0.15);
-  border-radius: 3px;
-}
-
-#ai-detail-container::-webkit-scrollbar-track {
-  background: transparent;
-}
-
-/* ==========================================================
-   CARD DÉTAILLÉE
-   ========================================================== */
+/* ============================================================
+   CARD PRINCIPALE
+   ============================================================ */
 .ai-detail-card {
-  background: rgba(20,20,28,0.85); 
-  -webkit-backdrop-filter: blur(12px);
-  backdrop-filter: blur(12px);
-  padding: 32px;
-  border-radius: 36px;
-  box-shadow: 0 30px 60px rgba(0,0,0,0.5);
-  display: flex;
-  flex-direction: column;
-  gap: 32px;
-  color: #fff;
-  width: 100%;
-  max-width: 100%;
-  scroll-snap-align: start;
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  background: rgba(255, 255, 255, 0.03);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  border-radius: var(--radius-xl, 32px);
+  padding: 28px 32px;
+  box-shadow: 0 8px 40px rgba(0, 0, 0, 0.3), inset 0 1px 0 rgba(255, 255, 255, 0.05);
+  transition: var(--transition-base, 0.3s ease);
   position: relative;
-  word-wrap: break-word;
-  white-space: pre-wrap;
-  overflow-wrap: break-word;
-  font-size: 1rem;
-  line-height: 1.6;
-  color: #ddd;
+  overflow: hidden;
 }
 
-
-
-.ai-detail-card::-webkit-scrollbar {
-  width: 6px;
+.ai-detail-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: radial-gradient(circle at top right, rgba(139, 92, 246, 0.04), transparent 60%);
+  pointer-events: none;
+  border-radius: inherit;
 }
 
-.ai-detail-card::-webkit-scrollbar-thumb {
-  background: rgba(255,255,255,0.15);
-  border-radius: 3px;
+.ai-detail-card:hover {
+  border-color: rgba(139, 92, 246, 0.12);
 }
 
-.ai-detail-card::-webkit-scrollbar-track {
-  background: transparent;
-}
-
-/* ==========================================================
-   TOP SECTION: LOGO + INFO
-   ========================================================== */
+/* ============================================================
+   TOP SECTION : LOGO + INFOS
+   ============================================================ */
 .ai-detail-card .ai-top {
-  position: relative;
-  padding: 16px;
-  background: rgba(20,20,28,0.6);
-  border-radius: 32px;
   display: flex;
   flex-wrap: wrap;
-  gap: 32px; 
+  gap: 24px;
   align-items: flex-start;
-  box-shadow: 0 12px 32px rgba(0,0,0,0.45);
-  transition: transform 0.4s ease, box-shadow 0.4s ease;
+  padding: 16px 20px;
+  background: rgba(255, 255, 255, 0.02);
+  border-radius: var(--radius-lg, 24px);
+  border: 1px solid rgba(255, 255, 255, 0.03);
+  transition: var(--transition-base, 0.3s ease);
 }
 
+.ai-detail-card .ai-top:hover {
+  background: rgba(255, 255, 255, 0.04);
+}
 
-/* ===== LOGO ===== */
+/* ── Logo ── */
 .ai-detail-card .ai-logo {
-  width: 140px;
-  height: 140px;
+  width: 120px;
+  height: 120px;
+  flex-shrink: 0;
   border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
   overflow: hidden;
-  border: 2px solid rgba(108,242,194,0.3);
-  box-shadow: 0 0 32px rgba(108,242,194,0.2);
-  transition: transform 0.35s ease, box-shadow 0.35s ease;
+  border: 2px solid rgba(139, 92, 246, 0.15);
+  box-shadow: 0 0 40px rgba(139, 92, 246, 0.05);
+  transition: var(--transition-base, 0.3s ease);
+  position: relative;
+}
+
+.ai-detail-card .ai-logo::before {
+  content: '';
+  position: absolute;
+  inset: -8px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(139, 92, 246, 0.08), transparent 70%);
+  filter: blur(12px);
+  z-index: -1;
+  animation: logoGlow 3s ease-in-out infinite alternate;
+}
+
+@keyframes logoGlow {
+  0% {
+    transform: scale(0.9);
+    opacity: 0.5;
+  }
+  100% {
+    transform: scale(1.1);
+    opacity: 1;
+  }
 }
 
 .ai-detail-card .ai-logo img {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  filter: drop-shadow(0 12px 28px rgba(0,0,0,0.6)) saturate(1.15) contrast(1.1);
-  transition: transform 0.35s ease, filter 0.35s ease;
+  transition: var(--transition-base, 0.3s ease);
 }
 
-
-
-/* Halo animé derrière le logo */
-.ai-detail-card .ai-logo::before {
-  content: "";
-  position: absolute;
-  inset: -16px;
-  border-radius: 50%;
-  background: radial-gradient(circle, rgba(75, 177, 141, 0.171), rgba(76,201,240,0.2), transparent 70%);
-  filter: blur(24px);
-  z-index: -1;
-  
+.ai-detail-card:hover .ai-logo img {
+  transform: scale(1.05);
 }
-/* Annimation Halo animé derrière le logo 
-@keyframes haloPulse {
-  0% { transform: scale(0.95); opacity: 0.6; }
-  50% { transform: scale(1.05); opacity: 0.9; }
-  100% { transform: scale(0.95); opacity: 0.6; }
-}
-*/
-/* ==========================================================
-   INFO TEXTE DANS LE HERD
-   ========================================================== */
+
+/* ── Infos texte ── */
 .ai-detail-card .ai-info {
   flex: 1;
-  padding: 16px;
   display: flex;
   flex-direction: column;
-  gap: 12px;
+  gap: 6px;
 }
 
 .ai-detail-card .ai-info h1 {
-  font-size: 2.6rem;
-  line-height: 1.2;
+  font-size: clamp(1.8rem, 3vw, 2.6rem);
   font-weight: 800;
-  background: linear-gradient(120deg, #6cf2c2, #4cc9f0, #9b5de5, #f15bb5);
-  background-size: 200% auto;
+  line-height: 1.2;
+  background: linear-gradient(135deg, #6cf2c2, #4cc9f0, #9b5de5, #f15bb5);
   -webkit-background-clip: text;
   background-clip: text;
   -webkit-text-fill-color: transparent;
-  text-shadow: 0 8px 24px rgba(0,0,0,0.6);
-  transition: background-position 1.5s ease-in-out, transform 0.3s ease;
+  background-size: 200% auto;
+  transition: var(--transition-base, 0.3s ease);
 }
 
 .ai-detail-card:hover .ai-info h1 {
   background-position: 100% center;
-  transform: scale(1.02);
 }
 
 .ai-detail-card .ai-info p {
-  font-size: 1rem;
-  line-height: 1.65;
-  letter-spacing: 0.4px;
-  color: #e0e0e0;
-  max-width: 720px;
-  margin-bottom: 8px;
-}
-
-.ai-info p{
-  display:flex;
-  align-items:center;
-  gap:8px;
-  margin:4px 0;
-}
-
-.ai-info i{
-  color:#6cf2c2;
-  font-size:16px;
-}
-
-/* ==========================================================
-   PUNCHLINE
-   ========================================================== */
-.ai-punchline {
-  font-size: clamp(1.2rem, 2.2vw, 1.6rem); /* responsive, grand sur PC, plus petit sur mobile */
-  font-weight: 600;
-  color: #a0ffea;
-  font-style: italic;
-  line-height: 1.6;
-  text-align: center;        /* centré horizontalement */
-  margin: 16px auto;         /* espace + centré */
-  max-width: 600px;          /* limite la largeur pour retour à la ligne élégant */
-  word-wrap: break-word;     
-  overflow-wrap: break-word; 
-  white-space: normal;       /* autorise le retour à la ligne naturel */
-  letter-spacing: 0.5px;
-  text-shadow: 0 2px 8px rgba(0,0,0,0.4);
-}
-
-/* ==========================================================
-   BADGES & SIGNALS
-   ========================================================== */
-
-.ai-detail-card .ai-badges {
-  gap: 10px;
-  flex-wrap: wrap;
+  display: flex;
   align-items: center;
-  margin-top: 8px;
-  position: relative;
+  gap: 8px;
+  font-size: 0.9rem;
+  color: rgba(255, 255, 255, 0.7);
+  margin: 2px 0;
+}
+
+.ai-detail-card .ai-info p i {
+  color: var(--neon-cyan, #06b6d4);
+  font-size: 16px;
+  width: 20px;
+  flex-shrink: 0;
+}
+
+.ai-detail-card .ai-info p strong {
+  color: rgba(255, 255, 255, 0.9);
+  font-weight: 600;
+}
+
+.ai-detail-card .ai-info p .ai-website a {
+  color: rgba(108, 242, 194, 0.8);
+  text-decoration: none;
+  word-break: break-all;
+  transition: var(--transition-base, 0.3s ease);
+}
+
+.ai-detail-card .ai-info p .ai-website a:hover {
+  color: #6cf2c2;
+  text-decoration: underline;
+}
+
+/* ============================================================
+   PUNCHLINE
+   ============================================================ */
+.ai-punchline {
+  font-size: clamp(1.1rem, 2vw, 1.4rem);
+  font-weight: 600;
+  font-style: italic;
+  color: rgba(108, 242, 194, 0.8);
+  text-align: center;
+  max-width: 600px;
+  margin: 8px auto;
+  line-height: 1.6;
+  letter-spacing: 0.3px;
+}
+
+/* ============================================================
+   BADGES
+   ============================================================ */
+.ai-detail-card .ai-badges {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  justify-content: center;
+  margin-top: 4px;
 }
 
 .ai-detail-card .ai-badge {
-  padding: 4px 10px;
-  font-size: 0.9rem;
-  font-weight: 500;
-  color: #c0c0c0;
-  background: none; /* suppression du background coloré */
-  border-radius: 8px;
-  box-shadow: none; /* plus d’ombre ni halo */
-  animation: none; /* suppression animation float */
-  cursor: default;
-  transition: all 0.2s ease;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 4px 14px;
+  border-radius: 50px;
+  font-size: 0.7rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  background: rgba(255, 255, 255, 0.04);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  border: 1px solid rgba(255, 255, 255, 0.04);
+  color: rgba(255, 255, 255, 0.6);
+  transition: var(--transition-base, 0.3s ease);
+}
+
+.ai-detail-card .ai-badge:hover {
+  border-color: rgba(139, 92, 246, 0.2);
+  transform: scale(1.05);
 }
 
 .ai-detail-card .ai-badge.signal {
-  color: #ff7f7f; /* signal rouge doux, reste subtil */
- 
+  color: #ff7f7f;
+  border-color: rgba(255, 127, 127, 0.1);
 }
 
+/* ============================================================
+   STORY / RÉCIT
+   ============================================================ */
+.ai-story {
+  padding: 20px 24px;
+  background: rgba(255, 255, 255, 0.02);
+  border-radius: var(--radius-md, 16px);
+  border: 1px solid rgba(255, 255, 255, 0.03);
+}
 
-/* ======== STORY / RÉCIT ======== */
 .ai-story h2 {
-  text-align: center;           /* centre le titre */
-  font-size: 2rem;              /* taille un peu plus petite que le h1 */
+  text-align: center;
+  font-size: 1.3rem;
   font-weight: 700;
-  margin-bottom: 12px;
-  background: linear-gradient(120deg, #6cf2c2, #4cc9f0, #9b5de5); /* harmonisé */
+  margin-bottom: 10px;
+  background: linear-gradient(135deg, #6cf2c2, #4cc9f0, #9b5de5);
   -webkit-background-clip: text;
   background-clip: text;
   -webkit-text-fill-color: transparent;
-  text-shadow: 0 6px 18px rgba(0,0,0,0.55);
 }
 
 .ai-story p {
-  text-align: center;           /* centre aussi le texte */
-  max-width: 720px;
+  text-align: center;
+  max-width: 640px;
   margin: 0 auto;
-  font-size: 1.05rem;
-  line-height: 1.75;
-  letter-spacing: 0.3px;
-  opacity: 0.95;
-}
- 
-/* ======== VIDÉOS EXPLICATIVES ======== */
-.ai-detail-card .ai-videos {
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
-  align-items: center;        /* centre le contenu */
+  font-size: 0.95rem;
+  line-height: 1.7;
+  color: rgba(255, 255, 255, 0.7);
 }
 
-.ai-detail-card .ai-videos h2 {
-  text-align: center;         /* titre centré */
-  font-size: 1.8rem;
+/* ============================================================
+   FEATURES
+   ============================================================ */
+.ai-features {
+  padding: 20px 24px;
+  background: rgba(255, 255, 255, 0.02);
+  border-radius: var(--radius-md, 16px);
+  border: 1px solid rgba(255, 255, 255, 0.03);
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  transition: var(--transition-base, 0.3s ease);
+}
+
+.ai-features:hover {
+  background: rgba(255, 255, 255, 0.04);
+  transform: translateY(-2px);
+}
+
+.ai-features h2 {
+  text-align: center;
+  font-size: 1.2rem;
   font-weight: 700;
   margin-bottom: 8px;
-  background: linear-gradient(120deg, #6cf2c2, #4cc9f0, #9b5de5);
+  background: linear-gradient(135deg, #6cf2c2, #4cc9f0, #9b5de5);
   -webkit-background-clip: text;
   background-clip: text;
   -webkit-text-fill-color: transparent;
-  text-shadow: 0 6px 18px rgba(0,0,0,0.55);
 }
 
-.ai-detail-card .ai-videos a {
-  color: #1da1f2;
+.ai-features p {
+  font-size: 0.9rem;
+  line-height: 1.5;
+  padding: 8px 12px;
+  background: rgba(255, 255, 255, 0.02);
+  border-left: 2px solid rgba(139, 92, 246, 0.2);
+  border-radius: var(--radius-sm, 8px);
+  color: rgba(255, 255, 255, 0.7);
+}
+
+.ai-features p strong {
+  color: rgba(255, 255, 255, 0.9);
   font-weight: 600;
-  text-decoration: none;
-  transition: color 0.2s ease;
 }
 
-.ai-detail-card .ai-videos a:hover {
-  text-decoration: underline;
-  color: #0d8ddb;
+/* ============================================================
+   DIVIDER
+   ============================================================ */
+.divider {
+  width: 80%;
+  height: 1px;
+  margin: 8px auto;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.06), transparent);
+  border: none;
 }
 
-/* ======== YOUTUBE GRID ======== */
-.ai-detail-card .yt-grid {
+/* ============================================================
+   YOUTUBE GRID
+   ============================================================ */
+.ai-youtube h2,
+.ai-footer-video h2 {
+  text-align: center;
+  font-size: 1.2rem;
+  font-weight: 700;
+  margin-bottom: 12px;
+  background: linear-gradient(135deg, #6cf2c2, #4cc9f0, #9b5de5);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.yt-grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
   gap: 16px;
-  justify-items: center;      /* centre les thumbs */
 }
 
 .yt-thumb {
   position: relative;
-  border-radius: 16px;
+  border-radius: var(--radius-md, 16px);
   overflow: hidden;
-  box-shadow: 0 10px 24px rgba(0,0,0,0.4);
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
-  width: 100%;
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid rgba(255, 255, 255, 0.04);
+  transition: var(--transition-base, 0.3s ease);
+  aspect-ratio: 16 / 9;
 }
 
 .yt-thumb img {
   width: 100%;
-  display: block;
+  height: 100%;
   object-fit: cover;
 }
-
 
 .yt-thumb .yt-play {
   position: absolute;
@@ -343,413 +364,311 @@ html, body {
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 42px;
+  font-size: 32px;
   color: white;
-  background: rgba(0,0,0,0.35);
+  background: rgba(0, 0, 0, 0.3);
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
   opacity: 0;
-  transition: opacity 0.3s ease;
+  transition: var(--transition-base, 0.3s ease);
 }
 
 .yt-thumb:hover {
-  transform: scale(1.05);
-  box-shadow: 0 20px 40px rgba(0,0,0,0.6);
+  transform: scale(1.03);
+  border-color: rgba(139, 92, 246, 0.15);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
 }
 
 .yt-thumb:hover .yt-play {
   opacity: 1;
 }
 
-/* ======== SHORTS GRID VIDEO NORMAL  ======== */
-.ai-detail-card .shorts-grid,
+/* ============================================================
+   SHORTS GRID
+   ============================================================ */
 .shorts-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
   gap: 16px;
-  justify-items: center;      /* centre les vidéos */
 }
 
-.ai-detail-card .shorts-grid video,
 .shorts-grid video {
   width: 100%;
-  aspect-ratio: 9 / 16;   /* 👈 force un format vertical uniforme */
-  height: auto;
-
-  border-radius: 16px;
+  aspect-ratio: 9 / 16;
+  border-radius: var(--radius-md, 16px);
   background: #000;
-
-  object-fit: cover;      /* remplissage propre */
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
-}
-
-.ai-detail-card .shorts-grid video:hover {
-  transform: scale(1.03);
-  box-shadow: 0 12px 28px rgba(0,0,0,0.6);
-}
-.ai-detail-card .shorts-grid,
-.shorts-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
-  gap: 16px;
-}
-
-.ai-detail-card .shorts-grid video{
+  object-fit: cover;
+  border: 1px solid rgba(255, 255, 255, 0.04);
+  transition: var(--transition-base, 0.3s ease);
   cursor: pointer;
 }
 
-
-
-/* ======== TITRES YOUTUBE & SHORTS ======== */
-.ai-youtube h2,
-.ai-footer-video h2 {
-  text-align: center;
-  font-size: 1.9rem;
-  font-weight: 700;
-  margin-bottom: 12px;
-  background: linear-gradient(120deg, #6cf2c2, #4cc9f0, #9b5de5);
-  -webkit-background-clip: text;
-  background-clip: text;
-  -webkit-text-fill-color: transparent;
-  text-shadow: 0 6px 18px rgba(0,0,0,0.55);
+.shorts-grid video:hover {
+  transform: scale(1.03);
+  border-color: rgba(139, 92, 246, 0.15);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
 }
 
+/* ============================================================
+   RESPONSIVE
+   ============================================================ */
 
-/* ======== LIGNE SÉPARATRICE ======== */
-.divider {
-  width: 80%;                    /* largeur de la ligne */
-  height: 1px;                   /* épaisseur */
-  margin: 10px auto;             /* espace et centré */
-  background: linear-gradient(to right, rgba(108,242,194,0), rgba(108,242,194,0.6), rgba(108,242,194,0));
-  border: none;
-  border-radius: 1px;
-}
+/* ── Tablette / Mobile ── */
+@media (max-width: 768px) {
+  #ai-detail-container {
+    padding: calc(var(--nav-height, 60px) + 12px) 12px 20px;
+    gap: 16px;
+  }
 
+  .ai-detail-card {
+    padding: 16px;
+    border-radius: var(--radius-lg, 24px);
+  }
 
-
-/* =========================
-   FONCTIONNALITÉS & INFOS CLÉS
-========================= */
-.ai-features {
-  background: rgba(30, 30, 50, 0.7); /* fond semi-transparent style card */
-  padding: 20px 24px;
-  border-radius: 24px;
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
-  box-shadow: 0 12px 28px rgba(0,0,0,0.45);
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
-}
-
-.ai-features:hover {
-  transform: scale(1.02);
-  box-shadow: 0 18px 36px rgba(0,0,0,0.55);
-}
-
-.ai-features h2 {
-  font-size: 1.8rem;
-  font-weight: 700;
-  margin-bottom: 12px;
-  text-align: center;
-  background: linear-gradient(120deg, #6cf2c2, #4cc9f0, #9b5de5);
-  -webkit-background-clip: text;
-  background-clip: text;
-  -webkit-text-fill-color: transparent;
-  text-shadow: 0 6px 18px rgba(0,0,0,0.55);
-}
-
-.ai-features p {
-  font-size: 1rem;
-  line-height: 1.5;
-  color: #ddd;
-  padding: 8px 12px;
-  background: rgba(20, 20, 28, 0.6);
-  border-left: 4px solid #6cf2c2; /* accent visuel */
-  border-radius: 12px;
-  word-wrap: break-word;
-}
-
-.ai-features p strong {
-  color: #4cc9f0;
-}
-
-
-/* ===============================
-   LIGNE CATÉGORIE ATTENTION
-   =============================== */
-.ai-category.attention {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  font-size: 1rem;
-  font-weight: 600;
-  color: #6cf2c2; /* couleur principale douce futuriste */
-  padding: 6px 12px;
-  border-radius: 12px;
-  border-left: 4px solid #4cc9f0; /* accent visuel */
-  cursor: default;
-  /* Animation pulsante légère */
-  
-  transition: transform 0.3s ease;
-}
-
-.ai-category.attention i {
-  font-size: 1.2rem;
-  color: #f04c5a;
-  animation: brainBounce 2s ease-in-out infinite;
-}
-
-/* Animation icône cerveau 
-@keyframes brainBounce {
-  0%, 100% { transform: translateY(0); }
-  25%      { transform: translateY(-2px) rotate(-2deg); }
-  50%      { transform: translateY(-4px) rotate(2deg); }
-  75%      { transform: translateY(-2px) rotate(-1deg); }
-}
-*/
-/* ===============================
-   PAYS (style similaire catégorie)
-   =============================== */
-
-.ai-country {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  font-size: 1rem;
-  font-weight: 600;
-  color: #6cf2c2;
-
-  padding: 6px 12px;
-  border-radius: 12px;
-
-  border-left: 4px solid #304df0;
-
- 
-  transition: transform 0.3s ease;
-}
-
-.ai-country i {
-  font-size: 1.2rem;
-  color: #4cc9f0;
-  animation: globeFloat 2s ease-in-out infinite;
-}
-
-
-
-/* animation icône globe 
-@keyframes globeFloat {
-  0%,100% { transform: translateY(0); }
-  50%     { transform: translateY(-3px) rotate(3deg); }
-}
-*/
-/* ===============================
-   UTILISATEURS
-   =============================== */
-
-.ai-users {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-
-  font-size: 1rem;
-  font-weight: 600;
-
-  color: #a0ffea;
-
-  padding: 6px 12px;
-  border-radius: 12px;
-
- border-left: 4px solid #6cf2c2;
-
-
-  transition: transform 0.3s ease;
-}
-
-.ai-users i {
-  font-size: 1.2rem;
-  color: #6cf2c2;
-  animation: usersBounce 2s ease-in-out infinite;
-}
-
-
-
-/* petit bounce de l'icône 
-@keyframes usersBounce {
-  0%,100% { transform: translateY(0); }
-  25%     { transform: translateY(-2px); }
-  50%     { transform: translateY(-4px); }
-  75%     { transform: translateY(-2px); }
-}
-*/
-/* ===============================
-   SITE WEB (bloc redirection)
-   =============================== */
-
-.ai-website{
-  display:flex;
-  align-items:center;
-  gap:8px;
-
-  font-size:1rem;
-  font-weight:600;
-
-  padding:6px 12px;
-  border-radius:12px;
-
-  border-left:4px solid #9b5de5;
-  
-
-  transition:all 0.25s ease;
-  cursor:pointer;
-}
-
-.ai-website:hover{
-  transform:translateX(4px);
-  
-  box-shadow:0 0 12px rgba(155,93,229,0.35);
-}
-
-.ai-website i{
-  font-size:1.2rem;
-  color:#9b5de5;
-  transition:transform 0.25s ease;
-}
-
-.ai-website:hover i{
-  transform:rotate(-15deg) scale(1.1);
-}
-
-.ai-website a{
-  color:#cdb4ff;
-  text-decoration:none;
-  word-break:break-all;
-}
-
-.ai-website a:hover{
-  text-decoration:underline;
-}
-
-
-/* =========================
-   MOBILE : LOGO AU CENTRE
-========================= */
-@media (max-width: 768px){
-
-  .ai-detail-card .ai-top{
+  .ai-detail-card .ai-top {
     flex-direction: column;
     align-items: center;
     text-align: center;
+    padding: 12px 16px;
+    gap: 16px;
   }
 
-  .ai-detail-card .ai-logo{
-    margin: 0 auto;
-  }
-
-
-}
-
-/* =========================
-   MOBILE : HEADER TEXT DROIT
-========================= */
-@media (max-width:768px){
-
-  .ai-info p{
-    white-space: nowrap;
-    justify-content: center;
-  }
-
-  .ai-info p strong{
-    white-space: nowrap;
-  }
-
-}
-
-
-/* =========================
-   MOBILE : LIEN SITE PLUS PETIT + RETOUR LIGNE
-========================= */
-@media (max-width:768px){
-
-  .ai-website a{
-    font-size:0.85rem;      /* texte plus petit */
-    white-space:normal;     /* autorise retour ligne */
-    word-break:break-word;  /* coupe les longs liens */
-  }
-
-  .ai-website strong{
-    white-space:nowrap;     /* garde "Site:" sur la même ligne */
-  }
-
-}
-
-/* =========================
-   PC : HEADER CENTRÉ
-========================= */
-@media (min-width: 769px){
-
-  .ai-detail-card .ai-top{
-    justify-content: center;
-  }
-
-  .ai-detail-card .ai-info{
-    flex: 0; 
-  }
-
-}
-
-/* =========================
-   PC LAYOUT HEADER
-========================= */
-@media (min-width: 900px){
-
-  .ai-detail-card .ai-info{
-    display:grid;
-    grid-template-columns: 1fr 1fr;
-    gap:12px 32px;
-    align-items:center;
-  }
-
-  .ai-detail-card .ai-info h1{
-    grid-column:1 / -1;
-    text-align:center;
-    margin-bottom:6px;
-  }
-
-}
-
-@media (min-width:900px){
-
-  /* chaque ligne : icône + label + valeur */
-  .ai-info p{
-    display: flex;
-    align-items: center;
-    gap: 6px;
-    white-space: nowrap; /* pas de retour à la ligne */
-  }
-
-  .ai-info p i{
-    flex-shrink: 0; /* icône ne se rétrécit pas */
-  }
-
-  .ai-info p strong{
-    flex-shrink: 0; /* label ne se rétrécit pas */
-  }
-
-}
-
-@media (max-width:768px){
   .ai-detail-card .ai-logo {
-    position: relative;
-    z-index: 1;
+    width: 90px;
+    height: 90px;
+  }
+
+  .ai-detail-card .ai-info {
+    align-items: center;
+  }
+
+  .ai-detail-card .ai-info p {
+    justify-content: center;
+    font-size: 0.8rem;
+  }
+
+  .ai-punchline {
+    font-size: 1rem;
+  }
+
+  .ai-story {
+    padding: 14px 16px;
+  }
+
+  .ai-story h2 {
+    font-size: 1.1rem;
+  }
+
+  .ai-story p {
+    font-size: 0.85rem;
+  }
+
+  .ai-features {
+    padding: 14px 16px;
+  }
+
+  .ai-features h2 {
+    font-size: 1rem;
+  }
+
+  .ai-features p {
+    font-size: 0.8rem;
+    padding: 6px 10px;
+  }
+
+  .yt-grid {
+    grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+    gap: 12px;
+  }
+
+  .shorts-grid {
+    grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+    gap: 12px;
+  }
+
+  .divider {
+    width: 90%;
   }
 }
 
-/* Pour eviter un gros trous entre le badges et le puncline car le puncline
-est dans ai-center modifier depuis card.css donc quand on le touche , ai detail cris- .ai-center = bloc média (image)
-MAIS il contient aussi du texte (punchline) ET ce bloc a une hauteur forcée énorme sur PC
-
-     */
-@media (min-width: 1024px) {
-  .ai-center {
-    aspect-ratio: auto;   
-    height: auto;         
+/* ── Desktop ── */
+@media (min-width: 769px) {
+  .ai-detail-card .ai-top {
+    justify-content: center;
   }
+
+  .ai-detail-card .ai-info {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4px 24px;
+    align-items: center;
+  }
+
+  .ai-detail-card .ai-info h1 {
+    grid-column: 1 / -1;
+    text-align: center;
+    margin-bottom: 4px;
+  }
+
+  .ai-detail-card .ai-info p {
+    white-space: nowrap;
+  }
+}
+
+/* ── Petit mobile ── */
+@media (max-width: 480px) {
+  .ai-detail-card {
+    padding: 12px;
+    border-radius: var(--radius-md, 16px);
+  }
+
+  .ai-detail-card .ai-logo {
+    width: 72px;
+    height: 72px;
+  }
+
+  .ai-detail-card .ai-info h1 {
+    font-size: 1.4rem;
+  }
+
+  .yt-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
+  }
+
+  .shorts-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
+  }
+}
+
+/* ============================================================
+   SCROLLBAR PERSONNALISÉE
+   ============================================================ */
+#ai-detail-container::-webkit-scrollbar {
+  width: 4px;
+}
+
+#ai-detail-container::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+#ai-detail-container::-webkit-scrollbar-thumb {
+  background: rgba(139, 92, 246, 0.2);
+  border-radius: 10px;
+}
+
+#ai-detail-container::-webkit-scrollbar-thumb:hover {
+  background: rgba(139, 92, 246, 0.4);
+}
+
+/* ============================================================
+   ANIMATIONS SPÉCIALES
+   ============================================================ */
+
+/* ── Logo glow déjà défini plus haut ── */
+
+/* ── Fade in pour les sections ── */
+.ai-detail-card .ai-top,
+.ai-story,
+.ai-features,
+.ai-youtube,
+.ai-footer-video {
+  animation: detailFadeIn 0.6s ease-out forwards;
+}
+
+.ai-detail-card .ai-top {
+  animation-delay: 0.05s;
+}
+.ai-story {
+  animation-delay: 0.1s;
+}
+.ai-features {
+  animation-delay: 0.15s;
+}
+.ai-youtube {
+  animation-delay: 0.2s;
+}
+.ai-footer-video {
+  animation-delay: 0.25s;
+}
+
+@keyframes detailFadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ── Category, Country, Users inline ── */
+.ai-category.attention,
+.ai-country,
+.ai-users,
+.ai-website {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: rgba(255, 255, 255, 0.7);
+  padding: 4px 0;
+  transition: var(--transition-base, 0.3s ease);
+}
+
+.ai-category.attention i,
+.ai-country i,
+.ai-users i,
+.ai-website i {
+  font-size: 1rem;
+  color: var(--neon-cyan, #06b6d4);
+  flex-shrink: 0;
+}
+
+.ai-category.attention strong,
+.ai-country strong,
+.ai-users strong,
+.ai-website strong {
+  color: rgba(255, 255, 255, 0.9);
+  font-weight: 600;
+}
+
+.ai-website {
+  cursor: pointer;
+}
+
+.ai-website:hover {
+  transform: translateX(4px);
+}
+
+.ai-website a {
+  color: rgba(108, 242, 194, 0.8);
+  text-decoration: none;
+  word-break: break-all;
+}
+
+.ai-website a:hover {
+  color: #6cf2c2;
+  text-decoration: underline;
+}
+
+/* ── Cacher le site web sur mobile si trop long ── */
+@media (max-width: 480px) {
+  .ai-website a {
+    font-size: 0.75rem;
+  }
+}
+
+
+/* Dans ai-detail.css, à la fin */
+.ai-detail-card .ai-center {
+  aspect-ratio: auto !important;
+  height: auto !important;
+  margin: 8px 0 !important;
+  padding: 8px 16px;
+  background: rgba(255, 255, 255, 0.02);
+  border-radius: var(--radius-md, 16px);
 }

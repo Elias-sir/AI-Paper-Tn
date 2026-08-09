@@ -1,127 +1,141 @@
-/* ============================ */
-/* 🌙 Search Moon Overlay Compact */
-/* ============================ */
+/* ============================================================
+   SEARCH-MOON.CSS - Recherche 🌙
+   Version : V2.0 - Glass Ready
+   ============================================================ */
+
+/* ── Overlay ── */
 .search-moon {
   position: fixed;
   inset: 0;
   display: none;
   flex-direction: column;
-  background: rgba(10, 10, 10, 0.95);
-  -webkit-backdrop-filter : blur(6px);
-  backdrop-filter: blur(6px);
+  background: rgba(10, 10, 15, 0.92);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
   z-index: 2000;
+  animation: searchFadeIn 0.3s ease-out;
+}
+
+@keyframes searchFadeIn {
+  from { opacity: 0; transform: scale(0.98); }
+  to { opacity: 1; transform: scale(1); }
 }
 
 .search-moon.active {
   display: flex;
 }
 
-/* Header & Input */
+/* ── Header ── */
 .search-moon-header {
   display: flex;
   align-items: center;
-  padding: 10px 12px;
-  gap: 8px;
+  padding: 16px 20px;
+  gap: 12px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+  flex-shrink: 0;
 }
 
 #search-moon-input {
   flex: 1;
-  padding: 8px 12px;
-  font-size: 14px;
-  border-radius: 8px;
-  border: none;
+  padding: 12px 18px;
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  border-radius: var(--radius-md, 16px);
+  background: rgba(255, 255, 255, 0.04);
+  color: var(--text-primary, #fff);
+  font-size: 1rem;
   outline: none;
-  background: rgba(40,40,50,0.85);
-  color: #fff;
+  transition: var(--transition-base, 0.3s ease);
+}
+
+#search-moon-input:focus {
+  border-color: rgba(139, 92, 246, 0.2);
+  background: rgba(255, 255, 255, 0.06);
+}
+
+#search-moon-input::placeholder {
+  color: rgba(255, 255, 255, 0.25);
 }
 
 .search-moon-close {
-  font-size: 18px;
   background: none;
   border: none;
+  color: rgba(255, 255, 255, 0.4);
+  font-size: 1.4rem;
   cursor: pointer;
-  color: #fff;
+  padding: 4px 8px;
+  border-radius: var(--radius-sm, 8px);
+  transition: var(--transition-base, 0.3s ease);
 }
 
-/* ============================ */
-/* Results COLONNES PC */
-/* ============================ */
+.search-moon-close:hover {
+  color: #fff;
+  background: rgba(255, 255, 255, 0.04);
+}
+
+/* ── Results ── */
 .search-moon-results {
   flex: 1;
   overflow-y: auto;
-  padding: 25px;
-
+  padding: 20px;
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); /*Nombres des colonnes pc*/
+  grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
   gap: 16px;
-
-  max-width: 1300px;
-  margin: auto;
+  max-width: 1400px;
+  margin: 0 auto;
+  width: 100%;
 }
 
+.search-moon-results::-webkit-scrollbar {
+  width: 4px;
+}
 
-/* ============================ */
-/* Mini Cards Compact */
-/* ============================ */
-/* mini card uniforme */
+.search-moon-results::-webkit-scrollbar-thumb {
+  background: rgba(139, 92, 246, 0.2);
+  border-radius: 10px;
+}
+
+/* ── Mini card ── */
 .search-moon-card.mini {
-  width: 100%;
-  height: 180px; 
-
-  padding: 10px;
-  border-radius: 18px;
-
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid rgba(255, 255, 255, 0.04);
+  border-radius: var(--radius-md, 16px);
+  padding: 12px;
+  height: 180px;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-
-  background: #1a1a1f;
-  transition: 0.2s ease;
-  overflow: hidden; /* 🔒 bloque tout débordement */
+  transition: var(--transition-base, 0.3s ease);
+  cursor: pointer;
+  overflow: hidden;
 }
 
-/* Image centrée uniforme */
-.search-moon-card.mini .ai-center img.ai-main-image {
-  max-height: 60px;   /* réduit image pour mini carte */
-  object-fit: cover;
-  border-radius: 8px;
-}
-/* Hover léger */
 .search-moon-card.mini:hover {
-  background: #242430;
-  transform: scale(1.02);
+  background: rgba(255, 255, 255, 0.04);
+  transform: translateY(-2px) scale(1.02);
+  border-color: rgba(139, 92, 246, 0.08);
 }
 
-/* Top Row: logo + info */
 .search-moon-card.mini .ai-top {
   display: flex;
   align-items: center;
   gap: 8px;
+  flex-shrink: 0;
 }
 
 .search-moon-card.mini .ai-logo {
-  flex-shrink: 0;       /* empêche le logo de rétrécir ou pousser */
-  width: 50px;
-  height: 50px;
-  max-width: 50px;
-  max-height: 50px;
-  border-radius: 50%;   /* contour toujours rond */
-  overflow: hidden;     /* clip l’image */
+  width: 40px;
+  height: 40px;
+  flex-shrink: 0;
+  border-radius: 50%;
+  overflow: hidden;
+  border: 1px solid rgba(255, 255, 255, 0.04);
 }
+
 .search-moon-card.mini .ai-logo img {
   width: 100%;
   height: 100%;
-  object-fit: cover;    /* remplit l’espace sans débordement */
+  object-fit: cover;
 }
-.search-moon-card.mini .ai-center img.ai-main-image {
-  display: none;   /* plus aucune image visible */
-}
-
-.search-moon-card.mini .ai-center .ai-placeholder {
-  display: none;   /* si tu ne veux pas le placeholder non plus */
-}
-
-
 
 .search-moon-card.mini .ai-info {
   flex: 1;
@@ -129,53 +143,60 @@
   flex-direction: column;
   justify-content: center;
   gap: 2px;
+  min-width: 0;
 }
 
 .search-moon-card.mini .ai-header {
-  font-size: 0.85rem;
-  font-weight: 600;
-  color: #fff;
-  line-height: 1.1;
+  font-size: 0.8rem;
+  font-weight: 700;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  background: linear-gradient(135deg, #6cf2c2, #4cc9f0, #9b5de5);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
 }
 
 .search-moon-card.mini .ai-vibe {
-  font-size: 0.7rem;
-  opacity: 0.6;
-}
-
-/* Image ou punchline centrée */
-.search-moon-card.mini .ai-center {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  font-size: 0.8rem;
-  font-weight: 500;
-  color: #fff;
-  margin-top: 4px;
-  border-radius: 8px;
+  font-size: 0.65rem;
+  color: rgba(255, 255, 255, 0.3);
+  white-space: nowrap;
   overflow: hidden;
-  max-height: 120px;
+  text-overflow: ellipsis;
 }
 
-.search-moon-card.mini .ai-placeholder {
-  height: 100px;
+.search-moon-card.mini .ai-center {
+  flex: 1;
   display: flex;
-  justify-content: center;
   align-items: center;
-  color: #888;
-  background: rgba(255,255,255,0.05);
-  border-radius: 8px;
-  font-size: 0.75rem;
+  justify-content: center;
+  overflow: hidden;
+  margin: 4px 0;
+  border-radius: var(--radius-sm, 8px);
+  background: rgba(255, 255, 255, 0.02);
 }
 
-/* Stats mini et alignées */
+.search-moon-card.mini .ai-center img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: var(--radius-sm, 8px);
+}
+
+.search-moon-card.mini .ai-center .ai-placeholder {
+  font-size: 0.6rem;
+  color: rgba(255, 255, 255, 0.1);
+}
+
+/* ── Stats ── */
 .search-moon-card.mini .ai-stats {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  font-size: 0.65rem;
-  color: #888;
-  margin-top: 2px;
+  font-size: 0.6rem;
+  color: rgba(255, 255, 255, 0.3);
+  flex-shrink: 0;
   gap: 4px;
 }
 
@@ -186,186 +207,159 @@
   gap: 3px;
 }
 
-.search-moon-card.mini .ai-users i,
+.search-moon-card.mini .ai-users i {
+  color: var(--neon-cyan, #06b6d4);
+}
+
 .search-moon-card.mini .ai-views i {
+  color: rgba(255, 255, 255, 0.2);
+}
+
+/* ── Like button dans search ── */
+.search-moon-card.mini .like-btn {
+  display: flex;
+  align-items: center;
+  gap: 3px;
+  cursor: pointer;
+  background: none;
+  border: none;
+  color: rgba(255, 255, 255, 0.2);
+  padding: 2px 6px;
+  border-radius: 50px;
+  transition: var(--transition-base, 0.3s ease);
   font-size: 0.65rem;
-  opacity: 0.6;
 }
 
-
-/* Couleurs icônes stats */
-.ai-users i { color: #6cf2c2; }
-.ai-views i { color: #4fc3f7; }
-.ai-btn i, .like-count { 
-  color: #f15bb5;
-  font-weight: 600;
-}
-/* Scrollbar discrète */
-.search-moon-results::-webkit-scrollbar {
-  width: 5px;
+.search-moon-card.mini .like-btn:hover {
+  color: #ff4d6d;
+  background: rgba(255, 77, 109, 0.05);
 }
 
-.search-moon-results::-webkit-scrollbar-thumb {
-  background: rgba(255,255,255,0.15);
-  border-radius: 3px;
+.search-moon-card.mini .like-btn.liked {
+  color: #ff4d6d;
 }
 
-.search-moon-results::-webkit-scrollbar-track {
-  background: transparent;
+.search-moon-card.mini .like-btn .icon-heart {
+  width: 14px;
+  height: 14px;
+  stroke: currentColor;
+  stroke-width: 1.5;
 }
 
-
-/* Message “Aucun résultat” Search Moon */
+/* ── No results ── */
 .search-moon-no-results {
-  grid-column: 1 / -1;       /* occupe toute la largeur du grid */
+  grid-column: 1 / -1;
   display: flex;
   flex-direction: column;
-  justify-content: flex-start; /* aligné en haut du container */
   align-items: center;
-  gap: 6px;
-  padding: 40px 10px 10px 10px; /* plus de padding-top pour “hauteur yeux” */
-  color: #888;
+  justify-content: center;
+  gap: 8px;
+  padding: 40px 20px;
+  color: rgba(255, 255, 255, 0.3);
   text-align: center;
-  font-size: 0.85rem;
-
-  border-radius: 20px;
-  margin: 10px auto;
+  font-size: 0.9rem;
 }
 
 .search-moon-no-results a {
-  color: #4fc3f7;
-  text-decoration: underline;
-  transition: color 0.2s ease;
+  color: var(--neon-cyan, #06b6d4);
+  text-decoration: none;
+  font-weight: 600;
+  transition: var(--transition-base, 0.3s ease);
 }
 
 .search-moon-no-results a:hover {
-  color: #39b0e0;
+  color: #fff;
+  text-decoration: underline;
 }
 
-.search-moon-card.mini .ai-top {
-  flex-shrink: 0;
-}
-
-.search-moon-card.mini .ai-center {
-  flex: 1;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-
-  overflow: hidden;
-}
-
-.search-moon-card.mini .ai-stats {
-  flex-shrink: 0;
-
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-
-  margin-top: auto; /* 🔥 force en bas */
-}
-
-/*RESPONSIVE AI SEACH MOBILE 2 colonnes */
-@media (max-width:600px){
-
-.search-moon-results{
-  grid-template-columns: repeat(2,1fr);
-}
-
-}
-
-/* ============================ */
-/* CATEGORIE */
-/* ============================ */
+/* ── Category cards ── */
 .search-category-card {
   height: 80px;
-  border-radius: 16px;
-  background: #1a1a1f;
+  border-radius: var(--radius-md, 16px);
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid rgba(255, 255, 255, 0.04);
   display: flex;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
-  font-size: 0.85rem;
+  gap: 2px;
+  font-size: 0.8rem;
   font-weight: 600;
-  color: #fff;
+  color: rgba(255, 255, 255, 0.6);
   cursor: pointer;
-  transition: transform 0.03s linear, box-shadow 0.03s linear, background 0.03s linear;
-
-  flex-direction: column;
-  gap: 4px;
-
+  transition: var(--transition-base, 0.3s ease);
 }
 
 .search-category-card:hover {
-  background: #242430;
-  transform: translateY(-3px) scale(1.03); /* 🔥 moins violent */
-  box-shadow: 
-    0 0 12px rgba(0, 255, 255, 0.15),
-    0 0 25px rgba(0, 255, 255, 0.08);
+  background: rgba(255, 255, 255, 0.04);
+  transform: translateY(-2px) scale(1.02);
+  border-color: rgba(139, 92, 246, 0.08);
+  color: #fff;
 }
 
-/* Clic avec effet pop + néon */
-.search-category-card.clicked {
-  transform: scale(1.1);
-  box-shadow: 0 0 20px 4px rgba(245, 252, 252, 0.3), 0 0 40px 8px rgba(241, 247, 247, 0.15);
-  background: #2a2a36;
-  transition: transform 0.15s ease, box-shadow 0.15s ease, background 0.15s ease;
-}
-
-.cat-name {
+.search-category-card .cat-name {
   font-size: 0.75rem;
   font-weight: 600;
 }
 
-.cat-count {
-  font-size: 0.7rem;
-  opacity: 0.6;
+.search-category-card .cat-count {
+  font-size: 0.65rem;
+  color: rgba(255, 255, 255, 0.2);
 }
 
-/*SUR MOBILE CATEGORIE*/
-@media (max-width:600px){
-
-  .search-moon-results:has(.search-category-card){
-    grid-template-columns: repeat(3, 1fr); /* 🔥 3 colonnes catégories */
-    gap: 10px;
-  }
-
-  .search-category-card{
-    padding: 14px;
-  }
-
-}
-@media (hover: hover) {
-  .search-category-card:hover {
-    background: #242430;
-    transform: translateY(-3px) scale(1.03);
-    box-shadow: 
-      0 0 12px rgba(14, 56, 49, 0),
-      0 0 25px #f9fcfc14;
-  }
-}
-
-
-/* ============================ */
-/* 📱 TABLETTE CATEGORIES */
-/* ============================ 
-@media (min-width: 601px) and (max-width: 1024px) {
-
-  .search-moon-results:has(.search-category-card){
-    grid-template-columns: repeat(4, 1fr);  équilibre tablette 
+/* ── Responsive ── */
+@media (max-width: 600px) {
+  .search-moon-results {
+    grid-template-columns: repeat(2, 1fr);
+    padding: 12px;
     gap: 12px;
   }
 
+  .search-moon-results:has(.search-category-card) {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  .search-moon-card.mini {
+    height: 160px;
+    padding: 10px;
+  }
+
+  .search-moon-card.mini .ai-logo {
+    width: 32px;
+    height: 32px;
+  }
+
+  .search-moon-card.mini .ai-header {
+    font-size: 0.7rem;
+  }
+
   .search-category-card {
-    height: 85px;
-    border-radius: 16px;
-    font-size: 0.9rem;
+    height: 64px;
+    font-size: 0.7rem;
   }
 
-  .cat-name {
-    font-size: 0.8rem;
+  .search-category-card .cat-name {
+    font-size: 0.65rem;
   }
 
-  .cat-count {
-    font-size: 0.75rem;
+  .search-category-card .cat-count {
+    font-size: 0.55rem;
   }
-}*/
+}
+
+@media (max-width: 400px) {
+  .search-moon-results {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 8px;
+    padding: 8px;
+  }
+
+  .search-moon-card.mini {
+    height: 140px;
+    padding: 8px;
+  }
+
+  .search-moon-card.mini .ai-header {
+    font-size: 0.65rem;
+  }
+}
