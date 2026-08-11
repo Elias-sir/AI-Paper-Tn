@@ -22,7 +22,7 @@ export default async function handler(req, res) {
     const { data: user, error: userError } = await supabase
       .from('users')
       .select('id, email')
-      .eq('confirmation_token', token)
+      .eq('id', token)
       .single();
 
     if (userError || !user) {
