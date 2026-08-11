@@ -132,7 +132,7 @@ if (registerSubmit) {
       // ✅ Envoi de l'email de confirmation via Resend
       // ✅ Envoi de l'email de confirmation via Resend
 if (authData.user) {
-  const confirmationLink = `https://theais.tn/confirm?token=${authData.user.id}`;
+  const confirmationLink = `https://theais.tn/confirm.html?token=${authData.user.id}`;
   
   try {
     const res = await fetch('/api/send-email', {
