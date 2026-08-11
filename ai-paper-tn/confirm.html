@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Confirmation - The AI's</title>
+  <link rel="icon" type="image/png" href="assents/fonts/theaisfavi.png">
+  <link rel="stylesheet" href="css/theme.css">
+  <link rel="stylesheet" href="css/glass.css">
+  <link rel="stylesheet" href="css/base.css">
+  <style>
+    body {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      text-align: center;
+    }
+    .confirm-card {
+      max-width: 480px;
+      padding: 40px 30px;
+    }
+    .confirm-card .icon {
+      font-size: 4rem;
+      margin-bottom: 16px;
+      display: block;
+    }
+    .confirm-card h1 {
+      font-size: 1.8rem;
+      margin-bottom: 12px;
+    }
+    .confirm-card p {
+      color: rgba(255,255,255,0.6);
+      line-height: 1.6;
+    }
+    .btn {
+      display: inline-block;
+      margin-top: 20px;
+      padding: 12px 28px;
+      border-radius: 50px;
+      background: linear-gradient(135deg, #6cf2c2, #2ecc71);
+      color: #0a0a0f;
+      font-weight: 700;
+      text-decoration: none;
+      transition: 0.3s;
+    }
+    .btn:hover {
+      transform: scale(1.03);
+      box-shadow: 0 8px 24px rgba(46,204,113,0.3);
+    }
+    .hidden {
+      display: none;
+    }
+    .loader {
+      border: 3px solid rgba(255,255,255,0.1);
+      border-top: 3px solid #6cf2c2;
+      border-radius: 50%;
+      width: 40px;
+      height: 40px;
+      animation: spin 1s linear infinite;
+      margin: 20px auto;
+    }
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+  </style>
+</head>
+<body>
+
+<div class="glass-card confirm-card" id="confirm-card">
+  <span class="icon" id="icon">⏳</span>
+  <h1 id="title">Confirmation en cours...</h1>
+  <div id="loader" class="loader"></div>
+  <p id="message">Veuillez patienter, nous activons votre compte.</p>
+  <a href="index.html" class="btn hidden" id="btn-home">Retour à l'accueil</a>
+</div>
+
+<script>
+  (async function confirmEmail() {
+    const params = new URLSearchParams(window.location.search);
+    const token = params.get('token');
+
+    const icon = document.getElementById('icon');
+    const title = document.getElementById('title');
+    const message = document.getElementById('message');
+    const loader = document.getElementById('loader');
+    const btnHome = document.getElementById('btn-home');
+
+    if (!token) {
+      icon.textContent = '❌';
+      title.textContent = 'Lien invalide';
+      message.textContent = 'Aucun token de confirmation trouvé.';
+      loader.classList.add('hidden');
+      btnHome.classList.remove('hidden');
+      return;
+    }
+
+    try {
+      // 🔥 Appel à ton API pour confirmer le token
+      const res = await fetch('/api/confirm-email', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ token })
+      });
+
+      const data = await res.json();
+
+      if (!res.ok) {
+        throw new Error(data.error || 'Erreur de confirmation');
+      }
+
+      // ✅ Succès
+      icon.textContent = '✅';
+      title.textContent = 'Compte confirmé !';
+      message.textContent = 'Ton email a bien été vérifié. Tu peux maintenant te connecter.';
+      loader.classList.add('hidden');
+      btnHome.classList.remove('hidden');
+
+    } catch (err) {
+      icon.textContent = '❌';
+      title.textContent = 'Erreur de confirmation';
+      message.textContent = err.message || 'Une erreur est survenue. Réessaie plus tard.';
+      loader.classList.add('hidden');
+      btnHome.classList.remove('hidden');
+    }
+  })();
+</script>
+
+</body>
+</html>

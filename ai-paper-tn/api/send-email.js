@@ -22,7 +22,7 @@ export default async function handler(req, res) {
         <h1>Bienvenue sur The AI's, ${name || 'Cher utilisateur'} !</h1>
         <p>Clique sur le lien ci-dessous pour confirmer ton email :</p>
         <a href="${link}">${link}</a>
-        <p>Cette étape est obligatoire pour accéder à ton compte.</p>
+         <p>Ce lien expire dans 24h.</p>
       `,
     });
 

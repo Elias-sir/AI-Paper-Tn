@@ -85,61 +85,86 @@ console.log("USER VIA SERVICE:", testUser)
   }
 
   // ================= REGISTER =================
-  const registerSubmit = document.getElementById('register-submit');
-  const registerPseudo = document.getElementById('register-pseudo');
-  const registerEmail = document.getElementById('register-email');
-  const registerPassword = document.getElementById('register-password');
-  const registerError = document.getElementById('register-error');
+  // ================= REGISTER =================
+const registerSubmit = document.getElementById('register-submit');
+const registerPseudo = document.getElementById('register-pseudo');
+const registerEmail = document.getElementById('register-email');
+const registerPassword = document.getElementById('register-password');
+const registerError = document.getElementById('register-error');
 
-  if (registerSubmit) {
-    registerSubmit.addEventListener('click', async () => {
-      registerError.textContent = '';
-      console.log('Register bouton cliqué !');
+if (registerSubmit) {
+  registerSubmit.addEventListener('click', async () => {
+    registerError.textContent = '';
+    console.log('Register bouton cliqué !');
 
+    // 🔒 Vérification champs vides
+    if (
+      !registerPseudo.value.trim() ||
+      !registerEmail.value.trim() ||
+      !registerPassword.value.trim()
+    ) {
+      registerError.textContent = "Veuillez remplir tous les champs.";
+      registerError.classList.add("show");
+      return;
+    }
 
-      // 🔒 Vérification champs vides
-if (
-  !registerPseudo.value.trim() ||
-  !registerEmail.value.trim() ||
-  !registerPassword.value.trim()
-) {
-  registerError.textContent = "Veuillez remplir tous les champs.";
-  registerError.classList.add("show");
-  return;
-}
+    try {
+      const { data: authData, error: authError } = await supabase.auth.signUp({
+        email: registerEmail.value,
+        password: registerPassword.value,
+        options: { data: { pseudo: registerPseudo.value } }
+      });
 
-      try {
-        const { data: authData, error: authError } = await supabase.auth.signUp({
-          email: registerEmail.value,
-          password: registerPassword.value,
-          options: { data: { pseudo: registerPseudo.value } }
-        });
-
-        if (authError) {
-
-  if (authError.message.includes("User already registered")) {
-    registerError.textContent = "Cet email est déjà utilisé.";
-  } else if (authError.message.includes("Password should be")) {
-    registerError.textContent = "Mot de passe trop faible (min 6 caractères).";
-  } else if (authError.message.includes("Invalid email")) {
-    registerError.textContent = "Email invalide.";
-  } else {
-    registerError.textContent = "Erreur lors de l'inscription.";
-  }
-
-  registerError.classList.add("show");
-  return;
-}
-
-        window.location.href = 'index.html';
-
-      } catch (err) {
-        registerError.textContent = err.message;
-        console.error(err);
+      if (authError) {
+        if (authError.message.includes("User already registered")) {
+          registerError.textContent = "Cet email est déjà utilisé.";
+        } else if (authError.message.includes("Password should be")) {
+          registerError.textContent = "Mot de passe trop faible (min 6 caractères).";
+        } else if (authError.message.includes("Invalid email")) {
+          registerError.textContent = "Email invalide.";
+        } else {
+          registerError.textContent = "Erreur lors de l'inscription.";
+        }
+        registerError.classList.add("show");
+        return;
       }
-    });
-  }
 
+      // ✅ Envoi de l'email de confirmation via Resend
+      // ✅ Envoi de l'email de confirmation via Resend
+if (authData.user) {
+  const confirmationLink = `https://theais.tn/confirm?token=${authData.user.id}`;
+  
+  try {
+    const res = await fetch('/api/send-email', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        email: authData.user.email,
+        name: registerPseudo.value,
+        link: confirmationLink,  // ← ICI le lien est envoyé
+      }),
+    });
+
+    const result = await res.json();
+    if (!res.ok) {
+      console.error('Erreur envoi email:', result.error);
+    } else {
+      console.log('Email envoyé avec succès !');
+    }
+  } catch (emailErr) {
+    console.error('Erreur réseau lors de l\'envoi email:', emailErr);
+  }
+}
+
+      // ✅ Redirection vers la page de confirmation (ou index)
+      window.location.href = 'confirm-email.html?email=' + encodeURIComponent(registerEmail.value);
+
+    } catch (err) {
+      registerError.textContent = err.message;
+      console.error(err);
+    }
+  });
+}
   // ================= TOGGLE MOT DE PASSE =================
   function setupPasswordToggle(inputId, toggleId, eyeOpenId, eyeClosedId) {
     const passwordInput = document.getElementById(inputId);
