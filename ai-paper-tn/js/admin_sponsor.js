@@ -1,5 +1,5 @@
 import { supabase } from "./supabase.js";
-
+import { attachUploader } from "./upload.js";
 /* ─────────────────────────────
    🎛️ Fetch toutes les cartes sponsor
 ───────────────────────────── */
@@ -363,4 +363,19 @@ export function initSponsorAdmin(formId, listId, previewId, statsTableId) {
   setupSponsorActions(listContainer, form);
 
   if (statsTableId) renderSponsorStats(statsTableId);
+
+  // ← AJOUT
+  attachUploader(
+    document.getElementById('sponsor-logo'),
+    document.getElementById('sponsor-logo-file'),
+    document.getElementById('sponsor-logo-status'),
+    'sponsor-logos'
+  );
+
+  attachUploader(
+    document.getElementById('sponsor-media'),
+    document.getElementById('sponsor-media-file'),
+    document.getElementById('sponsor-media-status'),
+    'sponsor-media'
+  );
 }

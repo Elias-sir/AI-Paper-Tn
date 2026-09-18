@@ -360,3 +360,32 @@ button:active {
     grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
   }
 }
+
+
+
+
+
+.upload-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+  margin-bottom: 10px;
+}
+
+.upload-row input[type="text"] {
+  flex: 1;
+  min-width: 220px;
+}
+
+.upload-row input[type="file"] {
+  font-size: 0.8rem;
+  color: rgba(255, 255, 255, 0.6);
+  max-width: 200px;
+}
+
+.upload-status {
+  font-size: 0.8rem;
+  min-width: 130px;
+  color: #6cf2c2;
+}

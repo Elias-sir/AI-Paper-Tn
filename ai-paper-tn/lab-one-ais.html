@@ -41,10 +41,21 @@
     <input type="text" id="ai-description" placeholder="Description AI" />
     <input type="text" id="ai-category" placeholder="Catégorie (-18/safe/mixte/pro)" />
 
-      <!-- Media -->
-    <input type="text" id="ai-logo" placeholder="lien logo" />
-    <label for="ai-media">Image principale (Card)</label>
-    <input type="text" id="ai-media" placeholder="lien de l'image"/>
+      
+<!-- Media -->
+<label for="ai-logo">Logo</label>
+<div class="upload-row">
+  <input type="text" id="ai-logo" placeholder="lien logo" />
+  <input type="file" id="ai-logo-file" accept="image/*" />
+  <span class="upload-status" id="ai-logo-status"></span>
+</div>
+
+<label for="ai-media">Image principale (Card)</label>
+<div class="upload-row">
+  <input type="text" id="ai-media" placeholder="lien de l'image" />
+  <input type="file" id="ai-media-file" accept="image/*" />
+  <span class="upload-status" id="ai-media-status"></span>
+</div>
 
 <label>AI Categorie de Recherches</label>
 <div id="ai-category-search-container">
@@ -99,14 +110,34 @@
     <textarea id="ai-disadvantages" placeholder="Désavantages" rows="2"></textarea>
 
     <!-- ================= VIDÉOS ================= -->
-    <h3>🎞️ Vidéos Shorts</h3>
-    <div id="footer-video-inputs">
-  <input type="text" class="footer-video-input" placeholder="URL vidéo footer 1" />
-  <input type="text" class="footer-video-input" placeholder="URL vidéo footer 2" />
-  <input type="text" class="footer-video-input" placeholder="URL vidéo footer 3" />
-  <input type="text" class="footer-video-input" placeholder="URL vidéo footer 4" />
-  <input type="text" class="footer-video-input" placeholder="URL vidéo footer 5" />
-    </div>
+ <h3>🎞️ Vidéos Shorts</h3>
+<div id="footer-video-inputs">
+  <div class="upload-row">
+    <input type="text" class="footer-video-input" placeholder="URL vidéo footer 1" />
+    <input type="file" class="footer-video-file" accept="video/*" />
+    <span class="upload-status"></span>
+  </div>
+  <div class="upload-row">
+    <input type="text" class="footer-video-input" placeholder="URL vidéo footer 2" />
+    <input type="file" class="footer-video-file" accept="video/*" />
+    <span class="upload-status"></span>
+  </div>
+  <div class="upload-row">
+    <input type="text" class="footer-video-input" placeholder="URL vidéo footer 3" />
+    <input type="file" class="footer-video-file" accept="video/*" />
+    <span class="upload-status"></span>
+  </div>
+  <div class="upload-row">
+    <input type="text" class="footer-video-input" placeholder="URL vidéo footer 4" />
+    <input type="file" class="footer-video-file" accept="video/*" />
+    <span class="upload-status"></span>
+  </div>
+  <div class="upload-row">
+    <input type="text" class="footer-video-input" placeholder="URL vidéo footer 5" />
+    <input type="file" class="footer-video-file" accept="video/*" />
+    <span class="upload-status"></span>
+  </div>
+</div>
 
     <h3>🎬 Liens Vidéos YouTube</h3>
     <div id="youtube-inputs">
@@ -166,11 +197,21 @@
 <textarea id="sponsor-description" name="description" placeholder="Titre" rows="3"></textarea>
 
 
-    <label for="sponsor-logo">Logo (optionnel)</label>
-    <input type="text" id="sponsor-logo" name="logo_url" placeholder="lien du logo" />
+    <!-- Media sponsor -->
+<label for="sponsor-logo">Logo (optionnel)</label>
+<div class="upload-row">
+  <input type="text" id="sponsor-logo" name="logo_url" placeholder="lien du logo" />
+  <input type="file" id="sponsor-logo-file" accept="image/*" />
+  <span class="upload-status" id="sponsor-logo-status"></span>
+</div>
 
-    <label for="sponsor-media">Image URL</label>
-    <input type="text" id="sponsor-media" name="media_url" placeholder="lien de l'image" />
+<label for="sponsor-media">Image URL</label>
+<div class="upload-row">
+  <input type="text" id="sponsor-media" name="media_url" placeholder="lien de l'image" />
+  <input type="file" id="sponsor-media-file" accept="image/*" />
+  <span class="upload-status" id="sponsor-media-status"></span>
+</div>
+
 
     <label for="sponsor-link">Lien annonceur</label>
     <input type="url" id="sponsor-link" name="link" placeholder="Lien de redirection" />

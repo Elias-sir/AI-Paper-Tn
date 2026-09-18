@@ -1,4 +1,5 @@
 import { supabase } from './supabase.js';
+import { attachUploader } from './upload.js';
 
 // -------------------- LISTE DES ADMINS --------------------
 const ADMIN_EMAILS = [
@@ -632,13 +633,35 @@ document.addEventListener('DOMContentLoaded', async () => {
 
   document.body.style.display = 'block';
 
-  // Ajouter listener pour le bouton ajout/modif
   const addBtn = document.getElementById('add-ai-btn');
   addBtn.addEventListener('click', handleAddOrEdit);
 
-  // Charger la liste des IA
   fetchAIs();
   fetchUsers();
-  fetchUsersCount(); 
+  fetchUsersCount();
   fetchAIsCount();
+
+  // -------------------- UPLOADS FICHIERS --------------------
+  attachUploader(
+    document.getElementById('ai-logo'),
+    document.getElementById('ai-logo-file'),
+    document.getElementById('ai-logo-status'),
+    'logos'
+  );
+
+  attachUploader(
+    document.getElementById('ai-media'),
+    document.getElementById('ai-media-file'),
+    document.getElementById('ai-media-status'),
+    'images'
+  );
+
+  document.querySelectorAll('#footer-video-inputs .upload-row').forEach(row => {
+    attachUploader(
+      row.querySelector('.footer-video-input'),
+      row.querySelector('.footer-video-file'),
+      row.querySelector('.upload-status'),
+      'videos'
+    );
+  });
 });
