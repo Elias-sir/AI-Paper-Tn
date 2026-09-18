@@ -46,8 +46,16 @@ const mobileMenu = document.getElementById("mobile-menu");
   searchInput.value = "";
   resultsContainer.innerHTML = "";
 };
-  searchOpen?.addEventListener("click", openSearch);
-  mobileSearchOpen?.addEventListener("click", openSearch);
+   let searchDataLoaded = false;
+
+  const ensureSearchData = () => {
+    if (searchDataLoaded) return;
+    searchDataLoaded = true;
+    fetchAIs().then(() => renderCategories());
+  };
+
+  searchOpen?.addEventListener("click", () => { openSearch(); ensureSearchData(); });
+  mobileSearchOpen?.addEventListener("click", () => { openSearch(); ensureSearchData(); });
   searchClose?.addEventListener("click", closeSearch);
   document.addEventListener("keydown", e => {
     if (e.key === "Escape" && searchMoon.classList.contains("active")) closeSearch();
@@ -352,9 +360,7 @@ likesData?.forEach(l => {
 }));
 
 };
- fetchAIs().then(() => {
-  renderCategories();
-});
+
 
   // --- filtrage + tri ---
   searchInput.addEventListener("input", () => {

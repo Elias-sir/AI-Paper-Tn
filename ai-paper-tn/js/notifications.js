@@ -1,4 +1,5 @@
 import { supabase } from './supabase.js';
+import { getUser } from './authService.js';
 
 
 let badgeEl = document.getElementById('notif-badge');
@@ -11,7 +12,7 @@ export function bindBadgeToElement(newBadgeId) {
 }
 
 export async function initNotifications() {
-    const { data: { user } } = await supabase.auth.getUser();
+    const user = await getUser();
     if (!user) return;
 
     // Charger les notifs non vues
@@ -127,7 +128,7 @@ async function addNotification(userId, type, content, conversationId = null) {
 
 
 export async function refreshNotifications() {
-    const { data: { user } } = await supabase.auth.getUser();
+    const user = await getUser();
     if (!user) return;
 
     const { data, error } = await supabase
@@ -145,7 +146,7 @@ export async function refreshNotifications() {
 
 // 🔥 Realtime notifications
 export async function subscribeNotificationsRealtime() {
-    const { data: { user } } = await supabase.auth.getUser();
+    const user = await getUser();
     if (!user) return;
 
     // Supprimer ancien channel si nécessaire

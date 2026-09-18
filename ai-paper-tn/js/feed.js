@@ -140,15 +140,11 @@ const sponsorData = (sponsorRaw || []).filter(s => {
 
       // 🔹 Création du logo, image et badges
       const logoEl = sponsor.logo_url
-        ? `<div class="ai-logo-img"><img src="${sponsor.logo_url}" alt="${sponsor.title} logo"></div>`
-        : "";
+  ? `<div class="ai-logo"><img src="${sponsor.logo_url}" alt="${sponsor.title} logo"></div>`
+  : "";
 
-    const mediaHtml = sponsor.media_url
-  ? `
-    <div class="sponsor-media">
-      <img src="${sponsor.media_url}" alt="${sponsor.title}">
-    </div>
-  `
+  const mediaHtml = sponsor.media_url
+  ? `<img src="${sponsor.media_url}" class="sponsor-media" alt="${sponsor.title}">`
   : "";
 
 
@@ -312,26 +308,29 @@ function getNonOverlappingPosition(container, size = 45) {
 
 
 //pour capturé les ai populaire
+//pour capturé les ai populaire
+let popularAICache = null; // ← cache mémoire, un seul fetch par chargement de page
+
 async function getPopularAI() {
+  if (popularAICache) return popularAICache; // ← 2e appel = instantané
+
   const { data, error } = await supabase
     .from("ai_tools")
-    .select("*");
+    .select("id, name, logo_url, clicks_count, likes_count"); // ← seulement les colonnes utilisées par le hero/footer
 
-  if (error) return [];
+  if (error) return { all: [], top10: [] };
 
-const sorted = data.sort((a, b) => {
-  const scoreA = (a.clicks_count || 0) + (a.likes_count || 0) * 2;
-  const scoreB = (b.clicks_count || 0) + (b.likes_count || 0) * 2;
-  return scoreB - scoreA;
-});
+  const sorted = data.sort((a, b) => {
+    const scoreA = (a.clicks_count || 0) + (a.likes_count || 0) * 2;
+    const scoreB = (b.clicks_count || 0) + (b.likes_count || 0) * 2;
+    return scoreB - scoreA;
+  });
 
-// 🔥 ON LIMITE À 100
-const top100 = sorted.slice(0, 100);
+  const top100 = sorted.slice(0, 100);
+  const top10 = top100.slice(0, 10);
 
-// top 10 parmi les 100
-const top10 = top100.slice(0, 10);
-
-return { all: top100, top10 };
+  popularAICache = { all: top100, top10 };
+  return popularAICache;
 }
 
 
@@ -354,7 +353,7 @@ all.forEach((ai) => {
 
   const isTop = topIds.has(ai.id);
 
-  el.innerHTML = `<img src="${ai.logo_url}" />`;
+    el.innerHTML = `<img src="${ai.logo_url}" loading="lazy" decoding="async" />`;
 
   el.classList.add("dim");
 
@@ -431,7 +430,7 @@ async function displayFooterAI() {
     const el = document.createElement("div");
     el.className = "footer-ai";
 
-    el.innerHTML = `<img src="${ai.logo_url}" />`;
+      el.innerHTML = `<img src="${ai.logo_url}" loading="lazy" decoding="async" />`;
 
     // position random simple
     el.style.top = Math.random() * 100 + "%";

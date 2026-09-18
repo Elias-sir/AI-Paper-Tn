@@ -71,15 +71,15 @@ if (ai.signals) {
         <div class="ai-vibe">${vibe}</div>
       </div>
 
-      <div class="ai-logo">
-        <img src="${logoUrl}" alt="${name}">
+            <div class="ai-logo">
+        <img src="${logoUrl}" alt="${name}" loading="lazy" decoding="async">
       </div>
     </div>
 
      <div class="ai-center">
-      ${
+           ${
         media
-          ? `<img src="${media}" class="ai-main-image" alt="${name}" />`
+          ? `<img src="${media}" class="ai-main-image" alt="${name}" loading="lazy" decoding="async" />`
           : `<div class="ai-placeholder">Image IA</div>`
       }
     </div>

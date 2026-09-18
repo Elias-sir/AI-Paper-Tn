@@ -141,8 +141,6 @@ editBtn.addEventListener('click', () => {
 
 // -------------------- SUPPRIMER IA --------------------
 async function deleteAI(id) {
-  if (!confirm('Voulez-vous vraiment supprimer cette IA ?')) return;
-
   const { error } = await supabase
     .from('ai_tools')
     .delete()
@@ -158,13 +156,6 @@ async function handleAddOrEdit() {
   const addBtn = document.getElementById('add-ai-btn');
   addBtn.textContent = "⏳ En cours...";
   addBtn.disabled = true;
-  addBtn.textContent = "✅ Terminé !";
-
-setTimeout(() => {
-  addBtn.textContent = "Ajouter l'IA";
-  addBtn.disabled = false;
-}, 1500);
-
 
   const name = document.getElementById('ai-name').value;
   const description = document.getElementById('ai-description').value;
@@ -211,40 +202,48 @@ if (youtube_videos.length >= 5) {
 
 
 
+  let error;
+
   if (currentEditingAI) {
-    const { error } = await supabase
+    ({ error } = await supabase
       .from('ai_tools')
-
       .update({
-  name, description, logo_url, category,categori,
-  badges, signals,media_url,punchline,
-  youtube_videos,
-  footer_videos,use_cases,
-  website_url, story, users, author , country , utility, target, payment, advantages, disadvantages
-})
-
-      .eq('id', currentEditingAI.id);
-
-    if (error) return console.error('Erreur update IA:', error);
-
-    alert('IA modifiée avec succès !');
-    currentEditingAI = null;
-    addBtn.textContent = 'Ajouter l\'IA';
+        name, description, logo_url, category, categori,
+        badges, signals, media_url, punchline,
+        youtube_videos,
+        footer_videos, use_cases,
+        website_url, story, users, author, country, utility, target, payment, advantages, disadvantages
+      })
+      .eq('id', currentEditingAI.id));
   } else {
-    const { error } = await supabase
-    .from('ai_tools')
-
-    .insert([
-  { name, description, logo_url, category,categori, 
-    badges, signals, media_url,punchline,youtube_videos, website_url, story, 
-    users, author,country,utility, target, payment, advantages, disadvantages ,footer_videos ,use_cases, status: 'published', 
-    created_by: null },
-]);
-
-    if (error) return console.error('Erreur ajout IA:', error);
-
-    alert('IA ajoutée avec succès !');
+    ({ error } = await supabase
+      .from('ai_tools')
+      .insert([{
+        name, description, logo_url, category, categori,
+        badges, signals, media_url, punchline, youtube_videos, website_url, story,
+        users, author, country, utility, target, payment, advantages, disadvantages, footer_videos, use_cases,
+        status: 'published',
+        created_by: null
+      }]));
   }
+
+  if (error) {
+    console.error('Erreur publication IA:', error);
+    addBtn.textContent = "❌ Erreur";
+    setTimeout(() => {
+      addBtn.textContent = "Ajouter l'IA";
+      addBtn.disabled = false;
+    }, 2000);
+    return; // ⚠️ on s'arrête ici : pas de reset du formulaire, l'utilisateur garde ses données
+  }
+
+  alert(currentEditingAI ? 'IA modifiée avec succès !' : 'IA ajoutée avec succès !');
+  currentEditingAI = null;
+  addBtn.textContent = "✅ Terminé !";
+  setTimeout(() => {
+    addBtn.textContent = "Ajouter l'IA";
+    addBtn.disabled = false;
+  }, 1500);
 
   // Reset formulaire
 document.getElementById('ai-name').value = '';
@@ -270,8 +269,9 @@ document.getElementById('ai-name').value = '';
   document.querySelectorAll(".yt-input, .footer-video-input")
   .forEach(i => i.value = "");
 
-  
-
+  // ← remet les previews à vide après reset
+  updatePreview();
+  updateDetailPreview();
 
   fetchAIs();
   fetchAIsCount();
@@ -358,10 +358,11 @@ const footerVideos = Array.isArray(ai.footer_videos)
   input.value = footerVideos[i] || "";
 });
 
-
-
-
   document.getElementById('add-ai-btn').textContent = 'Modifier IA';
+
+  // ← rafraîchit les previews avec les données chargées
+  updatePreview();
+  updateDetailPreview();
 }
 //////////////////////   Voir en live CARTE   ////////////////////////////
 const previewCard = document.getElementById("preview-card");
@@ -389,7 +390,7 @@ function updatePreview() {
           <img src="${logo}" alt="${name}" />
         </div>
       </div>
-<p class="ai-description">${description}</p> 
+<div class="ai-vibe">${description}</div>
    <div class="ai-center">
       ${
         media

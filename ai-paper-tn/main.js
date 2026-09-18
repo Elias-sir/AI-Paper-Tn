@@ -1,4 +1,5 @@
 import { supabase } from "./js/supabase.js";
+import { getUser } from "./js/authService.js";
 import * as Notifs from "./js/notifications.js";
 
 
@@ -7,9 +8,9 @@ console.log("Supabase prêt", supabase);
 const navRight = document.getElementById('nav-right');
 
 async function updateNav() {
-  // 1️⃣ récupérer user connecté
-  const { data: { user }, error } = await supabase.auth.getUser();
-  if (!user || error) {
+  // 1️⃣ récupérer user connecté (via cache authService)
+  const user = await getUser();
+  if (!user) {
     // pas connecté → nav normal
     navRight.innerHTML = `
       <button class="nav-btn search-btn" id="search-open">
@@ -95,14 +96,7 @@ await Notifs.refreshNotifications();
 }
 
 // --- Init ---
-// --- Init ---
-await updateNav();
-
-// 🔹 Init notifications realtime
-await Notifs.initNotifications();
-await Notifs.subscribeNotificationsRealtime();
-
-
+// --- Listeners indépendants de Supabase : on les active tout de suite ---
 document.addEventListener("click", (e) => {
 
   // 🔎 Ouvrir Search Moon
@@ -123,3 +117,8 @@ document.addEventListener("click", (e) => {
   }
 
 });
+
+// --- Init Supabase (nav + notifs) ---
+await updateNav();
+await Notifs.initNotifications();
+Notifs.subscribeNotificationsRealtime(); // pas besoin d'attendre, tourne en arrière-plan
